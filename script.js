@@ -2,6 +2,8 @@ const P = PHONE, $ = s => document.querySelector(s);
 const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const hue = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) % 360; return `hsl(${h} 45% 62%)`; };
 const person = h => P.contacts.find(c => c.handle === h) || (h === P.owner.handle ? P.owner : { name: h, handle: h, photo: "" });
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+(P.posts || []).forEach(x => { if (x.fixedComments || x.randomComments) { const pl = x.commentPool || P.commentPool || []; x.commentsList = [...(x.fixedComments || []), ...shuffle(pl).slice(0, x.randomComments || 0)]; } });
 const av = (p, cls = "") => `<span class="av ${cls}" style="background:${hue(p.name || p.handle)}">${p.photo ? `<img src="${esc(p.photo)}" alt="" onerror="this.remove()">` : ""}<b>${esc((p.name || p.handle)[0])}</b></span>`;
 const pic = src => src ? `<img class="pic" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic"></div>`;
 
@@ -76,6 +78,7 @@ function insta() {
       <div class="ig-car"><div class="ig-track">${im.map((s, j) => `<div class="ig-slide">${slide(s, j + 1)}</div>`).join("")}</div>${n > 1 ? `<span class="ig-badge">1/${n}</span><button class="ig-arrow l" data-arrow="-1">‹</button><button class="ig-arrow r" data-arrow="1">›</button>` : ""}</div>
       ${n > 1 ? `<div class="ig-dots">${im.map((_, j) => `<i class="${j ? "" : "on"}"></i>`).join("")}</div>` : ""}
       <div class="ig-act"><span data-like>${I.heart}<b>${esc(num(x.likes))}</b></span><span data-go="comments:${P.posts.indexOf(x)}">${I.comment}<b>${esc(num(x.comments))}</b></span><span>${I.repost}<b>${esc(num(x.reposts))}</b></span><span>${I.send}<b>${esc(num(x.shares))}</b></span><span class="sv" data-save>${I.save}</span></div>
+      ${x.likedBy && x.likedBy.length ? `<div class="ig-lb">${x.likedBy.map(h => `<b>${esc(h)}</b>`).join(", ")}님 외 ${esc(num(x.likes))}명이 좋아합니다</div>` : ""}
       <div class="ig-cap"><b>${esc(p.handle)}</b> ${esc(x.caption)}${(x.commentsList || []).length ? `<a class="ig-cm" data-go="comments:${P.posts.indexOf(x)}">댓글 ${esc(num(x.comments))}개 모두 보기</a><div><b>${esc(x.commentsList[0].user)}</b> ${esc(x.commentsList[0].text)}</div>` : ""}<time>${esc(x.date)}</time></div></article>`;
   };
 
@@ -90,7 +93,7 @@ function insta() {
     const stat = (n, l, go) => `<div ${go ? `data-go="${go}" style="cursor:pointer"` : ""}><b>${esc(n)}</b>${l}</div>`;
     return `<div class="ig-top">${p.mine ? "" : `<button data-act="back">${I.back}</button>`}<h1>${esc(p.handle)}</h1><span class="r">${p.mine ? I.menu : I.bell + I.dots}</span></div>
       <div class="ig-prof"><div class="ig-row">${av(p, "round big")}<div class="ig-meta"><strong>${esc(p.display)}</strong><div class="ig-stats">${stat(num(p.postsCount ?? list.length), "게시물")}${stat(num(p.followers), "팔로워")}${stat(num(p.following), "팔로잉", fl ? `follows:${esc(h)}` : "")}</div></div></div>
-      ${p.category ? `<div class="cat">${esc(p.category)}</div>` : ""}${p.bio ? `<div class="bio">${esc(p.bio)}</div>` : ""}${p.link ? `<div class="lnk">${I.link}${esc(p.link)}</div>` : ""}
+      ${p.category ? `<div class="cat">${esc(p.category)}</div>` : ""}${p.bio ? `<div class="bio">${esc(p.bio).replace(/@[\w.]+/g, m => `<span class="tag">${m}</span>`)}</div>` : ""}${p.link ? `<div class="lnk">${I.link}${esc(p.link)}</div>` : ""}
       <div class="ig-btns">${p.mine ? "<span>프로필 편집</span><span>프로필 공유</span>" : `<span>팔로잉 ${I.chev}</span><span data-go="dm:${esc(h)}">메시지</span><span class="sq">${I.addp}</span>`}</div></div>
       ${hl.length ? `<div class="ig-hl">${hl.map(x => `<div><span class="ring">${x.image ? `<img src="${esc(x.image)}" alt="" onerror="this.remove()">` : "<b></b>"}</span>${esc(x.title)}</div>`).join("")}</div>` : ""}
       <div class="ig-tabs">${[["grid", I.grid], ["reels", I.reels], ["tagged", I.tag]].map(([k, ic]) => `<button data-tab="${k}" class="${tab === k ? "on" : ""}">${ic}</button>`).join("")}</div>

@@ -4,7 +4,7 @@ const PHONE = {
   wallpaper: "images/wallpaper.jpg",   // 예: "images/wallpaper.jpg"
   // owner/contacts 선택 항목: display(표시 이름), category(회색 한 줄), bio, link, followers, following, postsCount(생략하면 실제 게시물 수),
   // highlights: [{ title: "제목", image: "images/hl1.jpg" }]
-  owner: { name: "민여주", handle: "yeoju_id", photo: "", display: "민여주", category: "", bio: "소개글을 입력하세요", link: "", followers: "1429만", following: 11,
+  owner: { name: "민여주", handle: "yeoju_id", photo: "images/yeoju.jpg", display: "민여주", category: "", bio: "대한민국 센티넬 가이드 협회\n가이드 국장\n@korea_sentinel.guide_center", link: "", followers: "1429만", following: 11,
     highlights: [{ title: "하이라이트", image: "" }] },
 
   contacts: [
@@ -36,15 +36,103 @@ const PHONE = {
   ],
 
   // user = 인스타 ID, images = 사진 경로 배열(2장 이상이면 넘겨보기), music = 음악(선택), video: true = 릴스 아이콘
-  // commentsList: [{ user: "인스타ID", text: "댓글" }] 로 댓글 추가
+  // 댓글: fixedComments(내가 정한 댓글, 맨 위 고정) + randomComments: N(commentPool에서 무작위 N개, 게시글별 commentPool 없으면 공용 commentPool 사용)
+  // commentsList: [{ user: "인스타ID", text: "댓글" }] 로 댓글 직접 추가도 가능
   // likes / comments / reposts / shares 는 숫자 또는 "1.1만" 같은 문자열
   posts: [
-    { user: "do0_ye0", images: ["images/doyoung-post3.jpg"], music: "", caption: "여주랑", likes: 7350, comments: 64, reposts: 22, shares: 148, date: "2026년 9월 5일" },
-    { user: "do0_ye0", images: ["images/doyoung-post2-1.jpg", "images/doyoung-post2-2.jpg", "images/doyoung-post2-3.jpg"], music: "", caption: "산책", likes: 6124, comments: 88, reposts: 31, shares: 205, date: "2026년 7월 19일" },
-    { user: "do0_ye0", images: ["images/doyoung-post1.jpg"], music: "", caption: "첫사랑", likes: 8421, comments: 126, reposts: 54, shares: 312, date: "2025년 5월 19일",
-      commentsList: [ { user: "na.jaemin0813", text: "누나🥰🥺" } ] },
-    { user: "yeoju_id", images: ["", "", ""], music: "", caption: "캡션을 입력하세요", likes: 12, comments: 3, reposts: 0, shares: 1, date: "10월 26일" },
+    { user: "do0_ye0", images: ["images/doyoung-post3.jpg"], music: "", caption: "여주랑", likes: 7350, comments: 64, reposts: 22, shares: 148, date: "2026년 9월 5일", randomComments: 10,
+      commentPool: [
+      { user: "ddobi_92", text: "맥주 비주얼 미쳤다🍺" },
+      { user: "lia_noo_", text: "캬 시원해 보여요" },
+      { user: "baram.s_i", text: "데이트 부럽다ㅠㅠ" },
+      { user: "cherry_j.h", text: "안주도 맛있어 보여요" },
+      { user: "nuri_dream", text: "같이 한잔하고 싶다" },
+      { user: "arin.k_", text: "분위기 좋은 가게네요 어디예요?" },
+      { user: "hyo_bin_s", text: "보기 좋아요🥰" },
+      { user: "oreo_m1lk", text: "건배 샷 센스 있어요" },
+      { user: "pori.e_", text: "오늘 같은 날 최고죠" },
+      { user: "seol_hee_0", text: "다음엔 저도 데려가 주세요ㅋㅋ" },
+      { user: "doha_and_", text: "행복하세요 항상!" },
+      { user: "miru.m_", text: "저장!" } ] },
+    { user: "do0_ye0", images: ["images/doyoung-post2-1.jpg", "images/doyoung-post2-2.jpg", "images/doyoung-post2-3.jpg"], music: "", caption: "산책", likes: 6124, comments: 88, reposts: 31, shares: 205, date: "2026년 7월 19일", randomComments: 10,
+      commentPool: [
+      { user: "pudding_c0", text: "야경이랑 완전 찰떡이에요" },
+      { user: "raon_9_", text: "브이 너무 귀여워요ㅋㅋ" },
+      { user: "tae.ha_k", text: "다리 조명 분위기 미쳤다" },
+      { user: "mimi_cheese", text: "산책 코스 어디예요? 너무 예뻐요" },
+      { user: "eunbi.lov", text: "밤바람 맞으며 걷는 거 부럽다" },
+      { user: "haru_haru_a", text: "사진 느낌 영화 같아요🎬" },
+      { user: "june_july_", text: "갈색 티 너무 잘 어울려요" },
+      { user: "gom_gom_e", text: "야경 사진 장인이세요" },
+      { user: "soyul.s", text: "저장해갑니다📸" },
+      { user: "wonder_ha_", text: "오늘도 좋은 하루 보내세요!" },
+      { user: "coco_rim_", text: "분위기 대박…" },
+      { user: "siwoo.d_", text: "행복해 보여요🌙" } ] },
+    { user: "do0_ye0", images: ["images/doyoung-post1.jpg"], music: "", caption: "첫사랑", likes: 8421, comments: 126, reposts: 54, shares: 312, date: "2026년 5월 19일",
+      fixedComments: [ { user: "na.jaemin0813", text: "누나🥰🥺" } ], randomComments: 10,
+      commentPool: [
+      { user: "sora_0719", text: "웃는 거 너무 예쁘다ㅠㅠ" },
+      { user: "bitna.h_", text: "바람에 날리는 머리 영화 같아요" },
+      { user: "miso_m00n", text: "첫사랑 그 자체…" },
+      { user: "ariel_jj7", text: "이 사진 저장했어요💕" },
+      { user: "dongdong.y", text: "햇살이랑 분위기 최고" },
+      { user: "kiwi_pang", text: "미소에 심장 아프다" },
+      { user: "haneul_b2", text: "보기만 해도 설렌다" },
+      { user: "yeji.p_o", text: "필름 감성 너무 좋아요" },
+      { user: "nana.rin_", text: "첫사랑 맞네 맞아" },
+      { user: "0ne_sweet", text: "행복해 보여서 좋다🥰" },
+      { user: "yoonjae_k", text: "사진 분위기 장인이세요" },
+      { user: "soo.bin_11", text: "항상 응원해요!" } ] },
+    { user: "yeoju_id", images: ["images/yeoju-post1-1.jpg", "images/yeoju-post1-2.jpg"], music: "", caption: "다시 시작!", likes: "1.8만", likedBy: ["leejen_o_423", "the__and.y"], comments: "1,284", reposts: 0, shares: 0, date: "2026년 2월 1일",
+      fixedComments: [
+        { user: "na.jaemin0813", text: "내가 찍어준 사진이다🥰" },
+        { user: "haechanahceah", text: "원본 좀" },
+        { user: "do0_ye0", text: "사진 잘 나왔네 여주야" },
+        { user: "_jeongjaehyun", text: "나도 원본 좀" },
+        { user: "yeoju_id", text: "단톡방에서 이야기하시라고요" } ], randomComments: 12,
+      commentPool: [
+      { user: "jam_jam_t", text: "차 안 햇살 분위기 너무 좋다" },
+      { user: "mong_shell", text: "선글라스 센스 최고예요😎" },
+      { user: "gaeul_bi_", text: "새 출발 응원해요!!" },
+      { user: "yeonwoo_c", text: "감성 사진 미쳤다" },
+      { user: "ssum_tae_", text: "노을빛 너무 예뻐요" },
+      { user: "sora_0719", text: "다시 시작 화이팅💪" },
+      { user: "bitna.h_", text: "분위기 영화 같아요" },
+      { user: "miso_m00n", text: "머리 날리는 게 자연스러워서 좋아요" },
+      { user: "ariel_jj7", text: "오늘도 빛나요✨" },
+      { user: "dongdong.y", text: "행복하세요 항상!" },
+      { user: "kiwi_pang", text: "사진 저장해갑니다" },
+      { user: "haneul_b2", text: "응원합니다 진심으로" } ] },
     { user: "yeoju_id", images: [""], caption: "두 번째 게시물", likes: 7, comments: 0, reposts: 0, shares: 0, date: "10월 20일", video: true }
+  ],
+
+
+  // 랜덤 댓글 풀: randomComments: N 인 게시글은 페이지를 열 때마다 이 목록에서 N개를 무작위로 골라 달림 (아이디는 가상)
+  commentPool: [
+    { user: "sunny_day_92", text: "사진 너무 예뻐요🥹" },
+    { user: "haru.moon_", text: "다시 시작 응원해요!! 🔥" },
+    { user: "bomnal_0312", text: "분위기 미쳤다 진짜" },
+    { user: "choco.latte_k", text: "와 이 사진 저장해갑니다💕" },
+    { user: "minjae_o_o", text: "항상 응원합니다!!" },
+    { user: "dalbit_hana", text: "오늘도 빛나시네요✨" },
+    { user: "yoon.seo_87", text: "햇살 받은 거 너무 좋다ㅠㅠ" },
+    { user: "pinkcloud_ee", text: "화이팅이에요! 다 잘 될 거예요🍀" },
+    { user: "jiwoo_lovely", text: "너무 멋있어요 진짜" },
+    { user: "snow_ri.n", text: "사진 감성 대박…" },
+    { user: "kkomi_0204", text: "보기만 해도 기분 좋아지는 사진😊" },
+    { user: "euna.daily", text: "응원해요 언제나!" },
+    { user: "hyeon_v_v", text: "역시 센터장님 아니 국장님 👏" },
+    { user: "nabi_2_you", text: "좋은 일만 가득하길 바랄게요🌷" },
+    { user: "taeri.park_", text: "새 출발 축하드려요!!" },
+    { user: "oh_my_sera", text: "헉 사진 미쳤다…" },
+    { user: "moonlight.d_", text: "이런 게시물 더 올려주세요🥰" },
+    { user: "ddalgi_milk", text: "존경합니다 💛" },
+    { user: "yuna_s2_", text: "와 진짜 예뻐요 최고" },
+    { user: "boram.hi_", text: "항상 멋진 모습 응원합니다!" },
+    { user: "sooyeon_9", text: "다시 시작 너무 좋아요 화이팅💪" },
+    { user: "cielo_min", text: "분위기 장인…📸" },
+    { user: "gaon_t.t", text: "오늘 하루 힘이 나네요 감사해요" },
+    { user: "lemon_soda_j", text: "행복하세요 항상!" }
   ],
 
   // 인스타 DM: with = 인스타 ID, from "me"(오른쪽 파란색) / "them"(왼쪽). 없으면 빈 대화창이 열림
