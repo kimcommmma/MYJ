@@ -159,13 +159,13 @@ const PHONE = {
   musicMore: "images/music/more.jpg",
   music: [
     { title: "A Million Dreams", artist: "Ziv Zaifman, Hugh Jackman, Michelle Williams", video: "VtF26WVCBgE", likes: "", comments: "", cover: "images/music/dreams.jpg", duration: 200 },
-    { title: "사랑이 할 수 있는 일이 아직 있을까", artist: "RADWIMPS", cover: "images/music/radwimps.jpg", duration: 200 },
-    { title: "Drive", artist: "미연", cover: "images/music/drive.jpg", duration: 200 },
-    { title: "월령", artist: "심규선", cover: "images/music/wolryeong.jpg", duration: 200 },
-    { title: "같은 시간 같은 자리", artist: "NCT DREAM", cover: "images/music/sametime.jpg", duration: 200 },
-    { title: "Universe", artist: "민현", cover: "images/music/universe.jpg", duration: 200 },
-    { title: "Love wins all", artist: "아이유(IU)", cover: "images/music/lovewins.jpg", duration: 200 },
-    { title: "Keeping Your Head Up", artist: "Birdy", cover: "images/music/keeping.jpg", duration: 200 }
+    { title: "사랑이 할 수 있는 일이 아직 있을까", video: "4YBNqNPjVM0", artist: "RADWIMPS", cover: "images/music/radwimps.jpg", duration: 200 },
+    { title: "Drive", video: "7IGbp7gwTDU", artist: "미연", cover: "images/music/drive.jpg", duration: 200 },
+    { title: "월령", video: "Yc7F58wlH_Y", artist: "심규선", cover: "images/music/wolryeong.jpg", duration: 200 },
+    { title: "같은 시간 같은 자리", video: "NOieK5hNXMo", artist: "NCT DREAM", cover: "images/music/sametime.jpg", duration: 200 },
+    { title: "Universe", video: "QxM4fbTEvFY", artist: "민현", cover: "images/music/universe.jpg", duration: 200 },
+    { title: "Love wins all", video: "h-XrgiZiQgw", artist: "아이유(IU)", cover: "images/music/lovewins.jpg", duration: 200 },
+    { title: "Keeping Your Head Up", video: "R-ASjmA79u8", artist: "Birdy", cover: "images/music/keeping.jpg", duration: 200 }
   ],
 
   notes: [
