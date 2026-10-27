@@ -567,3 +567,9 @@ body:not(.in) #status{text-shadow:0 1px 3px rgba(0,0,0,.45)}
 .x-em{text-align:center;color:#8e8e93;padding:40px}
 #app:has(.x){padding-bottom:0}
 .ph-ht{font-size:26px}.ph-nav button:not([data-t=recent]):not([data-t=con]){cursor:default}
+
+/* 모바일: 화면 꽉 채우기 */
+body.full{background:#000}
+body.full #stage{display:block;height:100dvh}
+body.full #phone{position:absolute;left:0;top:0;width:368px;border:0;border-radius:0;box-shadow:none;transform-origin:0 0}
+body.full #screen,body.full #app{border-radius:0}

@@ -522,7 +522,12 @@ $("#homebar").onclick = () => {
 /* 시계 + 화면 크기 맞춤 */
 const tick = () => { const d = new Date(); $("#clock").textContent = `${d.getHours() % 12 || 12}:${String(d.getMinutes()).padStart(2, "0")}`; };
 tick(); setInterval(tick, 20000);
-const fit = () => { $("#phone").style.transform = `scale(${Math.min(1.2, innerHeight / 822, innerWidth / 368)})`; };
+const fit = () => {
+  const ph = $("#phone"), full = innerWidth <= 600;
+  document.body.classList.toggle("full", full);
+  if (full) { const k = innerWidth / 368; ph.style.height = (innerHeight / k) + "px"; ph.style.transform = `scale(${k})`; }
+  else { ph.style.height = ""; ph.style.transform = `scale(${Math.min(1.2, innerHeight / 822, innerWidth / 368)})`; }
+};
 fit(); addEventListener("resize", fit);
 
 /* 사진 여러 장: 화살표 없이 마우스 드래그로도 넘기기 (터치/트랙패드는 기본 스크롤) */
