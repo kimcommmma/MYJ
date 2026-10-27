@@ -419,3 +419,40 @@ body:not(.in) #status{text-shadow:0 1px 3px rgba(0,0,0,.45)}
 .ig-btns{margin:16px 0 14px}
 
 .ig-lb{padding:0 12px 4px;font-size:13px}
+
+.ig-act{gap:11px;font-size:13.500px}
+.ig-act b{white-space:nowrap}
+.ig-act>span{gap:4px}
+.ig-act svg{width:23px;height:23px}
+
+.tag{color:#3040e0}
+.cm-row.rp{padding-left:62px}
+.cm-row.rp .av.xs{width:28px;height:28px;font-size:12px}
+
+/* comments: closer to real instagram */
+.cm-list{padding:6px 0 14px}
+.cm-row{padding:10px 14px;gap:12px;line-height:1.35}
+.cm-row>div.cm-b{padding-top:0}
+.cm-u{display:flex;gap:7px;align-items:baseline;font-size:13px;margin-bottom:3px}
+.cm-u b{font-weight:600}
+.cm-u span{color:#737373;font-size:12.500px}
+.cm-x{font-size:14.500px;line-height:1.38}
+.cm-r{color:#737373;font-size:12.500px;font-weight:600;margin-top:6px}
+.cm-h{padding-top:12px;color:#737373}
+.cm-row.rp{padding:6px 14px 10px 62px}
+.cm-row.rp .av.xs{width:30px;height:30px}
+.cm-hr{margin:8px 0 6px}
+
+/* comments: tighter spacing */
+.cm-row{padding:6px 14px}
+.cm-row.rp{padding:4px 14px 6px 62px}
+.cm-u{margin-bottom:1px}
+.cm-r{margin-top:4px}
+.cm-h{padding-top:10px}
+
+/* mutual followers line */
+.ig-mf{display:flex;align-items:center;gap:10px;margin:12px 0 0;font-size:13px;line-height:1.35}
+.ig-mf .stk{display:flex;flex:none}
+.ig-mf .av.xs{width:30px;height:30px;border:2px solid #fff;margin-left:-10px}
+.ig-mf .av.xs:first-child{margin-left:0}
+.ig-mf b{font-weight:600}

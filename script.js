@@ -3,7 +3,8 @@ const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "
 const hue = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) % 360; return `hsl(${h} 45% 62%)`; };
 const person = h => P.contacts.find(c => c.handle === h) || (h === P.owner.handle ? P.owner : { name: h, handle: h, photo: "" });
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-(P.posts || []).forEach(x => { if (x.fixedComments || x.randomComments) { const pl = x.commentPool || P.commentPool || []; x.commentsList = [...(x.fixedComments || []), ...shuffle(pl).slice(0, x.randomComments || 0)]; } });
+(P.posts || []).forEach(x => { if (x.fixedComments || x.randomComments) { const pl = [...(x.commentPool || P.commentPool || []), ...(P.fanPool || [])]; x.commentsList = [...(x.fixedComments || []), ...shuffle(pl).slice(0, x.randomComments || 0)]; } });
+const rich = t => esc(t).replace(/@[\w.]+/g, m => `<span class="tag">${m}</span>`);
 const av = (p, cls = "") => `<span class="av ${cls}" style="background:${hue(p.name || p.handle)}">${p.photo ? `<img src="${esc(p.photo)}" alt="" onerror="this.remove()">` : ""}<b>${esc((p.name || p.handle)[0])}</b></span>`;
 const pic = src => src ? `<img class="pic" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic"></div>`;
 
@@ -79,7 +80,7 @@ function insta() {
       ${n > 1 ? `<div class="ig-dots">${im.map((_, j) => `<i class="${j ? "" : "on"}"></i>`).join("")}</div>` : ""}
       <div class="ig-act"><span data-like>${I.heart}<b>${esc(num(x.likes))}</b></span><span data-go="comments:${P.posts.indexOf(x)}">${I.comment}<b>${esc(num(x.comments))}</b></span><span>${I.repost}<b>${esc(num(x.reposts))}</b></span><span>${I.send}<b>${esc(num(x.shares))}</b></span><span class="sv" data-save>${I.save}</span></div>
       ${x.likedBy && x.likedBy.length ? `<div class="ig-lb">${x.likedBy.map(h => `<b>${esc(h)}</b>`).join(", ")}님 외 ${esc(num(x.likes))}명이 좋아합니다</div>` : ""}
-      <div class="ig-cap"><b>${esc(p.handle)}</b> ${esc(x.caption)}${(x.commentsList || []).length ? `<a class="ig-cm" data-go="comments:${P.posts.indexOf(x)}">댓글 ${esc(num(x.comments))}개 모두 보기</a><div><b>${esc(x.commentsList[0].user)}</b> ${esc(x.commentsList[0].text)}</div>` : ""}<time>${esc(x.date)}</time></div></article>`;
+      <div class="ig-cap"><b>${esc(p.handle)}</b> ${esc(x.caption)}${(x.commentsList || []).length ? `<a class="ig-cm" data-go="comments:${P.posts.indexOf(x)}">댓글 ${esc(num(x.comments))}개 모두 보기</a><div><b>${esc(x.commentsList[0].user)}</b> ${rich(x.commentsList[0].text)}</div>` : ""}<time>${esc(x.date)}</time></div></article>`;
   };
 
   const feed = () => `<div class="top"><span class="i-logo">Instagram</span></div>
@@ -90,10 +91,20 @@ function insta() {
     const p = prof(h), list = p.posts, hl = p.highlights || [];
     const shown = tab === "grid" ? list : tab === "reels" ? list.filter(x => x.video) : [];
     const fl = p.followingList || (p.mine ? P.contacts.map(c => c.handle) : null);
+    const mutual = p => {
+      const ov = p.mutuals;
+      const fl = P.contacts.filter(c => c.handle !== p.handle && (c.followingList || []).includes(p.handle));
+      const names = ov && ov.names ? ov.names.map(person) : fl.slice(0, 2);
+      const more = ov && ov.more != null ? ov.more : Math.max(0, fl.length - names.length);
+      if (!names.length) return "";
+      const pics = [...names, ...fl.filter(c => !names.includes(c))].slice(0, 3);
+      return `<div class="ig-mf"><span class="stk">${pics.map(c => av(c, "round xs")).join("")}</span><span>${names.map(c => `<b>${esc(c.handle)}</b>님`).join(", ")}${more ? ` 외 ${esc(more)}명이` : "이"} 팔로우합니다</span></div>`;
+    };
     const stat = (n, l, go) => `<div ${go ? `data-go="${go}" style="cursor:pointer"` : ""}><b>${esc(n)}</b>${l}</div>`;
     return `<div class="ig-top">${p.mine ? "" : `<button data-act="back">${I.back}</button>`}<h1>${esc(p.handle)}</h1><span class="r">${p.mine ? I.menu : I.bell + I.dots}</span></div>
       <div class="ig-prof"><div class="ig-row">${av(p, "round big")}<div class="ig-meta"><strong>${esc(p.display)}</strong><div class="ig-stats">${stat(num(p.postsCount ?? list.length), "게시물")}${stat(num(p.followers), "팔로워")}${stat(num(p.following), "팔로잉", fl ? `follows:${esc(h)}` : "")}</div></div></div>
-      ${p.category ? `<div class="cat">${esc(p.category)}</div>` : ""}${p.bio ? `<div class="bio">${esc(p.bio).replace(/@[\w.]+/g, m => `<span class="tag">${m}</span>`)}</div>` : ""}${p.link ? `<div class="lnk">${I.link}${esc(p.link)}</div>` : ""}
+      ${p.category ? `<div class="cat">${esc(p.category)}</div>` : ""}${p.bio ? `<div class="bio">${rich(p.bio)}</div>` : ""}${p.link ? `<div class="lnk">${I.link}${esc(p.link)}</div>` : ""}
+      ${p.mine ? "" : mutual(p)}
       <div class="ig-btns">${p.mine ? "<span>프로필 편집</span><span>프로필 공유</span>" : `<span>팔로잉 ${I.chev}</span><span data-go="dm:${esc(h)}">메시지</span><span class="sq">${I.addp}</span>`}</div></div>
       ${hl.length ? `<div class="ig-hl">${hl.map(x => `<div><span class="ring">${x.image ? `<img src="${esc(x.image)}" alt="" onerror="this.remove()">` : "<b></b>"}</span>${esc(x.title)}</div>`).join("")}</div>` : ""}
       <div class="ig-tabs">${[["grid", I.grid], ["reels", I.reels], ["tagged", I.tag]].map(([k, ic]) => `<button data-tab="${k}" class="${tab === k ? "on" : ""}">${ic}</button>`).join("")}</div>
@@ -118,9 +129,11 @@ function insta() {
 
   const comments = idx => {
     const x = P.posts[+idx], p = person(x.user), list = x.commentsList = x.commentsList || [];
-    const row = (u, t, cap) => { const q = person(u); return `<div class="cm-row" data-go="profile:${esc(q.handle)}">${av(q, "round s")}<div><b>${esc(q.handle)}</b> ${esc(t)}</div>${cap ? "" : `<span class="cm-h">${I.heart}</span>`}</div>`; };
+    const m = /(\d+)년\s*(\d+)월\s*(\d+)일/.exec(x.date || ""), t0 = m ? new Date(+m[1], +m[2] - 1, +m[3], 12).getTime() : Date.now();
+    const ago = i => { const mins = Math.max(1, Math.floor((Date.now() - (t0 + (i + 1) * 47 * 60000)) / 60000)); return mins < 60 ? `${mins}분` : mins < 1440 ? `${Math.floor(mins / 60)}시간` : mins < 10080 ? `${Math.floor(mins / 1440)}일` : `${Math.floor(mins / 10080)}주`; };
+    const row = (u, t, cap, rp, i) => { const q = person(u); return `<div class="cm-row${rp ? " rp" : ""}" data-go="profile:${esc(q.handle)}">${av(q, rp ? "round xs" : "round s")}<div class="cm-b"><div class="cm-u"><b>${esc(q.handle)}</b><span>${ago(cap ? -1 : i)}${u === x.user ? " · 작성자" : ""}</span></div><div class="cm-x">${rich(t)}</div>${cap ? "" : `<div class="cm-r">답글 달기</div>`}</div>${cap ? "" : `<span class="cm-h">${I.heart}</span>`}</div>`; };
     return `<div class="ig-top c"><button data-act="back">${I.back}</button><div><h1>댓글</h1></div></div>
-      <div class="cm-list">${row(x.user, x.caption, true)}<hr class="cm-hr">${list.map(c => row(c.user, c.text)).join("") || `<p class="ig-empty">첫 댓글을 남겨보세요</p>`}</div>`;
+      <div class="cm-list">${row(x.user, x.caption, true)}<hr class="cm-hr">${list.map((c, i) => row(c.user, c.text, false, c.reply, i)).join("") || `<p class="ig-empty">첫 댓글을 남겨보세요</p>`}</div>`;
   };
 
   const inbox = () => {
