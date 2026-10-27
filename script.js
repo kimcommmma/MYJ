@@ -1,10 +1,12 @@
 const P = PHONE, $ = s => document.querySelector(s);
 const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const hue = s => { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) % 360; return `hsl(${h} 45% 62%)`; };
+const YEAR = P.year || new Date().getFullYear();
+const now = () => { const d = new Date(); d.setFullYear(YEAR); return d; };
 const person = h => P.contacts.find(c => c.handle === h) || (h === P.owner.handle ? P.owner : { name: h, handle: h, photo: "" });
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-(P.posts || []).forEach(x => { if (x.fixedComments || x.randomComments) { const pl = [...(x.commentPool || P.commentPool || []), ...(P.fanPool || [])]; x.commentsList = [...(x.fixedComments || []), ...shuffle(pl).slice(0, x.randomComments || 0)]; } });
-const rich = t => esc(t).replace(/@[\w.]+/g, m => `<span class="tag">${m}</span>`);
+(P.posts || []).forEach(x => { if (x.likedByRandom) x.likedBy = shuffle(P.contacts.filter(c => !c.hideStory && c.handle !== x.user).map(c => c.handle)).slice(0, x.likedByRandom); if (x.fixedComments || x.randomComments) { const pl = [...(x.commentPool || P.commentPool || []), ...(x.noFan ? [] : (P.fanPool || []))]; const n = x.randomComments || 0, k = n >= 4 ? 1 + Math.floor(Math.random() * 2) : 0, en = shuffle([...(x.enPool || P.enPool || [])]).slice(0, k); x.commentsList = [...(x.fixedComments || []), ...shuffle([...shuffle(pl).slice(0, n - en.length), ...en])]; } });
+const rich = t => esc(t).replace(/@[\w.]+/g, m => { const h = m.slice(1), ok = h === P.owner.handle || P.contacts.some(c => c.handle === h); return `<span class="tag"${ok ? ` data-go="profile:${h}" style="cursor:pointer"` : ""}>${m}</span>`; });
 const av = (p, cls = "") => `<span class="av ${cls}" style="background:${hue(p.name || p.handle)}">${p.photo ? `<img src="${esc(p.photo)}" alt="" onerror="this.remove()">` : ""}<b>${esc((p.name || p.handle)[0])}</b></span>`;
 const pic = src => src ? `<img class="pic" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic"></div>`;
 
@@ -79,12 +81,12 @@ function insta() {
       <div class="ig-car"><div class="ig-track">${im.map((s, j) => `<div class="ig-slide">${slide(s, j + 1)}</div>`).join("")}</div>${n > 1 ? `<span class="ig-badge">1/${n}</span><button class="ig-arrow l" data-arrow="-1">‹</button><button class="ig-arrow r" data-arrow="1">›</button>` : ""}</div>
       ${n > 1 ? `<div class="ig-dots">${im.map((_, j) => `<i class="${j ? "" : "on"}"></i>`).join("")}</div>` : ""}
       <div class="ig-act"><span data-like>${I.heart}<b>${esc(num(x.likes))}</b></span><span data-go="comments:${P.posts.indexOf(x)}">${I.comment}<b>${esc(num(x.comments))}</b></span><span>${I.repost}<b>${esc(num(x.reposts))}</b></span><span>${I.send}<b>${esc(num(x.shares))}</b></span><span class="sv" data-save>${I.save}</span></div>
-      ${x.likedBy && x.likedBy.length ? `<div class="ig-lb">${x.likedBy.map(h => `<b>${esc(h)}</b>`).join(", ")}님 외 ${esc(num(x.likes))}명이 좋아합니다</div>` : ""}
+      ${x.likedBy && x.likedBy.length ? `<div class="ig-lb"><span class="stk">${x.likedBy.slice(0, 2).map(h => av(person(h), "round xs")).join("")}</span><span><b>${esc(x.likedBy[0])}</b>님 외 <b>${esc(num(x.likes))}명</b>이 좋아합니다</span></div>` : ""}
       <div class="ig-cap"><b>${esc(p.handle)}</b> ${esc(x.caption)}${(x.commentsList || []).length ? `<a class="ig-cm" data-go="comments:${P.posts.indexOf(x)}">댓글 ${esc(num(x.comments))}개 모두 보기</a><div><b>${esc(x.commentsList[0].user)}</b> ${rich(x.commentsList[0].text)}</div>` : ""}<time>${esc(x.date)}</time></div></article>`;
   };
 
   const feed = () => `<div class="top"><span class="i-logo">Instagram</span></div>
-    <div class="stories">${P.contacts.map(c => `<div data-go="profile:${esc(c.handle)}">${av(c, "round")}<span class="n">${esc(c.handle)}</span></div>`).join("")}</div>
+    <div class="stories">${P.contacts.filter(c => !c.hideStory).map(c => `<div data-go="profile:${esc(c.handle)}">${av(c, "round")}<span class="n">${esc(c.handle)}</span></div>`).join("")}</div>
     ${P.posts.map(post).join("")}`;
 
   const profile = h => {
@@ -129,8 +131,8 @@ function insta() {
 
   const comments = idx => {
     const x = P.posts[+idx], p = person(x.user), list = x.commentsList = x.commentsList || [];
-    const m = /(\d+)년\s*(\d+)월\s*(\d+)일/.exec(x.date || ""), t0 = m ? new Date(+m[1], +m[2] - 1, +m[3], 12).getTime() : Date.now();
-    const ago = i => { const mins = Math.max(1, Math.floor((Date.now() - (t0 + (i + 1) * 47 * 60000)) / 60000)); return mins < 60 ? `${mins}분` : mins < 1440 ? `${Math.floor(mins / 60)}시간` : mins < 10080 ? `${Math.floor(mins / 1440)}일` : `${Math.floor(mins / 10080)}주`; };
+    const m = /(\d+)년\s*(\d+)월\s*(\d+)일/.exec(x.date || ""), t0 = m ? new Date(+m[1], +m[2] - 1, +m[3], 12).getTime() : now().getTime();
+    const ago = i => { const mins = Math.max(1, Math.floor((now().getTime() - (t0 + (i + 1) * 47 * 60000)) / 60000)); return mins < 60 ? `${mins}분` : mins < 1440 ? `${Math.floor(mins / 60)}시간` : mins < 10080 ? `${Math.floor(mins / 1440)}일` : `${Math.floor(mins / 10080)}주`; };
     const row = (u, t, cap, rp, i) => { const q = person(u); return `<div class="cm-row${rp ? " rp" : ""}" data-go="profile:${esc(q.handle)}">${av(q, rp ? "round xs" : "round s")}<div class="cm-b"><div class="cm-u"><b>${esc(q.handle)}</b><span>${ago(cap ? -1 : i)}${u === x.user ? " · 작성자" : ""}</span></div><div class="cm-x">${rich(t)}</div>${cap ? "" : `<div class="cm-r">답글 달기</div>`}</div>${cap ? "" : `<span class="cm-h">${I.heart}</span>`}</div>`; };
     return `<div class="ig-top c"><button data-act="back">${I.back}</button><div><h1>댓글</h1></div></div>
       <div class="cm-list">${row(x.user, x.caption, true)}<hr class="cm-hr">${list.map((c, i) => row(c.user, c.text, false, c.reply, i)).join("") || `<p class="ig-empty">첫 댓글을 남겨보세요</p>`}</div>`;
@@ -155,15 +157,16 @@ function insta() {
       : `<nav class="ig-nav"><button data-nav="home" class="${homeOn ? "on" : ""}">${homeOn ? I.homeF : I.home}</button><button class="off">${I.reels}</button><button data-nav="dm" class="${dmOn ? "on" : ""}">${I.send}</button><button class="off">${I.search}</button><button data-nav="me" class="${meOn ? "on" : ""}">${av(o, "round xs")}</button></nav>`;
     body.innerHTML = `<div class="ig"><div class="scroll ${s.v === "dm" || s.v === "comments" ? "" : "igpad"}" id="igs">${html}</div>${bottom}</div>`;
     if (s.v === "dm") { const sc = $("#igs"); sc.scrollTop = sc.scrollHeight; }
+    else if (s.sy) { const sc = $("#igs"); if (sc) sc.scrollTop = s.sy; }
     if (s.v === "post") {
       const el = body.querySelectorAll(".ig-post")[s.i], sc = $("#igs");
-      if (el) sc.scrollTop = el.offsetTop - 52;
+      if (el) sc.scrollTop = s.sy != null ? s.sy : el.offsetTop - 52;
     }
   };
 
   const send = () => {
     const i = $("#dmi"), v = i && i.value.trim(); if (!v) return;
-    const s = top(), th = P.dms.find(x => x.with === s.h), n = new Date();
+    const s = top(), th = P.dms.find(x => x.with === s.h), n = now();
     th.messages.push({ from: "me", text: v, time: `${n.getHours() < 12 ? "오전" : "오후"} ${n.getHours() % 12 || 12}:${String(n.getMinutes()).padStart(2, "0")}` });
     draw(); const ni = $("#dmi"); if (ni) ni.focus();
   };
@@ -179,11 +182,11 @@ function insta() {
     const d = t.dataset;
     if (d.csend !== undefined) csend();
     else if (d.send !== undefined) send();
-    else if (d.go) { const [v, h, i] = d.go.split(":"); stack.push({ v, h, i: +i || 0 }); tab = "grid"; draw(); }
+    else if (d.go) { const [v, h, i] = d.go.split(":"); const sc = $("#igs"); if (sc) top().sy = sc.scrollTop; stack.push({ v, h, i: +i || 0 }); tab = "grid"; draw(); }
     else if (d.act === "back") { if (stack.length > 1) stack.pop(); draw(); }
     else if (d.like !== undefined || d.save !== undefined) t.classList.toggle("on");
     else if (d.arrow) { const tr = t.parentElement.querySelector(".ig-track"); tr.scrollBy({ left: +d.arrow * tr.clientWidth, behavior: "smooth" }); }
-    else if (d.tab) { tab = d.tab; draw(); }
+    else if (d.tab) { const sc = $("#igs"); if (sc) top().sy = sc.scrollTop; tab = d.tab; draw(); }
     else if (d.nav) { stack = d.nav === "me" ? [{ v: "profile", h: o.handle }] : d.nav === "dm" ? [{ v: "inbox" }] : [{ v: "feed" }]; tab = "grid"; draw(); }
   };
   onClose = () => { body.onclick = null; body.onkeydown = null; };
@@ -192,16 +195,63 @@ function insta() {
 
 /* 메모 */
 function memo() {
+  const dl = n => n.date || "";
+  const pv = n => { const l = String(n.body || "").split("\n").find(x => x.trim()) || "추가 텍스트 없음"; return l; };
   const list = () => {
-    body.innerHTML = `<div class="top"><h1>메모</h1></div><div class="scroll"><ul class="n-list">${P.notes.map((n, i) => `<li data-i="${i}">${esc(n.title)}</li>`).join("")}</ul></div>`;
-    bind("li", el => note(+el.dataset.i));
+    const pin = P.notes.map((n, i) => [n, i]).filter(([n]) => n.pinned), rest = P.notes.map((n, i) => [n, i]).filter(([n]) => !n.pinned);
+    const sec = (t, a) => a.length ? `<h3 class="nt-h">${t}${t === "고정된 메모" ? '<i>⌄</i>' : ""}</h3><ul class="nt-card">${a.map(([n, i]) => `<li data-i="${i}"><b>${esc(n.title)}</b><small><span>${esc(dl(n))}</span>${esc(pv(n))}</small></li>`).join("")}</ul>` : "";
+    body.innerHTML = `<div class="nt"><div class="nt-top"><button class="ph-round">‹</button><div><b>메모</b><small>저장 공간이 가득 참</small></div><button class="ph-round">···</button></div>
+      <div class="scroll nt-sc">${sec("고정된 메모", pin)}${sec(pin.length ? "이전 30일" : "메모", rest)}</div>
+      <div class="nt-bar"><div class="nt-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200"><circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/></svg>검색<svg viewBox="0 0 24 24" fill="currentColor" style="margin-left:auto"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2" fill="none"/></svg></div><button class="nt-n">✎</button></div></div>`;
+    bind(".nt-card li", el => note(+el.dataset.i));
   };
   const note = i => {
     const n = P.notes[i];
-    body.innerHTML = `<div class="top"><button class="back">‹</button><h1>${esc(n.title)}</h1></div><div class="scroll"><div class="note">${esc(n.body)}</div></div>`;
+    body.innerHTML = `<div class="nt"><div class="nt-top"><button class="ph-round back">‹</button><div></div><button class="ph-round">···</button></div><div class="scroll nt-sc"><div class="nt-d">${esc(dl(n))}</div><h2 class="nt-t">${esc(n.title)}</h2><div class="note">${esc(n.body)}</div></div></div>`;
     bind(".back", list);
   };
   list();
+}
+
+/* X */
+function xapp() {
+  const X = P.x || { tweets: [] };
+  let tab = "for";
+  const ic = {
+    rep: '<svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+    rt: '<svg viewBox="0 0 24 24"><path d="M4 12V9a3 3 0 0 1 3-3h11l-3-3M20 12v3a3 3 0 0 1-3 3H6l3 3"/></svg>',
+    lk: '<svg viewBox="0 0 24 24"><path d="M12 20.500S3 15 3 8.800A4.800 4.800 0 0 1 12 6.500a4.800 4.800 0 0 1 9 2.300C21 15 12 20.500 12 20.500z"/></svg>',
+    vw: '<svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>',
+    bm: '<svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4.500L6 21z"/></svg>',
+    up: '<svg viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5M5 13v7h14v-7"/></svg>',
+    home: '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.500l9 7V21h-6v-6.500H9V21H3V9.500z"/></svg>',
+    se: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/></svg>',
+    cp: '<svg viewBox="0 0 24 24"><path d="M4 20l3-1 12-12-2-2L5 17zM14 6l4 4"/></svg>',
+    bl: '<svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/></svg>',
+    ml: '<svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+    ck: '<svg viewBox="0 0 24 24" class="vf"><circle cx="12" cy="12" r="10" fill="#1d9bf0"/><path d="M7.500 12.500l3 3 6-6.500" stroke="#fff" stroke-width="2.200" fill="none"/></svg>',
+    logo: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.800 3h3.100l-6.800 7.700L22 21h-6.200l-4.900-6.400L5.300 21H2.200l7.200-8.300L1.800 3h6.400l4.400 5.800zm-1.100 16.200h1.700L7.300 4.700H5.500z"/></svg>'
+  };
+  const imgs = a => a && a.length ? `<div class="x-im n${Math.min(a.length, 4)}">${a.map(s => `<img src="${esc(s)}" alt="" onerror="this.parentNode.classList.add('empty');this.remove()">`).join("")}</div>` : "";
+  const num = v => v === undefined || v === "" ? "" : v;
+  const card = t => {
+    const p = person(t.user), q = t.quote;
+    return `<article class="x-t">${av(p, "round")}<div class="x-b">
+      <div class="x-h"><b>${esc(t.name || p.name)}</b>${t.verified === false ? "" : ic.ck}<span>@${esc(t.user)} · ${esc(t.time || "")}</span><i class="x-lg">${ic.logo}</i></div>
+      <div class="x-x">${rich(t.text || "")}</div>${imgs(t.images)}
+      ${q ? `<div class="x-q"><div class="x-qh">${av(person(q.user), "round xs")}<b>${esc(q.name || person(q.user).name)}</b><span>@${esc(q.user)} · ${esc(q.time || "")}</span></div><div class="x-x">${rich(q.text || "")}</div>${imgs(q.images)}</div>` : ""}
+      <div class="x-a"><span>${ic.rep}${num(t.replies)}</span><span>${ic.rt}${num(t.reposts)}</span><span>${ic.lk}${num(t.likes)}</span><span>${ic.vw}${num(t.views)}</span><span class="r">${ic.bm}${ic.up}</span></div></div></article>`;
+  };
+  const draw = () => {
+    const ts = (X.tweets || []).filter(t => (t.tab || "for") === tab || (tab === "for" && !t.tab));
+    body.innerHTML = `<div class="x"><div class="x-top"><span class="x-me">${av(P.owner, "round")}</span><span class="x-logo">${ic.logo}</span></div>
+      <div class="x-tabs"><button data-t="for" class="${tab === "for" ? "on" : ""}"><span>추천</span></button><button data-t="fol" class="${tab === "fol" ? "on" : ""}"><span>팔로우 중</span></button></div>
+      <div class="scroll x-feed">${ts.map(card).join("") || '<p class="x-em">게시물이 없습니다</p>'}</div>
+      <button class="x-fab">+</button>
+      <nav class="x-nav">${[ic.home, ic.se, ic.cp, ic.bl, ic.ml].map((i, k) => `<span class="${k ? "" : "on"}">${i}${k === 2 ? "<em>1</em>" : ""}</span>`).join("")}</nav></div>`;
+    bind(".x-tabs button", el => { tab = el.dataset.t; draw(); });
+  };
+  draw();
 }
 
 /* 사진첩 */
@@ -220,28 +270,30 @@ function photos() {
 /* 캘린더 */
 // events: date "2026-10-30"(하루) 또는 "02-14"(매년 반복), 선택 항목: end "2026-11-02"(여러 날), time "오전 10:00"
 function calendar() {
-  const d = new Date(); d.setDate(1); let sel = null;
+  const d = now(); d.setDate(1); let sel = null;
   const draw = () => {
-    const y = d.getFullYear(), m = d.getMonth(), first = d.getDay(), n = new Date(y, m + 1, 0).getDate(), t = new Date();
+    const y = d.getFullYear(), m = d.getMonth(), first = d.getDay(), n = new Date(y, m + 1, 0).getDate(), t = now();
     const key = x => `${y}-${String(m + 1).padStart(2, "0")}-${String(x).padStart(2, "0")}`;
     const range = e => { const st = e.date.length === 5 ? `${y}-${e.date}` : e.date; return [st, e.end || st]; };
     const on = (e, k) => { const [a, b] = range(e); return a <= k && k <= b; };
     const ev = x => P.events.filter(e => on(e, key(x)));
+    const hs = (P.holidays || []).map(h => ({ ...h, hol: true }));
+    const isH = x => hs.some(e => on(e, key(x)));
     let cells = "<span></span>".repeat(first);
     for (let x = 1; x <= n; x++) {
       const isT = t.getFullYear() === y && t.getMonth() === m && t.getDate() === x;
-      cells += `<button class="day ${isT ? "today" : ""} ${sel === x ? "sel" : ""}" data-k="${x}"><b>${x}</b>${ev(x).length ? "<i></i>" : ""}</button>`;
+      cells += `<button class="day ${isT ? "today" : ""} ${sel === x ? "sel" : ""} ${isH(x) ? "hol" : ""}" data-k="${x}"><b>${x}</b>${ev(x).length ? "<i></i>" : ""}</button>`;
     }
     const mins = tm => { const r = /(오전|오후)\s*(\d+):(\d+)/.exec(tm || ""); return r ? ((+r[2] % 12) + (r[1] === "오후" ? 12 : 0)) * 60 + +r[3] : -1; };
     const label = e => {
       const [a, b] = range(e), [, m1, d1] = a.split("-").map(Number), [, m2, d2] = b.split("-").map(Number);
       return a === b ? `${d1}일` : m1 === m2 ? `${d1}~${d2}일` : `${m1}/${d1}~${m2}/${d2}`;
     };
-    const shown = P.events.filter(e => { const [a, b] = range(e); return sel ? on(e, key(sel)) : a <= key(n) && b >= key(1); })
+    const shown = [...hs, ...P.events].filter(e => { const [a, b] = range(e); return sel ? on(e, key(sel)) : a <= key(n) && b >= key(1); })
       .sort((p, q) => range(p)[0].localeCompare(range(q)[0]) || mins(p.time) - mins(q.time));
     body.innerHTML = `<div class="cal-h"><button data-m="-1">‹</button><h1>${y}년 ${m + 1}월</h1><button data-m="1">›</button></div>
       <div class="dows">${"일월화수목금토".split("").map(w => `<span>${w}</span>`).join("")}</div><div class="days">${cells}</div>
-      <ul class="ev scroll">${shown.map(e => `<li><time>${label(e)}</time><span>${esc(e.title)}${e.time ? `<small class="tm">${esc(e.time)}</small>` : ""}</span></li>`).join("") || "<li>일정 없음</li>"}</ul>`;
+      <ul class="ev scroll">${shown.map(e => `<li class="${e.hol ? "hol" : ""}"><time>${label(e)}</time><span>${esc(e.title)}${e.time ? `<small class="tm">${esc(e.time)}</small>` : ""}</span></li>`).join("") || "<li>일정 없음</li>"}</ul>`;
     bind("[data-m]", el => { d.setMonth(m + +el.dataset.m); sel = null; draw(); });
     bind(".day", el => { sel = sel === +el.dataset.k ? null : +el.dataset.k; draw(); });
   };
@@ -250,12 +302,28 @@ function calendar() {
 
 /* 전화 */
 function phone() {
-  let tab = "recent", num = "";
+  let tab = "recent", flt = "all", num = "";
+  const I = {
+    star: '<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.700 1.300 6.700L12 17.500 6 20.900l1.300-6.700-5-4.700 6.800-.8z" fill="currentColor"/></svg>',
+    clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M12 6.500V12h4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
+    user: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><circle cx="12" cy="9.500" r="3.300" fill="#fff"/><path d="M5.500 19c1.500-3 4-4 6.500-4s5 1 6.500 4" fill="#fff"/></svg>',
+    pad: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="4" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="19" cy="4" r="2"/><circle cx="5" cy="10" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="19" cy="10" r="2"/><circle cx="5" cy="16" r="2"/><circle cx="12" cy="16" r="2"/><circle cx="19" cy="16" r="2"/><circle cx="12" cy="22" r="2"/></svg>',
+    vm: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200"><circle cx="6.500" cy="12" r="4.500"/><circle cx="17.500" cy="12" r="4.500"/><path d="M6.500 16.500h11"/></svg>',
+    filt: '<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.200" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>'
+  };
+  const arrow = t => t === "out" ? "↗" : t === "missed" ? "↙" : "↙";
   const draw = () => {
-    const recent = `<div class="top"><h1>최근 기록</h1></div><ul class="calls">${P.calls.map(c => { const p = person(c.with); return `<li class="${c.type}"><div><strong>${esc(p.name)}</strong><small>${c.type === "out" ? "발신" : c.type === "in" ? "수신" : "부재중"}</small></div><time>${esc(c.time)}</time></li>`; }).join("")}</ul>`;
-    const pad = `<div class="disp">${esc(num)}</div><div class="pad">${[..."123456789*0#"].map(k => `<button data-k="${k}">${k}</button>`).join("")}<button class="call">📞</button></div>`;
-    body.innerHTML = `<div class="scroll">${tab === "recent" ? recent : pad}</div><nav class="i-nav"><button data-t="recent" class="${tab === "recent" ? "on" : ""}">🕘</button><button data-t="pad" class="${tab === "pad" ? "on" : ""}">🔢</button></nav>`;
-    bind(".i-nav button", el => { tab = el.dataset.t; draw(); });
+    const rows = P.calls.filter(c => flt === "all" || c.type === "missed");
+    const recent = `<div class="ph-top"><button class="ph-pill">편집</button><div class="ph-seg"><button data-f="all" class="${flt === "all" ? "on" : ""}">모두</button><button data-f="missed" class="${flt === "missed" ? "on" : ""}">부재중 전화</button></div><button class="ph-round">${I.filt}</button></div>
+      <div class="scroll"><ul class="ph-list">${rows.map(c => { const p = person(c.with); const label = c.label || "음성 통화";
+      return `<li class="${c.type}">${av(p, "round")}<div class="ph-m"><b>${esc(p.name)}</b><small>${arrow(c.type)} ${esc(label)}</small></div><time>${esc(c.time)}</time><i class="ph-i">i</i></li>`; }).join("")}</ul></div>`;
+    const cs = P.contacts.slice().sort((a, b) => a.name.localeCompare(b.name, "ko"));
+    const con = `<div class="ph-top"><b class="ph-ht">연락처</b></div><div class="scroll"><ul class="ph-list">${cs.map(p => `<li>${av(p, "round")}<div class="ph-m"><b>${esc(p.name)}</b></div></li>`).join("")}</ul></div>`;
+    const pad = `<div class="scroll"><div class="disp">${esc(num)}</div><div class="pad">${[..."123456789*0#"].map(k => `<button data-k="${k}">${k}</button>`).join("")}<button class="call">📞</button></div></div>`;
+    const tabs = [["fav", "즐겨찾기", I.star], ["recent", "최근 통화", I.clock], ["con", "연락처", I.user], ["pad", "키패드", I.pad], ["vm", "음성 사서함", I.vm]];
+    body.innerHTML = `<div class="ph">${tab === "con" ? con : recent}<nav class="ph-nav">${tabs.map(([k, n, i]) => `<button data-t="${k}" class="${tab === k ? "on" : ""}">${i}<span>${n}</span></button>`).join("")}</nav></div>`;
+    bind(".ph-nav button", el => { if (el.dataset.t === "recent" || el.dataset.t === "con") { tab = el.dataset.t; draw(); } });
+    bind(".ph-seg button", el => { flt = el.dataset.f; draw(); });
     bind(".pad [data-k]", el => { num += el.dataset.k; draw(); });
   };
   draw();
@@ -414,7 +482,7 @@ const APPS = [
   { name: "사진", icon: "photos", run: photos },
   { name: "캘린더", icon: "calendar", run: calendar },
   { name: "YouTube", icon: "youtube" },
-  { name: "X", icon: "x" }
+  { name: "X", icon: "x", run: xapp }
 ];
 const DOCK = [
   { icon: "phone", run: phone },
@@ -454,5 +522,26 @@ $("#homebar").onclick = () => {
 /* 시계 + 화면 크기 맞춤 */
 const tick = () => { const d = new Date(); $("#clock").textContent = `${d.getHours() % 12 || 12}:${String(d.getMinutes()).padStart(2, "0")}`; };
 tick(); setInterval(tick, 20000);
-const fit = () => { $("#phone").style.transform = `scale(${Math.min(1, innerHeight / 880, innerWidth / 410)})`; };
+const fit = () => { $("#phone").style.transform = `scale(${Math.min(1.2, innerHeight / 822, innerWidth / 368)})`; };
 fit(); addEventListener("resize", fit);
+
+/* 사진 여러 장: 화살표 없이 마우스 드래그로도 넘기기 (터치/트랙패드는 기본 스크롤) */
+(() => {
+  let tr = null, x0 = 0, s0 = 0, moved = false, k = 1;
+  document.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse") return;
+    const t = e.target.closest(".ig-track"); if (!t) return;
+    tr = t; x0 = e.clientX; s0 = t.scrollLeft; moved = false; k = t.getBoundingClientRect().width / t.offsetWidth || 1;
+  });
+  document.addEventListener("pointermove", e => {
+    if (!tr) return;
+    const dx = e.clientX - x0;
+    if (Math.abs(dx) > 4) { moved = true; tr.style.scrollSnapType = "none"; tr.style.scrollBehavior = "auto"; tr.scrollLeft = s0 - dx / k; }
+  });
+  const end = () => {
+    if (!tr) return;
+    const t = tr; tr = null;
+    if (moved) { const w = t.clientWidth, i = Math.round(t.scrollLeft / w); t.style.scrollSnapType = ""; t.style.scrollBehavior = ""; t.scrollTo({ left: i * w, behavior: "smooth" }); }
+  };
+  document.addEventListener("pointerup", end); document.addEventListener("pointercancel", end);
+})();

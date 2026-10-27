@@ -418,7 +418,11 @@ body:not(.in) #status{text-shadow:0 1px 3px rgba(0,0,0,.45)}
 .lnk{margin-top:4px}
 .ig-btns{margin:16px 0 14px}
 
-.ig-lb{padding:0 12px 4px;font-size:13px}
+.ig-lb{padding:0 12px 4px;font-size:13px;display:flex;align-items:center;gap:8px}
+.ig-lb .stk{display:flex;flex:none}
+.ig-lb .av.xs{width:20px;height:20px;border:2px solid #fff;margin-left:-8px;box-sizing:content-box}
+.ig-lb .av.xs:first-child{margin-left:0}
+.ig-lb b{font-weight:600}
 
 .ig-act{gap:11px;font-size:13.500px}
 .ig-act b{white-space:nowrap}
@@ -456,3 +460,110 @@ body:not(.in) #status{text-shadow:0 1px 3px rgba(0,0,0,.45)}
 .ig-mf .av.xs{width:30px;height:30px;border:2px solid #fff;margin-left:-10px}
 .ig-mf .av.xs:first-child{margin-left:0}
 .ig-mf b{font-weight:600}
+
+/* screen only (no phone bezel) */
+#phone{width:368px;height:822px;border:0;border-radius:0;box-shadow:none;background:#000}
+#screen,#app{border-radius:0}
+
+.day.hol{color:#e0453a}
+.day.hol.today b{color:#fff}
+.ev li.hol span{color:#e0453a}
+.ig-arrow{display:none!important}
+.ig-track{user-select:none;-webkit-user-select:none}
+.ig-track img{-webkit-user-drag:none;user-drag:none}
+.ig-track{scroll-behavior:smooth;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;will-change:scroll-position;transform:translateZ(0)}
+.ig-slide{scroll-snap-stop:always;contain:layout paint;transform:translateZ(0);backface-visibility:hidden}
+.ig-slide img,.ig-slide .pic{will-change:transform;backface-visibility:hidden}
+
+/* ===== 전화 (iOS 최근 통화) ===== */
+.ph{display:contents}
+.ph-top{display:flex;align-items:center;justify-content:space-between;padding:6px 14px 8px}
+.ph-pill{border:0;background:#fff;border-radius:20px;padding:10px 16px;font-size:14px;font-weight:600;box-shadow:0 1px 6px #0001;cursor:pointer}
+.ph-round{width:38px;height:38px;border:0;border-radius:50%;background:#fff;box-shadow:0 1px 6px #0001;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#111}
+.ph-round svg{width:18px;height:18px;fill:none}
+.ph-seg{display:flex;background:#fff;border-radius:22px;padding:3px;box-shadow:0 1px 8px #0001}
+.ph-seg button{border:0;background:none;border-radius:18px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;color:#111}
+.ph-seg button.on{background:#e8e8ec}
+.ph-list{list-style:none;padding:0 14px 90px}
+.ph-list li{display:flex;align-items:center;gap:10px;padding:9px 0;position:relative}
+.ph-list li:not(:last-child)::after{content:"";position:absolute;left:58px;right:0;bottom:0;height:1px;background:#e3e3e6}
+.ph-list .av{width:44px;height:44px;flex:none;font-size:18px}
+.ph-m{flex:1;min-width:0}
+.ph-m b{display:block;font-size:17px;font-weight:600;line-height:1.2}
+.ph-m small{font-size:13px;color:#8e8e93}
+.ph-list .missed .ph-m b{color:#ff3b30}
+.ph-list time{font-size:13.500px;color:#8e8e93}
+.ph-i{width:30px;height:30px;border-radius:50%;background:#efeff2;color:#2f80ed;font-style:normal;font-weight:700;font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;font-size:15px}
+.ph-nav{position:absolute;left:10px;right:10px;bottom:30px;display:flex;background:#ffffffee;border-radius:34px;padding:6px;box-shadow:0 4px 18px #0002;backdrop-filter:blur(14px)}
+.ph-nav button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border-radius:28px;font-size:9.500px;color:#222;cursor:pointer}
+.ph-nav button svg{width:24px;height:24px}
+.ph-nav button.on{background:#e6edf9;color:#2f80ed}
+#app:has(.ph){background:#f2f2f6}
+
+/* ===== 메모 (iOS) ===== */
+.nt{display:contents}
+.nt-top{display:flex;align-items:center;justify-content:space-between;padding:6px 14px 8px}
+.nt-top>div{text-align:center;line-height:1.2}
+.nt-top b{display:block;font-size:15px}
+.nt-top small{font-size:12px;color:#8e8e93}
+.nt-sc{padding:6px 14px 90px}
+.nt-h{display:flex;justify-content:space-between;font-size:20px;margin:10px 4px 8px}
+.nt-h i{color:#d9a400;font-style:normal}
+.nt-card{list-style:none;background:#fff;border-radius:22px;padding:2px 16px;margin-bottom:14px}
+.nt-card li{padding:11px 0;border-bottom:1px solid #e6e6ea;cursor:pointer}
+.nt-card li:last-child{border:0}
+.nt-card b{display:block;font-size:15.500px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nt-card small{display:block;font-size:13px;color:#8e8e93;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nt-card small span{margin-right:8px;color:#6c6c70}
+.nt-bar{position:absolute;left:14px;right:14px;bottom:30px;display:flex;gap:10px;align-items:center}
+.nt-s{flex:1;display:flex;align-items:center;gap:8px;background:#ffffffee;border-radius:26px;padding:12px 16px;font-size:15px;color:#8e8e93;box-shadow:0 4px 16px #0002}
+.nt-s svg{width:18px;height:18px;color:#222}
+.nt-n{width:48px;height:48px;border-radius:50%;border:0;background:#ffffffee;box-shadow:0 4px 16px #0002;font-size:20px;cursor:pointer}
+.nt-d{text-align:center;font-size:12px;color:#8e8e93;margin:4px 0 10px}
+.nt-t{font-size:22px;padding:0 6px 8px}
+#app:has(.nt){background:#f2f2f6}
+
+/* ===== X ===== */
+.x{display:contents}
+.x-top{position:relative;display:flex;justify-content:center;align-items:center;padding:8px 14px 4px}
+.x-me{position:absolute;left:14px;top:4px}
+.x-me .av{width:30px;height:30px}
+.x-logo svg{width:22px;height:22px}
+.x-tabs{display:flex;border-bottom:1px solid #eee}
+.x-tabs button{flex:1;border:0;background:none;padding:10px 0 0;font-size:14px;font-weight:600;color:#6f7478;cursor:pointer}
+.x-tabs button span{display:inline-block;padding-bottom:9px;border-bottom:4px solid transparent}
+.x-tabs button.on{color:#000;font-weight:800}
+.x-tabs button.on span{border-color:#1d9bf0;border-radius:2px}
+.x-feed{padding-bottom:80px}
+.x-t{display:flex;gap:8px;padding:12px 14px;border-bottom:1px solid #eee}
+.x-t>.av{width:38px;height:38px;flex:none}
+.x-b{flex:1;min-width:0}
+.x-h{display:flex;align-items:center;gap:3px;font-size:13px;white-space:nowrap}
+.x-h b{font-size:14.500px;overflow:hidden;text-overflow:ellipsis;max-width:90px}
+.x-h span{color:#6f7478;overflow:hidden;text-overflow:ellipsis}
+.x-h .vf{width:15px;height:15px;flex:none}
+.x-lg{margin-left:auto}
+.x-lg svg{width:13px;height:13px}
+.x-x{font-size:14.500px;line-height:1.4;margin:2px 0 8px;white-space:pre-wrap;word-break:break-all}
+.x-im{display:grid;gap:3px;border-radius:12px;overflow:hidden;margin-bottom:8px}
+.x-im.n1{grid-template-columns:1fr}.x-im.n2,.x-im.n3,.x-im.n4{grid-template-columns:1fr 1fr}
+.x-im img{width:100%;height:150px;object-fit:cover;display:block}
+.x-im.n1 img{height:auto;max-height:230px}
+.x-im.empty{display:none}
+.x-q{border:1px solid #e1e4e8;border-radius:14px;padding:9px 11px 2px;margin-bottom:8px}
+.x-qh{display:flex;align-items:center;gap:5px;font-size:12.500px;margin-bottom:4px}
+.x-qh .av{width:18px;height:18px;font-size:9px}
+.x-qh span{color:#6f7478}
+.x-a{display:flex;align-items:center;justify-content:space-between;color:#6f7478;font-size:12px}
+.x-a span{display:flex;align-items:center;gap:4px;min-width:36px}
+.x-a svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.800}
+.x-a .r{gap:10px;min-width:0}
+.x-fab{position:absolute;right:14px;bottom:78px;width:50px;height:50px;border-radius:50%;border:0;background:#1d9bf0;color:#fff;font-size:30px;box-shadow:0 4px 12px #0003;cursor:pointer}
+.x-nav{position:absolute;left:0;right:0;bottom:0;height:62px;padding-bottom:20px;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;align-items:center}
+.x-nav span{position:relative;display:flex}
+.x-nav svg{width:24px;height:24px;fill:none;stroke:#111;stroke-width:2}
+.x-nav .on svg{fill:#111}
+.x-nav em{position:absolute;top:-6px;right:-9px;background:#1d9bf0;color:#fff;border-radius:9px;font-size:10px;font-style:normal;padding:1px 5px}
+.x-em{text-align:center;color:#8e8e93;padding:40px}
+#app:has(.x){padding-bottom:0}
+.ph-ht{font-size:26px}.ph-nav button:not([data-t=recent]):not([data-t=con]){cursor:default}
