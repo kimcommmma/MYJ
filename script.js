@@ -7,6 +7,7 @@ const person = h => P.contacts.find(c => c.handle === h) || (h === P.owner.handl
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 (P.posts || []).forEach(x => { if (x.likedByRandom) x.likedBy = shuffle(P.contacts.filter(c => !c.hideStory && c.handle !== x.user).map(c => c.handle)).slice(0, x.likedByRandom); if (x.fixedComments || x.randomComments) { const pl = [...(x.commentPool || P.commentPool || []), ...(x.noFan ? [] : (P.fanPool || []))]; const n = x.randomComments || 0, k = n >= 4 ? 1 + Math.floor(Math.random() * 2) : 0, en = shuffle([...(x.enPool || P.enPool || [])]).slice(0, k); x.commentsList = [...(x.fixedComments || []), ...shuffle([...shuffle(pl).slice(0, n - en.length), ...en])]; } });
 const rich = t => esc(t).replace(/@[\w.]+/g, m => { const h = m.slice(1), ok = h === P.owner.handle || P.contacts.some(c => c.handle === h); return `<span class="tag"${ok ? ` data-go="profile:${h}" style="cursor:pointer"` : ""}>${m}</span>`; });
+const nm = p => p.phoneName || p.name;
 const av = (p, cls = "") => `<span class="av ${cls}" style="background:${hue(p.name || p.handle)}">${p.photo ? `<img src="${esc(p.photo)}" alt="" onerror="this.remove()">` : ""}<b>${esc((p.name || p.handle)[0])}</b></span>`;
 const pic = src => src ? `<img class="pic" loading="lazy" decoding="async" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic"></div>`;
 
@@ -15,18 +16,47 @@ const bind = (sel, fn) => body.querySelectorAll(sel).forEach(el => el.onclick = 
 
 /* 카카오톡 */
 function kakao() {
+  let tab = "chats", sort = "ga";
+  const ik = d => `<svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const SEARCH = '<circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/>';
+  const kav = p => p.photo ? av(p) : `<span class="av kdef c${(nm(p).charCodeAt(0) || 0) % 3}"><svg viewBox="0 0 24 24" width="26" height="26" fill="#fff"><circle cx="12" cy="8.500" r="4"/><path d="M4 21c0-4.400 3.500-6.500 8-6.500s8 2.100 8 6.500z"/></svg></span>`;
+  const tabs = () => {
+    const t = (k, d, on) => `<button class="k-tab${on ? " on" : ""}" ${k ? `data-t="${k}"` : "disabled"}><svg viewBox="0 0 24 24" width="28" height="28" fill="${on ? "#111" : "#c4c4c4"}">${d}</svg></button>`;
+    return `<div class="k-tabs">${t("friends", '<circle cx="12" cy="7.500" r="4.500"/><path d="M3.500 21c0-5 3.500-7.500 8.500-7.500s8.500 2.500 8.500 7.500z"/>', tab === "friends")}${t("chats", '<path d="M12 3C6.500 3 2.500 6.500 2.500 11c0 2.600 1.400 4.900 3.600 6.400L5 21l4.200-2.300c.9.200 1.800.3 2.800.3 5.500 0 9.500-3.500 9.500-8S17.500 3 12 3z"/>', tab === "chats")}${t("", '<circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>', false)}</div>`;
+  };
   const list = () => {
-    body.innerHTML = `<div class="top"><h1>채팅</h1></div><div class="scroll"><ul class="k-list">${P.chats.map((c, i) => {
-      const p = person(c.with), m = c.messages[c.messages.length - 1] || {};
-      return `<li data-i="${i}">${av(p)}<div><strong>${esc(p.name)}</strong><p>${esc(m.text)}</p></div><time>${esc(m.time)}</time></li>`;
-    }).join("")}</ul></div>`;
-    bind("li", el => room(+el.dataset.i));
+    let main;
+    if (tab === "friends") {
+      const fr = P.contacts.slice().sort(sort === "ga" ? (x, y) => nm(x).localeCompare(nm(y), "ko") : (x, y) => P.contacts.indexOf(y) - P.contacts.indexOf(x));
+      main = `<div class="top k-mt"><h1>친구</h1><div class="k-ic2">${ik(SEARCH)}${ik('<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM19 8v6M22 11h-6"/>')}${ik('<circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.700 1.700 0 0 0 .3 1.800l.1.1a2 2 0 1 1-2.800 2.800l-.1-.1a1.700 1.700 0 0 0-1.800-.3 1.700 1.700 0 0 0-1 1.500V21a2 2 0 1 1-4 0v-.1a1.700 1.700 0 0 0-1.100-1.500 1.700 1.700 0 0 0-1.800.3l-.1.1a2 2 0 1 1-2.800-2.800l.1-.1a1.700 1.700 0 0 0 .3-1.800 1.700 1.700 0 0 0-1.500-1H3a2 2 0 1 1 0-4h.1a1.700 1.700 0 0 0 1.500-1.100 1.700 1.700 0 0 0-.3-1.800l-.1-.1a2 2 0 1 1 2.800-2.800l.1.1a1.700 1.700 0 0 0 1.800.3H9a1.700 1.700 0 0 0 1-1.500V3a2 2 0 1 1 4 0v.1a1.700 1.700 0 0 0 1 1.500 1.700 1.700 0 0 0 1.800-.3l.1-.1a2 2 0 1 1 2.800 2.800l-.1.1a1.700 1.700 0 0 0-.3 1.800V9a1.700 1.700 0 0 0 1.500 1H21a2 2 0 1 1 0 4h-.1a1.700 1.700 0 0 0-1.500 1z"/>')}</div></div>
+        <div class="scroll"><div class="k-me">${kav(P.owner)}<strong>${esc(P.owner.name)}</strong></div>
+        <div class="k-fh"><b>친구 ${fr.length}</b><div class="k-pill"><span data-s="ga" class="${sort === "ga" ? "on" : ""}">가나다순</span><span data-s="add" class="${sort === "add" ? "on" : ""}">친구추가순</span></div><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></div>
+        <ul class="k-list">${fr.map(c => `<li>${kav(c)}<div><strong>${esc(nm(c))}</strong></div></li>`).join("")}</ul></div>`;
+    } else {
+      main = `<div class="top k-mt"><h1>채팅</h1><div class="k-ic2">${ik(SEARCH)}${ik('<path d="M12 20h9M16.500 3.500a2.100 2.100 0 0 1 3 3L7 19l-4 1 1-4z"/>')}${ik('<circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.700 1.700 0 0 0 .3 1.800l.1.1a2 2 0 1 1-2.800 2.800l-.1-.1a1.700 1.700 0 0 0-1.800-.3 1.700 1.700 0 0 0-1 1.500V21a2 2 0 1 1-4 0v-.1a1.700 1.700 0 0 0-1.100-1.500 1.700 1.700 0 0 0-1.800.3l-.1.1a2 2 0 1 1-2.800-2.800l.1-.1a1.700 1.700 0 0 0 .3-1.800 1.700 1.700 0 0 0-1.500-1H3a2 2 0 1 1 0-4h.1a1.700 1.700 0 0 0 1.500-1.100 1.700 1.700 0 0 0-.3-1.800l-.1-.1a2 2 0 1 1 2.800-2.800l.1.1a1.700 1.700 0 0 0 1.800.3H9a1.700 1.700 0 0 0 1-1.500V3a2 2 0 1 1 4 0v.1a1.700 1.700 0 0 0 1 1.500 1.700 1.700 0 0 0 1.800-.3l.1-.1a2 2 0 1 1 2.800 2.800l-.1.1a1.700 1.700 0 0 0-.3 1.800V9a1.700 1.700 0 0 0 1.500 1H21a2 2 0 1 1 0 4h-.1a1.700 1.700 0 0 0-1.500 1z"/>')}</div></div><div class="scroll"><ul class="k-list">${P.chats.map((c, i) => {
+        const p = person(c.with), m = c.messages[c.messages.length - 1] || {};
+        return `<li data-i="${i}">${kav(p)}<div><strong>${esc(nm(p))}</strong><p>${esc(m.text || (m.images ? "사진" : ""))}</p></div><time>${esc(m.time)}</time></li>`;
+      }).join("")}</ul></div>`;
+    }
+    body.innerHTML = main + tabs();
+    bind("li[data-i]", el => room(+el.dataset.i));
+    bind(".k-tab[data-t]", el => { tab = el.dataset.t; list(); });
+    bind(".k-pill span", el => { sort = el.dataset.s; list(); });
   };
   const room = i => {
     const c = P.chats[i], p = person(c.with);
-    body.innerHTML = `<div class="room" style="display:contents"><div class="top"><button class="back">‹</button><h1>${esc(p.name)}</h1></div><div class="scroll" style="background:#b2c7da"><div class="msgs">${c.messages.map(m => m.from === "me"
-      ? `<div class="m me"><time>${esc(m.time)}</time><span class="b">${esc(m.text)}</span></div>`
-      : `<div class="m them">${av(p, "s")}<div><small>${esc(p.name)}</small><span class="b">${esc(m.text)}</span></div><time>${esc(m.time)}</time></div>`).join("")}</div></div></div>`;
+    const ms = c.messages, ic = d => `<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+    const html = ms.map((m, j) => {
+      if (m.date) return `<div class="k-date"><span>${esc(m.date)} ›</span></div>`;
+      const pv = ms[j - 1], nx = ms[j + 1];
+      const first = !pv || pv.date || pv.from !== m.from, last = !nx || nx.date || nx.from !== m.from || nx.time !== m.time;
+      const ph = m.images ? `<div class="k-ph n${Math.min(m.images.length, 4)}">${m.images.map(u => `<img src="${esc(u)}" alt="" loading="eager">`).join("")}</div>` : "";
+      const tx = m.text ? `<span class="b${first ? " tail" : ""}">${esc(m.text)}</span>` : "";
+      const tm = last ? `<time>${esc(m.time)}</time>` : "";
+      if (m.from === "me") return `<div class="m me${first ? " f" : ""}">${tm}<div class="k-col">${ph}${tx}</div></div>`;
+      return `<div class="m them${first ? " f" : ""}">${first ? av(p, "s") : `<span class="av-sp"></span>`}<div class="k-col">${first ? `<small>${esc(nm(p))}</small>` : ""}${ph}${tx}</div>${tm}</div>`;
+    }).join("");
+    body.innerHTML = `<div class="room" style="display:contents"><div class="top k-top"><button class="back">${ic('<path d="M15 4l-8 8 8 8"/>')}</button><h1>${esc(nm(p))}</h1><div class="k-ic">${ic('<circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/>')}${ic('<path d="M5 3h4l2 5-2.500 1.500a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>')}${ic('<path d="M3 6h18M3 12h18M3 18h18"/>')}</div></div><div class="scroll" style="background:#abc1d6"><div class="msgs">${html}</div></div><div class="k-barw"><div class="k-bar"><span class="k-plus">+</span><span class="k-inp">메시지 입력</span><span class="k-sm">☺</span><span class="k-sm k-hash">#</span></div></div></div>`;
     bind(".back", list);
     const s = body.querySelector(".scroll"); s.scrollTop = s.scrollHeight;
   };
@@ -92,7 +122,7 @@ function insta() {
   const profile = h => {
     const p = prof(h), list = p.posts, hl = p.highlights || [];
     const shown = tab === "grid" ? list : tab === "reels" ? list.filter(x => x.video) : [];
-    const fl = p.followingList || (p.mine ? P.contacts.map(c => c.handle) : null);
+    const fl = p.followingList || (p.mine ? P.contacts.filter(c => !c.noIg).map(c => c.handle) : null);
     const mutual = p => {
       const ov = p.mutuals;
       const fl = P.contacts.filter(c => c.handle !== p.handle && (c.followingList || []).includes(p.handle));
@@ -116,7 +146,7 @@ function insta() {
   const postList = h => `<div class="ig-top c"><button data-act="back">${I.back}</button><div><h1>게시물</h1><small>${esc(h)}</small></div></div>${prof(h).posts.map(post).join("")}`;
 
   const follows = h => {
-    const p = prof(h), list = p.followingList || (p.mine ? P.contacts.map(c => c.handle) : []);
+    const p = prof(h), list = p.followingList || (p.mine ? P.contacts.filter(c => !c.noIg).map(c => c.handle) : []);
     return `<div class="ig-top c"><button data-act="back">${I.back}</button><div><h1>${esc(p.handle)}</h1><small>팔로잉</small></div></div>
       <div class="ig-fl">${list.map(x => { const q = prof(x); return `<div class="ig-fr" data-go="profile:${esc(q.handle)}">${av(q, "round")}<div><b>${esc(q.handle)}</b><small>${esc(q.display)}</small></div><span>팔로잉</span></div>`; }).join("")}</div>`;
   };
@@ -238,7 +268,7 @@ function xapp() {
   const imgs = a => a && a.length ? `<div class="x-im n${Math.min(a.length, 4)}">${a.map(s => `<img src="${esc(s)}" alt="" onerror="this.parentNode.classList.add('empty');this.remove()">`).join("")}</div>` : "";
   const num = v => v === undefined || v === "" ? "" : v;
   const card = t => {
-    const p = person(t.user), q = t.quote;
+    const p = t.photo ? { ...person(t.user), name: t.name || t.user, photo: t.photo } : person(t.user), q = t.quote;
     return `<article class="x-t">${av(p, "round")}<div class="x-b">
       <div class="x-h"><b>${esc(t.name || p.name)}</b>${t.verified === false ? "" : ic.ck}<span>@${esc(t.user)} · ${esc(t.time || "")}</span><i class="x-lg">${ic.logo}</i></div>
       <div class="x-x">${rich(t.text || "")}</div>${imgs(t.images)}
@@ -246,7 +276,7 @@ function xapp() {
       <div class="x-a"><span>${ic.rep}${num(t.replies)}</span><span>${ic.rt}${num(t.reposts)}</span><span>${ic.lk}${num(t.likes)}</span><span>${ic.vw}${num(t.views)}</span><span class="r">${ic.bm}${ic.up}</span></div></div></article>`;
   };
   const draw = () => {
-    const ts = (X.tweets || []).filter(t => (t.tab || "for") === tab || (tab === "for" && !t.tab));
+    const ts = (X.tweets || []).filter(t => t.tab === "both" || (t.tab || "for") === tab);
     body.innerHTML = `<div class="x"><div class="x-top"><span class="x-me">${av(P.owner, "round")}</span><span class="x-logo">${ic.logo}</span></div>
       <div class="x-tabs"><button data-t="for" class="${tab === "for" ? "on" : ""}"><span>추천</span></button><button data-t="fol" class="${tab === "fol" ? "on" : ""}"><span>팔로우 중</span></button></div>
       <div class="scroll x-feed">${ts.map(card).join("") || '<p class="x-em">게시물이 없습니다</p>'}</div>
@@ -330,27 +360,48 @@ function calendar() {
 
 /* 전화 */
 function phone() {
-  let tab = "recent", flt = "all", num = "";
+  let tab = "recent", flt = "all", num = "", det = null;
   const I = {
     star: '<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.700 1.300 6.700L12 17.500 6 20.900l1.300-6.700-5-4.700 6.800-.8z" fill="currentColor"/></svg>',
     clock: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M12 6.500V12h4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>',
     user: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><circle cx="12" cy="9.500" r="3.300" fill="#fff"/><path d="M5.500 19c1.500-3 4-4 6.500-4s5 1 6.500 4" fill="#fff"/></svg>',
     pad: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="4" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="19" cy="4" r="2"/><circle cx="5" cy="10" r="2"/><circle cx="12" cy="10" r="2"/><circle cx="19" cy="10" r="2"/><circle cx="5" cy="16" r="2"/><circle cx="12" cy="16" r="2"/><circle cx="19" cy="16" r="2"/><circle cx="12" cy="22" r="2"/></svg>',
     vm: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200"><circle cx="6.500" cy="12" r="4.500"/><circle cx="17.500" cy="12" r="4.500"/><path d="M6.500 16.500h11"/></svg>',
+    back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4l-8 8 8 8"/></svg>',
     filt: '<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.200" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>'
   };
   const arrow = t => t === "out" ? "↗" : t === "missed" ? "↙" : "↙";
+  const detail = p => {
+    document.body.classList.add("dk");
+    const cs = P.calls.filter(c => c.with === p.handle), c = cs[0];
+    const kind = { out: "발신 통화", in: "수신 통화", missed: "부재중 전화" };
+    const ic = d => `<svg viewBox="0 0 24 24" fill="currentColor">${d}</svg>`;
+    const row = c ? `<div class="pd-row"><div><b>${kind[c.type] || "발신 통화"}</b><small>${esc(c.status || (c.type === "missed" ? "부재중" : "연결됨"))}</small></div><span>${esc(c.time)}</span></div>` : `<div class="pd-row"><div><b>발신 통화</b><small>기록 없음</small></div></div>`;
+    body.innerHTML = `<div class="ph pd-wrap"><div class="pd"><div class="pd-top"><button class="pd-g pd-back">${I.back}</button><button class="pd-g pd-edit">편집</button></div>
+      <div class="pd-av">${p.photo ? `<img src="${esc(p.photo)}" alt="">` : `<b>${esc(nm(p)[0])}</b>`}</div>
+      ${p.emergency ? `<span class="pd-em">긴급 연락처</span>` : ""}<h2>${esc(nm(p))}</h2>
+      <div class="pd-acts"><i>${ic('<path d="M12 3C6.500 3 2.500 6.600 2.500 11c0 2.400 1.200 4.500 3.100 6L4.800 21l4-1.900c1 .3 2.100.4 3.200.4 5.500 0 9.500-3.600 9.500-8.500S17.500 3 12 3z"/>')}</i><i>${ic('<path d="M6.600 10.800a15 15 0 0 0 6.600 6.600l2.200-2.200a1 1 0 0 1 1-.2c1.100.4 2.300.6 3.600.6a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.500a1 1 0 0 1 1 1c0 1.300.2 2.500.6 3.600a1 1 0 0 1-.3 1z"/>')}</i><i>${ic('<rect x="2" y="6" width="14" height="12" rx="3"/><path d="M17 10l5-3v10l-5-3z"/>')}</i><i>${ic('<path d="M3 6h18v12H3z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="2"/>')}</i></div>
+      <div class="pd-card"><div class="pd-h">통화 기록</div>${row}</div>
+      ${p.phone ? `<div class="pd-card"><div class="pd-l">VOICE</div><div class="pd-n">${esc(p.phone)}</div></div>` : ""}
+      <div class="pd-card"><div class="pd-a">연락처 공유</div><div class="pd-a">즐겨찾기에 추가</div></div></div>
+      <nav class="ph-nav">${[["fav", "즐겨찾기", I.star], ["recent", "최근 통화", I.clock], ["con", "연락처", I.user], ["pad", "키패드", I.pad], ["vm", "음성 사서함", I.vm]].map(([k, n, i]) => `<button data-t="${k}" class="${k === "con" ? "on" : ""}">${i}<span>${n}</span></button>`).join("")}</nav></div>`;
+    const out = () => { det = null; document.body.classList.remove("dk"); draw(); };
+    bind(".pd-back", out);
+    bind(".ph-nav button", el => { if (el.dataset.t === "recent" || el.dataset.t === "con") { tab = el.dataset.t; out(); } });
+  };
   const draw = () => {
+    if (det) return detail(person(det));
     const rows = P.calls.filter(c => flt === "all" || c.type === "missed");
     const recent = `<div class="ph-top"><button class="ph-pill">편집</button><div class="ph-seg"><button data-f="all" class="${flt === "all" ? "on" : ""}">모두</button><button data-f="missed" class="${flt === "missed" ? "on" : ""}">부재중 전화</button></div><button class="ph-round">${I.filt}</button></div>
       <div class="scroll"><ul class="ph-list">${rows.map(c => { const p = person(c.with); const label = c.label || "음성 통화";
-      return `<li class="${c.type}">${av(p, "round")}<div class="ph-m"><b>${esc(p.name)}</b><small>${arrow(c.type)} ${esc(label)}</small></div><time>${esc(c.time)}</time><i class="ph-i">i</i></li>`; }).join("")}</ul></div>`;
-    const cs = P.contacts.slice().sort((a, b) => a.name.localeCompare(b.name, "ko"));
-    const con = `<div class="ph-top"><b class="ph-ht">연락처</b></div><div class="scroll"><ul class="ph-list">${cs.map(p => `<li>${av(p, "round")}<div class="ph-m"><b>${esc(p.name)}</b></div></li>`).join("")}</ul></div>`;
+      return `<li class="${c.type}">${av(p, "round")}<div class="ph-m"><b>${esc(nm(p))}</b><small>${arrow(c.type)} ${esc(label)}</small></div><time>${esc(c.time)}</time><i class="ph-i">i</i></li>`; }).join("")}</ul></div>`;
+    const cs = P.contacts.slice().sort((a, b) => nm(a).localeCompare(nm(b), "ko"));
+    const con = `<div class="ph-top"><b class="ph-ht">연락처</b></div><div class="scroll"><ul class="ph-list">${cs.map(p => `<li data-h="${esc(p.handle)}">${av(p, "round")}<div class="ph-m"><b>${esc(nm(p))}</b>${p.phone ? `<small>${esc(p.phone)}</small>` : ""}</div></li>`).join("")}</ul></div>`;
     const pad = `<div class="scroll"><div class="disp">${esc(num)}</div><div class="pad">${[..."123456789*0#"].map(k => `<button data-k="${k}">${k}</button>`).join("")}<button class="call">📞</button></div></div>`;
     const tabs = [["fav", "즐겨찾기", I.star], ["recent", "최근 통화", I.clock], ["con", "연락처", I.user], ["pad", "키패드", I.pad], ["vm", "음성 사서함", I.vm]];
     body.innerHTML = `<div class="ph">${tab === "con" ? con : recent}<nav class="ph-nav">${tabs.map(([k, n, i]) => `<button data-t="${k}" class="${tab === k ? "on" : ""}">${i}<span>${n}</span></button>`).join("")}</nav></div>`;
     bind(".ph-nav button", el => { if (el.dataset.t === "recent" || el.dataset.t === "con") { tab = el.dataset.t; draw(); } });
+    bind(".ph-list li[data-h]", el => { det = el.dataset.h; draw(); });
     bind(".ph-seg button", el => { flt = el.dataset.f; draw(); });
     bind(".pad [data-k]", el => { num += el.dataset.k; draw(); });
   };
@@ -362,13 +413,13 @@ function sms() {
   const list = () => {
     body.innerHTML = `<div class="top"><h1>메시지</h1></div><div class="scroll"><ul class="k-list">${P.sms.map((c, i) => {
       const p = person(c.with), m = c.messages[c.messages.length - 1] || {};
-      return `<li data-i="${i}">${av(p, "round")}<div><strong>${esc(p.name)}</strong><p>${esc(m.text)}</p></div><time>${esc(m.time)}</time></li>`;
+      return `<li data-i="${i}">${av(p, "round")}<div><strong>${esc(nm(p))}</strong><p>${esc(m.text)}</p></div><time>${esc(m.time)}</time></li>`;
     }).join("")}</ul></div>`;
     bind("li", el => room(+el.dataset.i));
   };
   const room = i => {
     const c = P.sms[i], p = person(c.with);
-    body.innerHTML = `<div class="sms" style="display:contents"><div class="top"><button class="back">‹</button><h1>${esc(p.name)}</h1></div><div class="scroll"><div class="msgs">${c.messages.map(m => m.from === "me"
+    body.innerHTML = `<div class="sms" style="display:contents"><div class="top"><button class="back">‹</button><h1>${esc(nm(p))}</h1></div><div class="scroll"><div class="msgs">${c.messages.map(m => m.from === "me"
       ? `<div class="m me"><span class="b">${esc(m.text)}</span></div>`
       : `<div class="m them">${av(p, "s round")}<span class="b">${esc(m.text)}</span></div>`).join("")}</div></div></div>`;
     bind(".back", list);
@@ -379,16 +430,16 @@ function sms() {
 
 /* 사파리 */
 function safari() {
-  const S = P.safari;
+  const S = P.safari, N = S.news || [];
   const start = () => {
-    body.innerHTML = `<div class="scroll"><div class="sf-h">즐겨찾기</div><div class="favs">${S.favorites.map((f, i) => `<button data-f="${i}"><i style="background:${hue(f.name)}">${esc(f.name[0])}</i>${esc(f.name)}</button>`).join("")}</div>
-      <div class="sf-h">최근 방문</div><ul class="hist">${S.history.map((h, i) => `<li data-h="${i}">${esc(h.title)}<small>${esc(h.url)}</small></li>`).join("")}</ul></div>
-      <div class="sf-bar"><span class="pill">검색 또는 웹사이트 이름 입력</span></div>`;
-    bind("[data-f]", el => page(S.favorites[+el.dataset.f]));
-    bind("[data-h]", el => page(S.history[+el.dataset.h]));
+    document.body.classList.remove("dk");
+    body.innerHTML = `<div class="scroll nw"><div class="nw-mast"><b>${esc(S.paper || "뉴스")}</b></div><div class="nw-tabs"><span class="on">종합</span><span>국제</span><span>화제</span><span>생활</span><span>연예·문화</span></div>
+      <ul class="nw-list">${N.map((n, i) => `<li data-n="${i}" class="${n.image ? "big" : ""}">${n.image ? `<img src="${esc(n.image)}" alt="">` : ""}<div class="nw-t"><em>${esc(n.section || "")}</em><h3>${esc(n.title)}</h3><small>${esc(n.source)} · ${esc(n.time)}</small></div></li>`).join("")}</ul></div>
+      <div class="sf-bar"><span class="pill">🔒 ${esc(S.domain || "news")}</span></div>`;
+    bind("[data-n]", el => page(N[+el.dataset.n]));
   };
   const page = x => {
-    body.innerHTML = `<div class="scroll"><div class="page"><h2>${esc(x.title || x.name)}</h2>${esc(x.body)}</div></div><div class="sf-bar"><button class="back" style="padding:0">‹</button><span class="pill">🔒 ${esc(x.url)}</span></div>`;
+    body.innerHTML = `<div class="scroll nw"><div class="nw-mast"><b>${esc(S.paper || "뉴스")}</b></div><article class="nw-art"><em>${esc(x.section || "")}</em><h2>${esc(x.title)}</h2><div class="nw-meta">${esc(x.source)} · 입력 ${esc(x.time)}</div>${x.image ? `<img src="${esc(x.image)}" alt="">` : ""}${(x.body || []).map(t => `<p>${esc(t)}</p>`).join("")}</article></div><div class="sf-bar"><button class="back" style="padding:0">‹</button><span class="pill">🔒 ${esc(S.domain || "news")}</span></div>`;
     bind(".back", start);
   };
   start();
