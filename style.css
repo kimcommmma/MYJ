@@ -728,3 +728,19 @@ body.full .ph2{--st:64px}
 .ph2v .pv-s{scroll-snap-stop:always;contain:layout paint}
 .ph2v .pv-s img{-webkit-user-drag:none;pointer-events:none}
 .pv-strip i{transition:width .18s ease,height .18s ease,margin .18s ease}
+
+/* 사진첩 뷰어: 상하 UI 축소 → 사진 확대 */
+.pv-top{padding:calc(var(--st) - 6px) 12px 2px}
+.pv-b{width:34px;height:34px;font-size:15px}
+.pv-b svg{width:17px;height:17px}
+.pv-pill{min-width:128px;height:36px;border-radius:18px}
+.pv-pill b{font-size:13px}
+.pv-pill small{font-size:10.500px}
+.pv-strip{height:38px;gap:2px}
+.pv-strip i{width:17px;height:26px}
+.pv-strip i.on{width:34px;height:34px;margin:0 5px}
+.pv-bar{padding:2px 12px 14px}
+.pv-bar .pv-b{width:44px;height:44px}
+.pv-bar .pv-b svg{width:22px;height:22px}
+.pv-pill2{height:44px;gap:22px;padding:0 22px;border-radius:22px}
+.pv-pill2 svg{width:22px;height:22px}
