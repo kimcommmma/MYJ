@@ -8,7 +8,7 @@ const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { c
 (P.posts || []).forEach(x => { if (x.likedByRandom) x.likedBy = shuffle(P.contacts.filter(c => !c.hideStory && c.handle !== x.user).map(c => c.handle)).slice(0, x.likedByRandom); if (x.fixedComments || x.randomComments) { const pl = [...(x.commentPool || P.commentPool || []), ...(x.noFan ? [] : (P.fanPool || []))]; const n = x.randomComments || 0, k = n >= 4 ? 1 + Math.floor(Math.random() * 2) : 0, en = shuffle([...(x.enPool || P.enPool || [])]).slice(0, k); x.commentsList = [...(x.fixedComments || []), ...shuffle([...shuffle(pl).slice(0, n - en.length), ...en])]; } });
 const rich = t => esc(t).replace(/@[\w.]+/g, m => { const h = m.slice(1), ok = h === P.owner.handle || P.contacts.some(c => c.handle === h); return `<span class="tag"${ok ? ` data-go="profile:${h}" style="cursor:pointer"` : ""}>${m}</span>`; });
 const av = (p, cls = "") => `<span class="av ${cls}" style="background:${hue(p.name || p.handle)}">${p.photo ? `<img src="${esc(p.photo)}" alt="" onerror="this.remove()">` : ""}<b>${esc((p.name || p.handle)[0])}</b></span>`;
-const pic = src => src ? `<img class="pic" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic"></div>`;
+const pic = src => src ? `<img class="pic" loading="lazy" decoding="async" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic"></div>`;
 
 const app = $("#app"), body = $("#appbody");
 const bind = (sel, fn) => body.querySelectorAll(sel).forEach(el => el.onclick = () => fn(el));
@@ -72,7 +72,7 @@ function insta() {
   const top = () => stack[stack.length - 1];
   const imgs = x => (x.images && x.images.length ? x.images : x.image ? [x.image] : [""]);
   const num = v => v ?? 0;
-  const slide = (src, k) => src ? `<img class="pic" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic ph">${k}</div>`;
+  const slide = (src, k) => src ? `<img class="pic" loading="lazy" decoding="async" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic ph">${k}</div>`;
   const prof = h => { const p = person(h); return { ...p, display: p.display || p.name, mine: h === o.handle, posts: P.posts.filter(x => x.user === h) }; };
 
   const post = (x, k) => {
@@ -87,7 +87,7 @@ function insta() {
 
   const feed = () => `<div class="top"><span class="i-logo">Instagram</span></div>
     <div class="stories">${P.contacts.filter(c => !c.hideStory).map(c => `<div data-go="profile:${esc(c.handle)}">${av(c, "round")}<span class="n">${esc(c.handle)}</span></div>`).join("")}</div>
-    ${P.posts.map(post).join("")}`;
+    ${P.posts.map((x, i) => [x, i]).sort((a, b) => { const k = p => { const m = /(\d+)년\s*(\d+)월\s*(\d+)일/.exec(p.date || ""); return m ? +m[1] * 10000 + +m[2] * 100 + +m[3] : 0; }; return k(b[0]) - k(a[0]) || a[1] - b[1]; }).map(([x]) => post(x)).join("")}`;
 
   const profile = h => {
     const p = prof(h), list = p.posts, hl = p.highlights || [];
@@ -196,18 +196,21 @@ function insta() {
 /* 메모 */
 function memo() {
   const dl = n => n.date || "";
-  const pv = n => { const l = String(n.body || "").split("\n").find(x => x.trim()) || "추가 텍스트 없음"; return l; };
+  const pv = n => { const l = String(n.body || "").split("\n").find(x => x.trim()) || "추가 텍스트 없음"; return l.replace(/^\[( |x)\] ?/i, ""); };
   const list = () => {
     const pin = P.notes.map((n, i) => [n, i]).filter(([n]) => n.pinned), rest = P.notes.map((n, i) => [n, i]).filter(([n]) => !n.pinned);
     const sec = (t, a) => a.length ? `<h3 class="nt-h">${t}${t === "고정된 메모" ? '<i>⌄</i>' : ""}</h3><ul class="nt-card">${a.map(([n, i]) => `<li data-i="${i}"><b>${esc(n.title)}</b><small><span>${esc(dl(n))}</span>${esc(pv(n))}</small></li>`).join("")}</ul>` : "";
-    body.innerHTML = `<div class="nt"><div class="nt-top"><button class="ph-round">‹</button><div><b>메모</b><small>저장 공간이 가득 참</small></div><button class="ph-round">···</button></div>
+    body.innerHTML = `<div class="nt"><div class="nt-top"><button class="ph-round"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><path d="M15 5l-7 7 7 7"/></svg></button><div><b>메모</b><small>저장 공간이 가득 참</small></div><button class="ph-round">···</button></div>
       <div class="scroll nt-sc">${sec("고정된 메모", pin)}${sec(pin.length ? "이전 30일" : "메모", rest)}</div>
       <div class="nt-bar"><div class="nt-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.200"><circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/></svg>검색<svg viewBox="0 0 24 24" fill="currentColor" style="margin-left:auto"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2" fill="none"/></svg></div><button class="nt-n">✎</button></div></div>`;
     bind(".nt-card li", el => note(+el.dataset.i));
   };
   const note = i => {
     const n = P.notes[i];
-    body.innerHTML = `<div class="nt"><div class="nt-top"><button class="ph-round back">‹</button><div></div><button class="ph-round">···</button></div><div class="scroll nt-sc"><div class="nt-d">${esc(dl(n))}</div><h2 class="nt-t">${esc(n.title)}</h2><div class="note">${esc(n.body)}</div></div></div>`;
+    const lk = t => esc(t).replace(/(https?:\/\/[^\s<]+)/g, '<a class="nt-a" href="$1" target="_blank" rel="noopener">$1</a>');
+    const ln = String(n.body||"").split("\n").map(l => { const m = l.match(/^\[( |x)\] ?(.*)$/i); return m ? `<div class="nt-ck${m[1].toLowerCase() === "x" ? " on" : ""}"><i></i><span>${lk(m[2])}</span></div>` : (l.trim() ? `<div class="nt-ln">${lk(l)}</div>` : `<div class="nt-gap"></div>`); }).join("");
+    body.innerHTML = `<div class="nt nt-view"><div class="nt-top"><button class="ph-round back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.600" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><path d="M15 5l-7 7 7 7"/></svg></button><span class="nt-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M8 7l4-4 4 4M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg><b>···</b></span></div><div class="scroll nt-sc"><h2 class="nt-t${n.plainTitle ? " plain" : ""}">${esc(n.title)}</h2><div class="note nt-body">${ln}</div></div>
+      <div class="nt-bar nt-tools"><div class="nt-pill2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="7" r="2.600" fill="currentColor"/><path d="M12 7h8"/><circle cx="6" cy="17" r="2.600"/><path d="M12 17h8"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11l-8.500 8.500a5 5 0 0 1-7-7l9-9a3.400 3.400 0 0 1 5 5l-9 9a1.800 1.800 0 0 1-2.500-2.500l8-8"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.500 16l3.500-9 3.500 9M9.800 13h4.400"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="9" ry="3.800" transform="rotate(35 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.800" transform="rotate(-35 12 12)"/><path d="M15 20l5-5"/></svg></div><button class="nt-n"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><path d="M18.500 3.500a2.100 2.100 0 0 1 3 3L12 16l-4 1 1-4z"/></svg></button></div></div>`;
     bind(".back", list);
   };
   list();
@@ -256,12 +259,37 @@ function xapp() {
 
 /* 사진첩 */
 function photos() {
+  const IC = {"filter": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M4 7h16M7 12h10M10 17h4\"/></svg>", "photos": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M6 3h12a2 2 0 0 1 2 2v1H4V5a2 2 0 0 1 2-2zm-2.500 5h17A1.500 1.500 0 0 1 22 9.500v9A2.500 2.500 0 0 1 19.500 21h-15A2.500 2.500 0 0 1 2 18.500v-9A1.500 1.500 0 0 1 3.500 8zM6 18h12l-4-5-3 3.500L9 14z\"/></svg>", "stack": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\"><rect x=\"5\" y=\"3\" width=\"14\" height=\"2.600\" rx=\"1.300\"/><rect x=\"3.500\" y=\"7\" width=\"17\" height=\"2.600\" rx=\"1.300\"/><rect x=\"2\" y=\"11\" width=\"20\" height=\"10\" rx=\"2.600\"/></svg>", "search": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.400\" stroke-linecap=\"round\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M16.500 16.500L21 21\"/></svg>", "chev": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.600\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 5l-7 7 7 7\"/></svg>", "share": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 15V3M8 7l4-4 4 4M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1\"/></svg>", "heart": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\"><path d=\"M12 20.500s-8-4.800-8-11A4.500 4.500 0 0 1 12 7a4.500 4.500 0 0 1 8 2.500c0 6.200-8 11-8 11z\"/></svg>", "info": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><circle cx=\"12\" cy=\"12\" r=\"9.500\"/><path d=\"M12 11v6\"/><circle cx=\"12\" cy=\"7.500\" r=\".6\" fill=\"currentColor\"/></svg>", "adj": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M3 7h18M3 17h18\"/><circle cx=\"9\" cy=\"7\" r=\"2.500\" fill=\"#fff\"/><circle cx=\"15\" cy=\"17\" r=\"2.500\" fill=\"#fff\"/></svg>", "trash": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5M14 11v5\"/></svg>"};
+  const L = P.photos;
+  const R = L.map((x, i) => i).reverse(); /* 보이는 순서: 최신 → 오래된 */
   const grid = () => {
-    body.innerHTML = `<div class="top"><h1>사진</h1></div><div class="scroll"><div class="photos">${P.photos.map((x, i) => `<div data-i="${i}">${pic(x.image)}</div>`).join("")}</div></div>`;
-    bind("[data-i]", el => view(+el.dataset.i));
+    body.innerHTML = `<div class="ph2"><div class="ph2-sc"><div class="ph2-head"><h1>보관함</h1><small>${L.length.toLocaleString()}개의 항목</small></div><div class="ph2-grid">${R.map(i => `<div data-i="${i}">${pic(L[i].image)}</div>`).join("")}</div><div class="ph2-end"></div></div>
+      <div class="ph2-fade"></div><div class="ph2-btns"><span class="ph2-c">${IC.filter}</span><span class="ph2-c ph2-sel">선택</span></div>
+      <div class="ph2-tabs"><div class="ph2-tp"><span class="on">${IC.photos}<i>보관함</i></span><span>${IC.stack}<i>모음</i></span></div><span class="ph2-sr">${IC.search}</span></div></div>`;
+    bind(".ph2-grid [data-i]", el => view(R.indexOf(+el.dataset.i)));
   };
-  const view = i => {
-    body.innerHTML = `<div class="top"><button class="back">‹</button><h1>사진</h1></div><div class="viewer">${pic(P.photos[i].image)}</div>`;
+  const view = k0 => {
+    let cur = k0;
+    body.innerHTML = `<div class="ph2 ph2v"><div class="pv-top"><button class="pv-b back">${IC.chev}</button><div class="pv-pill"><b class="pv-d"></b><small class="pv-tm"></small></div><span class="pv-b">···</span></div>
+      <div class="pv">${R.map((i, k) => `<div class="pv-s">${L[i].image ? `<img loading="${Math.abs(k - k0) <= 1 ? "eager" : "lazy"}" decoding="async" src="${esc(L[i].image)}" alt="">` : ""}</div>`).join("")}</div>
+      <div class="pv-strip"></div>
+      <div class="pv-bar"><span class="pv-b">${IC.share}</span><div class="pv-pill2"><span class="pv-h">${IC.heart}</span><span>${IC.info}</span><span>${IC.adj}</span></div><span class="pv-b">${IC.trash}</span></div></div>`;
+    const pv = body.querySelector(".pv"), d = body.querySelector(".pv-d"), tm = body.querySelector(".pv-tm"), st = body.querySelector(".pv-strip");
+    const strip = () => {
+      const from = Math.max(0, cur - 7), to = Math.min(R.length - 1, cur + 7);
+      let h = "";
+      for (let k = from; k <= to; k++) { const x = L[R[k]]; h += `<i data-k="${k}" class="${k === cur ? "on" : ""}">${x.image ? `<img src="${esc(x.image)}" alt="">` : ""}</i>`; }
+      st.innerHTML = h;
+      st.querySelectorAll("i").forEach(el => el.addEventListener("click", () => pv.scrollTo({ left: +el.dataset.k * pv.clientWidth, behavior: "smooth" })));
+    };
+    const imgs = [...pv.querySelectorAll("img")];
+    const warm = () => { for (let k = cur - 2; k <= cur + 2; k++) if (imgs[k]) imgs[k].loading = "eager"; };
+    let stT = 0;
+    const upd = () => { const x = L[R[cur]] || {}; d.textContent = x.date || "사진"; tm.textContent = x.time || ""; tm.style.display = x.time ? "" : "none"; warm(); clearTimeout(stT); stT = setTimeout(strip, 120); };
+    const go = () => { pv.scrollLeft = k0 * pv.clientWidth; };
+    go(); requestAnimationFrame(go); upd();
+    pv.addEventListener("scroll", () => { const k = Math.round(pv.scrollLeft / (pv.clientWidth || 1)); if (R[k] !== undefined && k !== cur) { cur = k; upd(); } });
+    body.querySelector(".pv-h").addEventListener("click", e => e.currentTarget.classList.toggle("on"));
     bind(".back", grid);
   };
   grid();
@@ -535,7 +563,7 @@ fit(); addEventListener("resize", fit);
   let tr = null, x0 = 0, s0 = 0, moved = false, k = 1;
   document.addEventListener("pointerdown", e => {
     if (e.pointerType !== "mouse") return;
-    const t = e.target.closest(".ig-track"); if (!t) return;
+    const t = e.target.closest(".ig-track, .pv"); if (!t) return;
     tr = t; x0 = e.clientX; s0 = t.scrollLeft; moved = false; k = t.getBoundingClientRect().width / t.offsetWidth || 1;
   });
   document.addEventListener("pointermove", e => {
