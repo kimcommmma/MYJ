@@ -277,7 +277,7 @@ function xapp() {
   };
   const draw = () => {
     const ts = (X.tweets || []).filter(t => t.tab === "both" || (t.tab || "for") === tab);
-    body.innerHTML = `<div class="x"><div class="x-top"><span class="x-me">${av(P.owner, "round")}</span><span class="x-logo">${ic.logo}</span></div>
+    body.innerHTML = `<div class="x"><div class="x-top"><span class="x-me">${av({ ...P.owner, name: "X", photo: (P.x && P.x.avatar) || P.owner.photo }, "round")}</span><span class="x-logo">${ic.logo}</span></div>
       <div class="x-tabs"><button data-t="for" class="${tab === "for" ? "on" : ""}"><span>추천</span></button><button data-t="fol" class="${tab === "fol" ? "on" : ""}"><span>팔로우 중</span></button></div>
       <div class="scroll x-feed">${ts.map(card).join("") || '<p class="x-em">게시물이 없습니다</p>'}</div>
       <button class="x-fab">+</button>

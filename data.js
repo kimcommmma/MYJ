@@ -2613,7 +2613,7 @@ const PHONE = {
 
   // X: tab "for" = 추천, "fol" = 팔로우 중 (상단 탭은 이 두 개만 뜸). user는 등장인물 아이디(없으면 이름 첫 글자 프로필)
   // tab: "for"(추천) / "fol"(팔로우 중) / "both"(둘 다). 팔로우 중 = 민여주 관련만
-  x: { tweets: [
+  x: { avatar: "images/x-me.jpg", tweets: [
       {
         "tab": "for",
         "name": "도영이네 붕어빵",
