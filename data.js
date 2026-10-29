@@ -15,7 +15,7 @@ const PHONE = {
     { name: "이해찬", handle: "haechanahceah", emergency: true, phoneName: "쪼푸", phone: "010-2000-0606", photo: "images/haechan.jpg", followingList: ["do0_ye0", "_jeongjaehyun", "yeoju_kr", "na.jaemin0813", "sugaringcandy", "leejen_o_423", "the__and.y", "sihyeon_45", "zoo_yet", "tt_yun_12", "korea_sentinel.guide_center"], followers: "513만", following: 11, bio: "🐻" },
     { name: "이제노", handle: "leejen_o_423", emergency: true, phoneName: "젠뭉이", phone: "010-2000-0423", photo: "images/jeno.jpg", followingList: ["do0_ye0", "_jeongjaehyun", "yeoju_kr", "na.jaemin0813", "sugaringcandy", "haechanahceah", "the__and.y", "zoo_yet", "tt_yun_12", "korea_sentinel.guide_center"], followers: "712만", following: 32 },
     { name: "박지성", handle: "the__and.y", emergency: true, phoneName: "🐹🐣", phone: "010-2002-0205", photo: "images/jisung.jpg", followingList: ["do0_ye0", "_jeongjaehyun", "yeoju_kr", "na.jaemin0813", "sugaringcandy", "leejen_o_423", "korea_sentinel.guide_center"], followers: "509만", following: 7, bio: "EZzz 😴" },
-    { name: "나재민", handle: "na.jaemin0813", emergency: true, phoneName: "사랑하는 재민이♥️", phone: "010-2000-0813", photo: "images/jaemin.jpg", followingList: ["yeoju_kr", "korea_sentinel.guide_center"], followers: "849만", following: 2, bio: "누나🥰" },
+    { name: "나재민", handle: "na.jaemin0813", emergency: true, phoneName: "사랑하는 재민이♥️", phone: "010-2000-0813", photo: "images/jaemin.jpg", followingList: ["yeoju_kr"], followers: "849만", following: 1, bio: "누나🥰" },
     { name: "김주연", handle: "zoo_yet", phoneName: "김주연", phone: "010-1997-1104", photo: "images/zooyeon.jpg", followingList: ["sihyeon_45", "yeoju_kr", "korea_sentinel.guide_center"], followers: "49만", following: 8, bio: "센터 1팀 팀장" },
     { name: "황인준", handle: "yellow_3to3", phoneName: "황인준 비서", phone: "010-2000-0323", photo: "images/injun.jpg", followingList: ["yeoju_kr", "leejen_o_423", "haechanahceah", "the__and.y", "do0_ye0", "_jeongjaehyun", "sugaringcandy", "sihyeon_45", "zoo_yet", "tt_yun_12", "korea_sentinel.guide_center"], followers: "121", following: 88, bio: "@korea_sentinel.guide_center" },
     { name: "송시현", handle: "sihyeon_45", phoneName: "시현이", phone: "010-1998-0921", photo: "images/sihyeon.jpg", followingList: ["yeoju_kr", "zoo_yet", "korea_sentinel.guide_center"], followers: "21만", following: 8, bio: "1팀 가이드" },
@@ -107,6 +107,33 @@ const PHONE = {
       { user: "ppomi_j", text: "보고 싶다고 하면 가야지..." },
       { user: "saebyeok_2am", text: "화면 속 재민님 너무 예쁨" },
       { user: "sleepy.bear_", text: "오늘도 영통하나보다 부럽다" } ] },
+    { user: "na.jaemin0813", images: ["images/jaemin-post17-1.jpg", "images/jaemin-post17-2.jpg"], music: "", caption: "일 끝나고 누나가 찍어줌♥️", likes: "35.3만", likedBy: ["yeoju_kr"], comments: "5,140", reposts: "1.8만", shares: "5.0만", date: "2031년 9월 5일", randomComments: 12,
+      enPool: [
+        { user: "0hjin__", text: "the stadium view is gorgeous" },
+        { user: "ssu_ah", text: "he looks so good in glasses" },
+        { user: "adkatotoy", text: "she takes the best photos of him 🥹" },
+        { user: "d_a_hye", text: "black tank top and that necklace 😭" } ],
+      commentPool: [
+      { user: "rabbit_moon22", text: "검정 민소매에 안경 미쳤다" },
+      { user: "noona_s2", text: "경기장 배경이랑 너무 잘 어울린다" },
+      { user: "ddomi_ee", text: "누나가 찍어줬다는 말이 더 설렌다" },
+      { user: "b_ri_n_", text: "일 끝나고 경기장 간 거예요??" },
+      { user: "d.o.o.ri", text: "파란 좌석이랑 초록 잔디 색감 대박" },
+      { user: "kk_ami", text: "팔 근육 반칙이다" },
+      { user: "yesstand", text: "목걸이 너무 예쁘다" },
+      { user: "znbutt", text: "두번째 사진 서 있는 포즈 너무 멋있다" },
+      { user: "bbang_e0", text: "하늘 색감이 그림 같다" },
+      { user: "shk_9.0", text: "여주님 사진 실력 인정" },
+      { user: "ara.ra_", text: "저장함" },
+      { user: "ina_0111", text: "재민님 안경 쓴 모습 오랜만이다" },
+      { user: "mmm.in_", text: "옆모습이 너무 잘생겼다" },
+      { user: "soheelove", text: "경기장이 오사카인가요?" },
+      { user: "nana_lov3", text: "관람차 보이는 배경 좋다" },
+      { user: "tmddus_", text: "사진 화보 같다" },
+      { user: "pink.lemonade_", text: "누나가 찍어주면 이렇게 나오는 거구나" },
+      { user: "q0___opa", text: "올 때마다 사진 분위기 좋다" },
+      { user: "9ho_o_", text: "일 끝나고도 이렇게 멋있다니" },
+      { user: "ssoong_i", text: "재민님 오늘도 잘생겼어요" } ] },
     { user: "na.jaemin0813", images: ["images/jaemin-post15-1.jpg", "images/jaemin-post15-2.jpg", "images/jaemin-post15-3.jpg", "images/jaemin-post15-4.jpg", "images/jaemin-post15-5.jpg", "images/jaemin-post15-6.jpg", "images/jaemin-post15-7.jpg"], music: "", caption: "누나랑 여행♥️", likes: "35.1만", likedBy: ["yeoju_kr", "do0_ye0"], comments: "5,100", reposts: "1.8만", shares: "5.0만", date: "2031년 8월 30일",
       fixedComments: [
         { user: "the__and.y", text: "맛있는 거 많이 먹었네ㅋㅋ" } ], randomComments: 12, noFan: true,
@@ -136,6 +163,73 @@ const PHONE = {
       { user: "hyeon.__s", text: "올 때마다 사진 분위기 좋다" },
       { user: "saebyeok_2am", text: "누나랑 여행이라는 말이 너무 좋다" },
       { user: "cheese_cake99", text: "다음 여행 사진도 기다릴게요" } ] },
+    { user: "na.jaemin0813", images: ["images/jaemin-post16.jpg"], music: "", caption: "짐을 왜 이렇게 많이 싸가! 이번에는 연락 꼬박꼬박 잘하기 @yeoju_kr", likes: "35.0만", likedBy: ["yeoju_kr", "sihyeon_45"], comments: "5,080", reposts: "1.8만", shares: "4.9만", date: "2031년 8월 26일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "잘 놀다 올게~!" },
+        { user: "na.jaemin0813", reply: true, text: "@yeoju_kr 신났지, 아주?" },
+        { user: "zoo_yet", reply: true, text: "@na.jaemin0813 신나지 그럼 안 신나냐?" },
+        { user: "na.jaemin0813", reply: true, text: "@zoo_yet 누나도 연락 잘 해" },
+        { user: "zoo_yet", reply: true, text: "@na.jaemin0813 나는 왜" },
+        { user: "na.jaemin0813", reply: true, text: "@zoo_yet 여주 누나 연락 잘 안 되면 누나한테 연락할거니까" },
+        { user: "zoo_yet", reply: true, text: "@na.jaemin0813 좀 놀자;ㅡㅡ" } ], randomComments: 12,
+      enPool: [
+        { user: "inee_pd", text: "packing his suitcase is so cute 😂" },
+        { user: "b_ri_n_", text: "his smile is so bright" },
+        { user: "hyeri_0215", text: "the room decor is so aesthetic" },
+        { user: "juwon_ii", text: "the comment thread is hilarious" } ],
+      commentPool: [
+      { user: "me_lon_pop", text: "짐 싸면서 웃는 거 너무 귀엽다" },
+      { user: "moonj0", text: "캐리어 안에 옷이 정말 많네요 ㅋㅋㅋ" },
+      { user: "20030107", text: "흰 니트 가디건 너무 잘 어울린다" },
+      { user: "u_u_ri", text: "핑크 가디건이랑 초록 니트 색감 예쁘다" },
+      { user: "ddd_dong2", text: "방 인테리어 너무 감성이다" },
+      { user: "0hjin__", text: "옛날 전화기 소품 귀엽다" },
+      { user: "g_ee_un", text: "재민님 금발 되게 잘 어울려요" },
+      { user: "oli.oli.you", text: "여행 가기 전에 설레는 얼굴이다" },
+      { user: "rin_0614", text: "연락 꼬박꼬박 잘하라는 말 귀엽다 ㅋㅋㅋ" },
+      { user: "h_y_u_n_n", text: "주연님 댓글 싸움 ㅋㅋㅋㅋ" },
+      { user: "wooo_zin", text: "저장함" },
+      { user: "_sanasphere_", text: "좀 놀자 ㅋㅋㅋㅋ 주연님 웃기다" },
+      { user: "tanguri_i", text: "어디 여행 가는 거예요??" },
+      { user: "znbutt", text: "재민님 웃는 옆모습 반칙" },
+      { user: "ssu_ah", text: "누나 챙기는 말투 너무 다정하다" },
+      { user: "ga._.young3", text: "짐 다 싸고 여주님이랑 출발이겠죠" },
+      { user: "q0___opa", text: "사진 분위기 완전 화보 같다" },
+      { user: "eunbi.k0", text: "올 때마다 사진 분위기 좋다" },
+      { user: "binzzse", text: "저 초록 포스터 어디꺼예요" },
+      { user: "wldms_", text: "여행 사진 기대할게요" } ] },
+    { user: "na.jaemin0813", images: ["images/jaemin-post18-1.jpg", "images/jaemin-post18-2.jpg", "images/jaemin-post18-3.jpg"], music: "", caption: "즐거웠다♥️", likes: "34.7만", likedBy: ["haechanahceah", "_jeongjaehyun"], comments: "5,030", reposts: "1.7만", shares: "4.8만", date: "2031년 8월 7일",
+      fixedComments: [
+        { user: "haechanahceah", text: "원본 좀" },
+        { user: "_jeongjaehyun", text: "잘 나왔네" },
+        { user: "yeoju_kr", text: "내가 찍어준 사진도 올리지!" },
+        { user: "na.jaemin0813", reply: true, text: "@yeoju_kr 개인 소장할래♥️" } ], randomComments: 12,
+      enPool: [
+        { user: "min.zzzy_", text: "these blurry shots are so aesthetic" },
+        { user: "swarmplace", text: "his point of view of her 🥹" },
+        { user: "u_u_ri", text: "the sunset photo is stunning" },
+        { user: "znbutt", text: "personal collection 😂 so sweet" } ],
+      commentPool: [
+      { user: "eunbi.k0", text: "여주님 사진만 올리신 거예요 ㅋㅋㅋ" },
+      { user: "moonj0", text: "흔들린 사진이 더 감성이다" },
+      { user: "nyang_e0", text: "바람에 날리는 머리 너무 예쁘다" },
+      { user: "ssoong_i", text: "두번째 사진 밤에 웃는 거 귀엽다" },
+      { user: "wooo_zin", text: "세번째 사진 노을빛 분위기 대박" },
+      { user: "hnn_ny_", text: "재민님이 찍은 사진인가요??" },
+      { user: "kk_ami", text: "개인 소장할래 라는 말 너무 설렌다" },
+      { user: "20030107", text: "해찬님 원본 요구 ㅋㅋㅋㅋ" },
+      { user: "i_ke_ai", text: "여주님이 찍어준 사진도 올리라는 댓글 웃기다" },
+      { user: "mmm.in_", text: "청재킷 너무 잘 어울린다" },
+      { user: "daraelvira", text: "저장함" },
+      { user: "binzzse", text: "즐거웠다 한마디에 설레는 중" },
+      { user: "ppaengi_", text: "누구 사진인지 알겠다 ㅋㅋㅋ" },
+      { user: "numbingsolace", text: "검정 티에 팔짱 낀 포즈 멋있다" },
+      { user: "ryanhan_hdh", text: "역광이라 더 분위기 있다" },
+      { user: "dalgona_min", text: "세 장 다 느낌이 달라서 좋다" },
+      { user: "gaeul_ddi", text: "재민님 시선으로 보는 여주님 같다" },
+      { user: "d.o.o.ri", text: "올 때마다 사진 분위기 좋다" },
+      { user: "aa959335", text: "즐거운 시간 보내셨나봐요" },
+      { user: "tanguri_i", text: "다음 사진도 기다릴게요" } ] },
     { user: "na.jaemin0813", images: ["images/jaemin-post14.jpg"], music: "", caption: "잘자 누나", likes: "34.9만", likedBy: ["haechanahceah", "do0_ye0"], comments: "5,070", reposts: "1.8만", shares: "4.9만", date: "2031년 7월 25일",
       fixedComments: [
         { user: "_jeongjaehyun", text: "방에서 나와라" },
@@ -196,6 +290,35 @@ const PHONE = {
       { user: "yuuj1n", text: "올 때마다 사진 분위기 좋다" },
       { user: "s.a.r.a.h", text: "누나랑 백화점 가는 게 부럽다" },
       { user: "0hjin__", text: "재민님 오늘도 잘생겼어요" } ] },
+    { user: "na.jaemin0813", images: ["images/jaemin-post19.jpg"], music: "", caption: "사랑해", likes: "34.5만", likedBy: ["yeoju_kr"], comments: "5,000", reposts: "1.7만", shares: "4.7만", date: "2031년 6월 12일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "♥️" } ], randomComments: 12, noFan: true,
+      enPool: [
+        { user: "jj_myjh_0513", text: "this cozy photo is so warm 🥹" },
+        { user: "jisoo.ya_", text: "simple 'I love you' says it all" },
+        { user: "i_ke_ai", text: "her heart reply is so cute" },
+        { user: "d_a_hye", text: "the blanket looks so soft" } ],
+      commentPool: [
+      { user: "sonyeon_k", text: "사랑해 한마디에 심장 아프다 ㅠㅠ" },
+      { user: "almadegato._", text: "담요 덮고 누워 있는 사진 너무 포근하다" },
+      { user: "yesstand", text: "무릎 베고 누운 거 맞죠 ㅠㅠㅠ" },
+      { user: "pink.lemonade_", text: "여주님 ♥️ 답글 설렌다" },
+      { user: "yulinar_sarii", text: "갈색 담요 질감 너무 따뜻해 보인다" },
+      { user: "1004_jina", text: "보라색 후드랑 남색 맨투맨 색감 예쁘다" },
+      { user: "swarmplace", text: "이런 일상 사진이 제일 좋다" },
+      { user: "mnmn_0924", text: "누가 찍은 시점인지 궁금하다" },
+      { user: "coco.ya_", text: "머리카락만 보이는데도 설렌다" },
+      { user: "u_u_ri", text: "사랑해라는 말을 이렇게 간단히 쓰는 게 더 와닿는다" },
+      { user: "0hjin__", text: "저장함" },
+      { user: "yeseo_51", text: "바닥 타일 분위기 좋다" },
+      { user: "nari_nari_0", text: "조용한 휴일 같은 사진이다" },
+      { user: "aa959335", text: "재민님 사랑 표현 너무 좋다" },
+      { user: "ara.ra_", text: "여주님도 ♥️ 하나로 답하는 거 귀엽다" },
+      { user: "9ho_o_", text: "오늘도 두 사람 보고 힐링한다" },
+      { user: "moonj0", text: "올 때마다 사진 분위기 좋다" },
+      { user: "wooo_zin", text: "둘이 오래갔으면 좋겠다" },
+      { user: "gogonoon_", text: "담요 속으로 들어가고 싶다" },
+      { user: "ppomi_j", text: "따뜻한 사진 감사합니다" } ] },
     { user: "na.jaemin0813", images: ["images/jaemin-post5.jpg"], music: "", caption: "바람 쐬러 버스 여행. 누나, 재밌어?", likes: "34.1만", likedBy: ["yeoju_kr"], comments: "4,930", reposts: "1.7만", shares: "4.6만", date: "2031년 5월 24일",
       fixedComments: [
         { user: "yeoju_kr", text: "재밌었어! 사람들 없는 시간대에 또 가자" },
@@ -529,6 +652,37 @@ const PHONE = {
       { user: "lalaland_95", text: "완전 필름 감성 ㅠㅠ" },
       { user: "bbang_e0", text: "두 사람 사이 좋은 거 보면 흐뭇하다" },
       { user: "yulinar_sarii", text: "오늘도 재민님 보고 힐링해요" } ] },
+    { user: "the__and.y", images: ["images/jisung-post3.jpg"], music: "", caption: "생일 축하해", likes: "19.0만", likedBy: ["yeoju_kr", "do0_ye0"], comments: "2,490", reposts: "6,980", shares: "2.1만", date: "2031년 6월 12일",
+      fixedComments: [
+        { user: "haechanahceah", text: "너가 찍었냐?" },
+        { user: "the__and.y", reply: true, text: "@haechanahceah 단톡방에 사진 올림ㄱㄱ" },
+        { user: "yeoju_kr", text: "고마워 지성이" } ], randomComments: 12,
+      enPool: [
+        { user: "swarmplace", text: "happy birthday! 🎂" },
+        { user: "sseulssul_", text: "the sunlight in her hair is so pretty" },
+        { user: "d_a_hye", text: "love that pearl and flower hair clip" },
+        { user: "ppomi_j", text: "such a sweet birthday post" } ],
+      commentPool: [
+      { user: "guiltyouu", text: "생일 축하해 한마디가 너무 다정하다" },
+      { user: "juwon_ii", text: "바람에 날리는 머리카락 영화 같다" },
+      { user: "g_ee_un", text: "하늘색 니트 너무 잘 어울린다" },
+      { user: "soo_bin119", text: "햇빛 아래 분위기 미쳤다" },
+      { user: "nyang_e0", text: "여주님 생일인가요?? 축하해요" },
+      { user: "tmddus_", text: "진주 귀걸이랑 꽃 머리핀 예쁘다" },
+      { user: "choi.yul_", text: "지성님이 찍은 거예요 아니면 단톡 사진?" },
+      { user: "sky_ee_e", text: "해찬님 너가 찍었냐 ㅋㅋㅋ" },
+      { user: "tanguri_i", text: "단톡방 사진 궁금하다 ㅠㅠ" },
+      { user: "numbingsolace", text: "사진 색감이 완전 화보다" },
+      { user: "haribo_jelly7", text: "저장함" },
+      { user: "0hjin__", text: "여주님 고마워 지성이 댓글 귀엽다" },
+      { user: "dduck.bokki_", text: "체인 가방 너무 예쁘다" },
+      { user: "wooo_zin", text: "오늘 6월 12일이 생일이구나" },
+      { user: "sj_0705", text: "생일 사진은 이렇게 올리는 거구나" },
+      { user: "yesstand", text: "햇살 받은 머리색이 너무 예쁘다" },
+      { user: "9ho_o_", text: "지성님 센스 있다" },
+      { user: "nari_nari_0", text: "올 때마다 사진 분위기 좋다" },
+      { user: "rnrbwjdrn", text: "생일 축하 게시물 너무 설렌다" },
+      { user: "h_y_u_n_n", text: "여주님 오늘도 예뻐요" } ] },
     { user: "the__and.y", images: ["images/jisung-post2.jpg"], music: "", caption: "@yeoju_kr 누나 빨리 와ㅋㅋ 재민이 형 화났음", likes: "19.2만", likedBy: ["do0_ye0", "_jeongjaehyun"], comments: "2,520", reposts: "7,050", shares: "2.2만", date: "2031년 4월 20일",
       fixedComments: [
         { user: "na.jaemin0813", text: "나 화 안 났어ㅎㅎ" },
@@ -620,6 +774,35 @@ const PHONE = {
       { user: "akswqrzx", text: "저도 산책하고싶다" },
       { user: "wldms_", text: "와...." },
       { user: "20030107", text: "귀엽다 ㅋㅋㅋ" } ] },
+    { user: "leejen_o_423", images: ["images/jeno-post3.jpg"], music: "", caption: "", likes: "31.2만", likedBy: ["yeoju_kr"], comments: "4,590", reposts: "1.5만", shares: "4.4만", date: "2031년 6월 12일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "산책 가자 강아지" } ], randomComments: 12, noFan: true,
+      enPool: [
+        { user: "oli.oli.you", text: "holding hands in a movie theater, so sweet" },
+        { user: "b_ri_n_", text: "that ring on the finger 🥹" },
+        { user: "ruuouyyyyy", text: "the mood of this photo is perfect" },
+        { user: "coco.ya_", text: "love the dark cinematic vibe" } ],
+      commentPool: [
+        { user: "juwon_ii", text: "손 잡고 있는 거 너무 설렌다" },
+        { user: "dduck.bokki_", text: "영화관 데이트인가요 ㅠㅠ" },
+        { user: "eunbi.k0", text: "반지 낀 손이 보이는데 누구 손이에요" },
+        { user: "1004_jina", text: "캡션 없어도 분위기가 다 말해주네" },
+        { user: "tmddus_", text: "어두운 극장 감성 미쳤다" },
+        { user: "chaee.n_", text: "손 크기 차이 너무 좋다" },
+        { user: "wooo_zin", text: "제노님 이런 사진도 올리시네요" },
+        { user: "h_y_u_n_n", text: "팝콘 대신 음료만 있는 것도 귀엽다" },
+        { user: "_sanasphere_", text: "오늘 6월 12일 여주님 생일이네요 축하해요" },
+        { user: "pureureun", text: "맞잡은 손 사진 심장 아프다" },
+        { user: "haribo_jelly7", text: "저장함" },
+        { user: "j0n_g_m1n", text: "댓글 산책 가자 강아지 ㅋㅋㅋㅋ" },
+        { user: "ye0rm__", text: "강아지라니 제노님 귀엽다" },
+        { user: "nari_nari_0", text: "검정 흰색 옷 조합 예쁘다" },
+        { user: "ssu_ah", text: "팔걸이 위에서 손잡는 거 너무 설레요" },
+        { user: "juhee_ing", text: "영화 뭐 봤는지 궁금하다" },
+        { user: "rin_0614", text: "둘이 오래오래 행복하세요" },
+        { user: "yuuj1n", text: "손만 나왔는데 분위기 영화 같다" },
+        { user: "9ho_o_", text: "올릴 때마다 감성 터진다" },
+        { user: "sj_0705", text: "다음 사진도 기다릴게요" } ] },
     { user: "leejen_o_423", images: ["images/jeno-post1-1.jpg", "images/jeno-post1-2.jpg", "images/jeno-post1-3.jpg", "images/jeno-post1-4.jpg"], music: "", caption: "가오슝!", likes: "30.1만", likedBy: ["na.jaemin0813", "the__and.y"], comments: "4,120", reposts: "1.3만", shares: "3.9만", date: "2031년 4월 27일",
       fixedComments: [
         { user: "the__and.y", text: "오 웬일로 사진을 올렸어?" },
@@ -656,7 +839,7 @@ const PHONE = {
       { user: "yeseo_51", text: "와...." },
       { user: "eun_weety", text: "여행 잘 다녀오세요" },
       { user: "noona_s2", text: "좋다 진짜" } ] },
-    { user: "do0_ye0", images: ["images/doyoung-post3.jpg"], music: "", caption: "여주랑", likes: "21.3만", comments: "3,247", reposts: "9,130", shares: "3.1만", date: "2031년 9월 5일", randomComments: 10, noFan: true,
+    { user: "do0_ye0", images: ["images/doyoung-post3.jpg"], music: "", caption: "여주랑", likes: "21.3만", likedBy: ["yeoju_kr"], comments: "3,247", reposts: "9,130", shares: "3.1만", date: "2031년 9월 5일", randomComments: 10, noFan: true,
       enPool: [
         { user: "sseulssul_", text: "that beer looks so good 🍺" },
         { user: "hnn_ny_", text: "cheers" },
@@ -702,6 +885,35 @@ const PHONE = {
       { user: "ddomi_ee", text: "보기 좋다🤍" },
       { user: "soo_bin119", text: "저장함" },
       { user: "ara.ra_", text: "😍😍" } ] },
+    { user: "do0_ye0", images: ["images/doyoung-post5.jpg"], music: "", caption: "🌻", likes: "21.0만", likedBy: ["yeoju_kr"], comments: "3,150", reposts: "9,050", shares: "3.0만", date: "2031년 6월 12일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "고마워 도영잉🌻" } ], randomComments: 12, noFan: true,
+      enPool: [
+        { user: "oli.oli.you", text: "sunflowers are the best 🌻" },
+        { user: "b_ri_n_", text: "what a sweet birthday gift" },
+        { user: "ruuouyyyyy", text: "love the kraft paper wrapping" },
+        { user: "coco.ya_", text: "this photo has such a cozy mood" } ],
+      commentPool: [
+      { user: "juwon_ii", text: "해바라기 꽃다발 너무 예쁘다" },
+      { user: "dduck.bokki_", text: "노란색이 이렇게 설렐 일이야" },
+      { user: "eunbi.k0", text: "누구한테 주는 꽃다발이에요?" },
+      { user: "1004_jina", text: "여주님이 받은 거네요 ㅠㅠ" },
+      { user: "tmddus_", text: "뒷모습만 나와도 분위기 미쳤다" },
+      { user: "chaee.n_", text: "회색 후드랑 해바라기 색 대비 좋다" },
+      { user: "wooo_zin", text: "도영님 센스 있다" },
+      { user: "h_y_u_n_n", text: "크라프트지 포장 감성이다" },
+      { user: "_sanasphere_", text: "오늘 6월 12일 여주님 생일이죠 축하해요" },
+      { user: "pureureun", text: "꽃다발 사이에 유칼립투스 예쁘다" },
+      { user: "haribo_jelly7", text: "저장함" },
+      { user: "j0n_g_m1n", text: "도영님이 준 꽃다발이면 감동이다" },
+      { user: "ye0rm__", text: "고마워 도영잉이라니 귀엽다 ㅠㅠ" },
+      { user: "nari_nari_0", text: "해바라기 꽃말이 뭐더라 설렌다" },
+      { user: "ssu_ah", text: "쇼핑몰 안에서 찍은 건가요" },
+      { user: "juhee_ing", text: "이 사진 분위기 영화 같다" },
+      { user: "rin_0614", text: "여주님 긴 생머리 너무 예쁘다" },
+      { user: "yuuj1n", text: "올 때마다 사진 분위기 좋다" },
+      { user: "9ho_o_", text: "도영님 꽃 선물 센스 인정" },
+      { user: "sj_0705", text: "다음에도 이런 사진 올려주세요" } ] },
     { user: "do0_ye0", images: ["images/doyoung-post4.jpg"], music: "", caption: "밥 먹고 산책~", likes: "23.1만", likedBy: ["na.jaemin0813", "_jeongjaehyun"], comments: "3,402", reposts: "1.0만", shares: "3.2만", date: "2031년 4월 1일",
       fixedComments: [
         { user: "leejen_o_423", text: "나랑 산책하기로 했으면서" },
@@ -781,6 +993,38 @@ const PHONE = {
       { user: "dalgona_min", text: "건배 ㅠㅠㅠ 저도 하고싶다" },
       { user: "mnmn_0924", text: "와...." },
       { user: "adkatotoy", text: "여주님 사진 잘 찍는다" } ] },
+    { user: "_jeongjaehyun", images: ["images/jaehyun-post5.jpg"], music: "", caption: "평생 업어줄게", likes: "32.6만", likedBy: ["yeoju_kr"], comments: "4,480", reposts: "1.4만", shares: "4.3만", date: "2031년 6월 12일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "오늘 퇴근길 ㄱㄱ" },
+        { user: "_jeongjaehyun", reply: true, text: "@yeoju_kr 당연하지 사무실로 가?" },
+        { user: "yeoju_kr", reply: true, text: "@_jeongjaehyun 농담이야" },
+        { user: "_jeongjaehyun", reply: true, text: "@yeoju_kr 난 아니야" } ], randomComments: 12, noFan: true,
+      enPool: [
+        { user: "oli.oli.you", text: "a piggyback ride shadow, so sweet" },
+        { user: "b_ri_n_", text: "that golden light is stunning" },
+        { user: "ruuouyyyyy", text: "forever is a big promise 🥹" },
+        { user: "coco.ya_", text: "love this silhouette shot" } ],
+      commentPool: [
+      { user: "juwon_ii", text: "그림자만 봐도 업혀있는 거 보인다" },
+      { user: "dduck.bokki_", text: "평생 업어준다니 심장 아파요" },
+      { user: "eunbi.k0", text: "노을 색감 미쳤다" },
+      { user: "1004_jina", text: "저 팔 번쩍 든 거 너무 귀엽다ㅠㅠ" },
+      { user: "tmddus_", text: "그림자 사진 감성 최고" },
+      { user: "chaee.n_", text: "재현님이 이런 멘트를 하다니" },
+      { user: "wooo_zin", text: "평생이라니 책임질 수 있는 거죠" },
+      { user: "h_y_u_n_n", text: "여주님 신났다 ㅋㅋㅋ" },
+      { user: "_sanasphere_", text: "오늘 여주님 생일 맞죠 축하해요" },
+      { user: "pureureun", text: "이런 데이트 부럽다" },
+      { user: "haribo_jelly7", text: "저장함" },
+      { user: "j0n_g_m1n", text: "브이 하는 손 너무 귀여워요" },
+      { user: "ye0rm__", text: "업어주는 재현님 상상된다" },
+      { user: "nari_nari_0", text: "캡션 보고 심쿵" },
+      { user: "ssu_ah", text: "주황빛 길 너무 예쁘다" },
+      { user: "juhee_ing", text: "이거 영화 한 장면 같아요" },
+      { user: "rin_0614", text: "둘이 오래오래 행복해요" },
+      { user: "yuuj1n", text: "그림자인데도 설렌다" },
+      { user: "9ho_o_", text: "퇴근길 데이트였나 보다" },
+      { user: "sj_0705", text: "다음엔 얼굴도 보여주세요" } ] },
     { user: "_jeongjaehyun", images: ["images/jaehyun-post3.jpg"], music: "", caption: "이런 사진을 원했던거잖아", likes: "32.0만", likedBy: ["na.jaemin0813", "leejen_o_423"], comments: "4,460", reposts: "1.4만", shares: "4.3만", date: "2031년 4월 11일",
       fixedComments: [
         { user: "yeoju_kr", text: "애매하긴한데" },
@@ -965,6 +1209,38 @@ const PHONE = {
       { user: "9ho_o_", text: "설렌다 진짜" },
       { user: "bbang_e0", text: "주연님 사진 취향 좋다" },
       { user: "fjejwizis", text: "둘이 친해보여요" } ] },
+    { user: "zoo_yet", images: ["images/zooyeon-post8.jpg"], music: "", caption: "생축하", likes: "1.9만", likedBy: ["yeoju_kr", "haechanahceah"], comments: "258", reposts: "694", shares: "1,118", date: "2031년 6월 12일",
+      fixedComments: [
+        { user: "haechanahceah", text: "맨날 둘이 저러고 노냐" },
+        { user: "zoo_yet", reply: true, text: "@haechanahceah 노냐는 반말이고" },
+        { user: "haechanahceah", reply: true, text: "@zoo_yet 노십니까?" },
+        { user: "sihyeon_45", reply: true, text: "@haechanahceah 안 다치는 게 어디야~" } ], randomComments: 12, noFan: true,
+      enPool: [
+        { user: "oli.oli.you", text: "happy birthday! love the traffic cone hats 😂" },
+        { user: "b_ri_n_", text: "what is happening in this photo lol" },
+        { user: "ruuouyyyyy", text: "best friends energy" },
+        { user: "coco.ya_", text: "that street light glow is so pretty" } ],
+      commentPool: [
+        { user: "juwon_ii", text: "머리에 고깔 쓰고 뭐하는 거예요 ㅋㅋㅋ" },
+        { user: "dduck.bokki_", text: "저 콘 어디서 구했어요" },
+        { user: "eunbi.k0", text: "주연님 생일 축하드려요🎂" },
+        { user: "1004_jina", text: "둘이 노는 모습이 너무 웃기다" },
+        { user: "tmddus_", text: "밤 감성인데 콘이라 웃음 터짐" },
+        { user: "chaee.n_", text: "가로등 빛 번진 것도 분위기 있다" },
+        { user: "wooo_zin", text: "누구랑 같이 찍은 거예요?" },
+        { user: "h_y_u_n_n", text: "생축하 ㅋㅋㅋ 캡션 간결해서 좋다" },
+        { user: "pureureun", text: "오늘 6월 12일 여주님 생일이기도 하네요" },
+        { user: "haribo_jelly7", text: "저장함" },
+        { user: "j0n_g_m1n", text: "댓글 존댓말 지적하는 거 웃기다" },
+        { user: "ye0rm__", text: "해찬님 노십니까 ㅋㅋㅋㅋ" },
+        { user: "nari_nari_0", text: "안 다치는 게 어디야 맞는 말이다" },
+        { user: "ssu_ah", text: "이 사진 뭔가 영화 포스터 같아요" },
+        { user: "juhee_ing", text: "콘 쓰고 걸어 다니면 안 보일 텐데" },
+        { user: "rin_0614", text: "주연님 올해도 건강하세요" },
+        { user: "yuuj1n", text: "도로 한복판 아니죠? 조심해요" },
+        { user: "9ho_o_", text: "뒷모습만 봐도 친한 게 느껴진다" },
+        { user: "sj_0705", text: "다음엔 앞모습도 보여주세요" },
+        { user: "_sanasphere_", text: "생일 축하해요 주연님" } ] },
     { user: "zoo_yet", images: ["images/zooyeon-post2-1.jpg", "images/zooyeon-post2-2.jpg"], music: "", caption: "☁️", likes: "1.8만", likedBy: ["sihyeon_45", "yeoju_kr"], comments: "251", reposts: "689", shares: "1,092", date: "2031년 5월 1일",
       fixedComments: [], randomComments: 10, noFan: true,
       enPool: [
@@ -1173,6 +1449,36 @@ const PHONE = {
       { user: "uh_oh_hyeon", text: "설렌다 진짜" },
       { user: "hyeri_0215", text: "와...." },
       { user: "ppaengi_", text: "태윤님 웃기다" } ] },
+    { user: "sugaringcandy", images: ["images/jungwoo-post5.jpg"], music: "", caption: "짱짱주 생일 축하 기념 고기 먹으러 가자~!", likes: "26.5만", likedBy: ["yeoju_kr", "haechanahceah"], comments: "3,860", reposts: "1.2만", shares: "3.6만", date: "2031년 6월 12일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "짱짱우!!! 소고기 먹으러 가자!!!" },
+        { user: "sugaringcandy", reply: true, text: "@yeoju_kr 좋아!!!" } ], randomComments: 12, noFan: true,
+      enPool: [
+        { user: "oli.oli.you", text: "happy birthday to her, enjoy the beef!" },
+        { user: "b_ri_n_", text: "the yellow backpack is so cute" },
+        { user: "ruuouyyyyy", text: "arms up in the air, pure joy 🥹" },
+        { user: "coco.ya_", text: "love the green park vibe" } ],
+      commentPool: [
+        { user: "juwon_ii", text: "뒷모습인데 신나는 게 느껴진다 ㅋㅋ" },
+        { user: "dduck.bokki_", text: "두 팔 번쩍 든 거 너무 귀엽다" },
+        { user: "eunbi.k0", text: "짱짱주가 누구예요?" },
+        { user: "1004_jina", text: "고기 먹으러 가는 길이 이렇게 신날 일이야" },
+        { user: "tmddus_", text: "노란 가방 포인트 예쁘다" },
+        { user: "chaee.n_", text: "초록 풀밭 색감 너무 좋다" },
+        { user: "wooo_zin", text: "정우님 소고기 드시러 가나 보다" },
+        { user: "h_y_u_n_n", text: "캡션에서 여주님 생일 축하하는 게 느껴져요" },
+        { user: "_sanasphere_", text: "오늘 6월 12일 여주님 생일 맞죠 축하해요" },
+        { user: "pureureun", text: "산책길 너무 예쁘다" },
+        { user: "haribo_jelly7", text: "저장함" },
+        { user: "j0n_g_m1n", text: "짱짱우 짱짱주 이름 호흡 미쳤다" },
+        { user: "ye0rm__", text: "소고기 사진도 올려주세요" },
+        { user: "nari_nari_0", text: "체크 셔츠 입은 거 너무 잘 어울려요" },
+        { user: "ssu_ah", text: "나무 그늘 아래 분위기 좋다" },
+        { user: "juhee_ing", text: "생일에 같이 고기 먹으면 최고죠" },
+        { user: "rin_0614", text: "댓글에서도 신난 거 보여요 ㅋㅋ" },
+        { user: "yuuj1n", text: "사진 흔들린 것도 감성이다" },
+        { user: "9ho_o_", text: "맛있게 드시고 오세요" },
+        { user: "sj_0705", text: "다음 게시물도 기다릴게요" } ] },
     { user: "sugaringcandy", images: ["images/jungwoo-post3-1.jpg", "images/jungwoo-post3-2.jpg"], music: "", caption: "안녕하세요 김정우입니다", likes: "27.4만", likedBy: ["yeoju_kr", "haechanahceah"], comments: "3,860", reposts: "1.3만", shares: "3.8만", date: "2031년 5월 19일",
       fixedComments: [
         { user: "haechanahceah", text: "인스타 만든지가 언젠데 갑자기 웬 인사?" },
@@ -1270,6 +1576,35 @@ const PHONE = {
       { user: "akswqrzx", text: "웃기다 ㅋㅋㅋㅋㅋ" },
       { user: "haneul_in_you", text: "설렌다 진짜" },
       { user: "znbutt", text: "와...." } ] },
+    { user: "haechanahceah", images: ["images/haechan-post4-1.jpg", "images/haechan-post4-2.jpg"], music: "", caption: "Love You a Thousand Ways", likes: "21.0만", likedBy: ["yeoju_kr", "na.jaemin0813"], comments: "3,080", reposts: "9,120", shares: "2.8만", date: "2031년 6월 12일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "나도 원본 좀ㅋㅋ♥️" } ], randomComments: 12,
+      enPool: [
+        { user: "oli.oli.you", text: "that blue sweater is so pretty" },
+        { user: "b_ri_n_", text: "love the vintage cafe vibe" },
+        { user: "ruuouyyyyy", text: "what a romantic caption 🥹" },
+        { user: "coco.ya_", text: "the wildflower bouquet is gorgeous" } ],
+      commentPool: [
+        { user: "juwon_ii", text: "첫 사진 책 넘기는 모습 너무 예쁘다" },
+        { user: "dduck.bokki_", text: "캡션 센스 미쳤다" },
+        { user: "eunbi.k0", text: "두 번째 사진 꽃다발 뭐예요 ㅠㅠ" },
+        { user: "1004_jina", text: "파란 니트가 너무 잘 어울려요" },
+        { user: "tmddus_", text: "분위기 영화 같다" },
+        { user: "chaee.n_", text: "누구 사진이에요 설렌다" },
+        { user: "wooo_zin", text: "Love You a Thousand Ways 너무 로맨틱하다" },
+        { user: "h_y_u_n_n", text: "빈티지 카페 감성 최고" },
+        { user: "_sanasphere_", text: "해찬님 이런 감성 글도 쓰시네요" },
+        { user: "pureureun", text: "꽃다발 색감 너무 예뻐요" },
+        { user: "haribo_jelly7", text: "저장함" },
+        { user: "j0n_g_m1n", text: "뒷모습만 봐도 누군지 알겠다" },
+        { user: "ye0rm__", text: "원본 달라는 댓글 웃기다 ㅋㅋ" },
+        { user: "nari_nari_0", text: "두 장 다 분위기 미쳤어요" },
+        { user: "ssu_ah", text: "바람에 머리 날리는 게 예쁘다" },
+        { user: "juhee_ing", text: "해찬님 사진 보는 눈이 높네요" },
+        { user: "rin_0614", text: "오늘 6월 12일 여주님 생일이네요" },
+        { user: "yuuj1n", text: "파란색이 이렇게 예쁜 색이었나" },
+        { user: "9ho_o_", text: "올릴 때마다 감성 터진다" },
+        { user: "sj_0705", text: "다음 사진도 기다릴게요" } ] },
     { user: "haechanahceah", images: ["images/haechan-post3.jpg"], music: "", caption: "오늘 아무도 찾지마라", likes: "21.4만", likedByRandom: 2, comments: "3,120", reposts: "9,040", shares: "2.9만", date: "2031년 6월 6일",
       fixedComments: [
         { user: "na.jaemin0813", text: "싫어요는 없냐" } ], randomComments: 12,
@@ -1358,6 +1693,26 @@ const PHONE = {
       { user: "q0___opa", text: "이 분위기 뭐예요 진짜" },
       { user: "i_ke_ai", text: "와 얼굴 갱신" },
       { user: "znbutt", text: "센터 행사 갔다 온 거죠?" } ] },
+    { user: "yellow_3to3", images: ["images/injun-post6-1.jpg", "images/injun-post6-2.jpg"], music: "", caption: "", likes: "71", likedBy: ["yeoju_kr"], comments: "1", reposts: "0", shares: "1", date: "2031년 10월 20일",
+      fixedComments: [
+        { user: "minjae_0907", text: "선배님 이날 사복 분위기 좋네요" } ] },
+    { user: "yellow_3to3", images: ["images/injun-post3-1.jpg", "images/injun-post3-2.jpg"], music: "", caption: "", likes: "83", likedBy: ["yeoju_kr"], comments: "2", reposts: "0", shares: "1", date: "2031년 7월 29일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "사랑과 행운?" },
+        { user: "yellow_3to3", reply: true, text: "@yeoju_kr 그냥 감성입니다." } ] },
+    { user: "yellow_3to3", images: ["images/injun-post2-1.jpg", "images/injun-post2-2.jpg"], music: "", caption: "", likes: "88", likedBy: ["yeoju_kr", "sugaringcandy"], comments: "1", reposts: "0", shares: "1", date: "2031년 7월 20일",
+      fixedComments: [
+        { user: "haeun.guide_", text: "인준 선배 어디 가세요 ㅋㅋ" } ] },
+    { user: "yellow_3to3", images: ["images/injun-post1.jpg"], music: "", caption: "", likes: "64", likedBy: ["yeoju_kr"], comments: "1", reposts: "0", shares: "1", date: "2031년 5월 10일",
+      fixedComments: [
+        { user: "dongmin_sen", text: "선배님 사진 잘 나왔어요" } ] },
+    { user: "yellow_3to3", images: ["images/injun-post4-1.jpg", "images/injun-post4-2.jpg"], music: "", caption: "맛있는 밥 감사합니다", likes: "97", likedBy: ["yeoju_kr", "sugaringcandy"], comments: "1", reposts: "0", shares: "1", date: "2031년 3월 23일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "생일 축하해 인준🍀" } ] },
+    { user: "yellow_3to3", images: ["images/injun-post5-1.jpg", "images/injun-post5-2.jpg", "images/injun-post5-3.jpg"], music: "", caption: "", likes: "79", likedBy: ["yeoju_kr"], comments: "2", reposts: "0", shares: "1", date: "2031년 2월 16일",
+      fixedComments: [
+        { user: "yeoju_kr", text: "와 반지 많다 하나만" },
+        { user: "yellow_3to3", reply: true, text: "@yeoju_kr 신고할게요" } ] },
     { user: "yeoju_kr", images: ["images/yeoju-post17-1.jpg", "images/yeoju-post17-2.jpg"], music: "", caption: "잘한다 잘한다 했더니 진짜 잘하네", likes: "169.8만", likedBy: ["haechanahceah"], comments: "3.2만", reposts: "12.7만", shares: "23.6만", date: "2031년 10월 18일",
       fixedComments: [
         { user: "haechanahceah", text: "장가 와" },
@@ -1636,6 +1991,45 @@ const PHONE = {
       { user: "mmm.in_", text: "설렌다 진짜" },
       { user: "hyeon.__s", text: "와...." },
       { user: "kk_ami", text: "여주님 센스 있다" } ] },
+    { user: "yeoju_kr", images: ["images/yeoju-post33.jpg"], music: "", caption: "생일 축하해주신 많은 분들께 감사드립니다. 감사의 마음을 담아 조금이나마 마음을 보태봅니다. 운 좋게 여러분들의 관심과 사랑을 받게 되었다고 생각합니다. 항상 겸손하고 신중한 모습으로 실망 시켜 드리지 않겠습니다. 생일 축하해주셔서 고맙습니다!", likes: "176.0만", likedBy: ["na.jaemin0813", "do0_ye0"], comments: "3.4만", reposts: "14.2만", shares: "25.4만", date: "2031년 6월 12일",
+      fixedComments: [
+        { user: "na.jaemin0813", text: "생일 축하해 우리 누나🥰🎉" },
+        { user: "do0_ye0", text: "생일 축하해, 여주야. 멋있다!" },
+        { user: "tt_yun_12", text: "국장님 생일 축하해요 누나는 여전히 멋있어요" },
+        { user: "the__and.y", text: "생일 축하합니다~ ♥️하는 민여주ㅋㅋ" },
+        { user: "zoo_yet", text: "ㅊㅋㅊㅋ" },
+        { user: "sugaringcandy", text: "짱짱주 생일 축하해!!" },
+        { user: "leejen_o_423", text: "생일 축하해, 누나" },
+        { user: "haechanahceah", text: "누님 생신 축하드립니다" },
+        { user: "_jeongjaehyun", text: "멋지다 민여주👏👏" },
+        { user: "sihyeon_45", text: "우와! 멋있다 여주야 생일 축하해! 맛있는 거 먹으러 가자!" },
+        { user: "korea_sentinel.guide_center", text: "센터의 자부심. 민여주 국장의 생일을 진심으로 축하합니다." } ], randomComments: 12, noFan: true,
+      enPool: [
+        { user: "oli.oli.you", text: "happy birthday! what a generous heart 🎂" },
+        { user: "b_ri_n_", text: "donating on your own birthday, so inspiring" },
+        { user: "ruuouyyyyy", text: "humble and kind, we love you" },
+        { user: "coco.ya_", text: "happy birthday to our guide director!" } ],
+      commentPool: [
+        { user: "juwon_ii", text: "생일에 기부라니 진짜 멋있다" },
+        { user: "dduck.bokki_", text: "여주님 생일 축하드려요🎂" },
+        { user: "eunbi.k0", text: "1억이라니 스케일이 다르다" },
+        { user: "1004_jina", text: "아이들한테 좋은 일에 쓰이면 좋겠어요" },
+        { user: "tmddus_", text: "마음이 이렇게 예쁜 분이 있나" },
+        { user: "chaee.n_", text: "생일에 받는 사람이 아니라 주는 사람이네요" },
+        { user: "wooo_zin", text: "겸손하고 신중한 모습 오래오래 보여주세요" },
+        { user: "h_y_u_n_n", text: "멋진 어른이다 진짜" },
+        { user: "pureureun", text: "태어나줘서 고마워요 여주님" },
+        { user: "haribo_jelly7", text: "저장함" },
+        { user: "j0n_g_m1n", text: "이런 분이 센터 국장님이라니 든든하다" },
+        { user: "ye0rm__", text: "캡션 읽다가 울컥했어요" },
+        { user: "nari_nari_0", text: "생일 축하드려요 항상 응원합니다" },
+        { user: "ssu_ah", text: "보육원 아이들 힘내라고 보내주신 거죠 ㅠㅠ" },
+        { user: "juhee_ing", text: "닮고 싶은 사람이에요" },
+        { user: "rin_0614", text: "오늘 6월 12일 여주님 생일 진심으로 축하해요" },
+        { user: "yuuj1n", text: "실망시키지 않겠다는 말이 더 멋있어요" },
+        { user: "9ho_o_", text: "좋은 영향력이 이런 거구나" },
+        { user: "sj_0705", text: "여주님 덕분에 오늘도 힘나요" },
+        { user: "_sanasphere_", text: "생일에 나눔 실천이라니 박수 짝짝" } ] },
     { user: "yeoju_kr", images: ["images/yeoju-post9-1.jpg", "images/yeoju-post9-2.jpg", "images/yeoju-post9-3.jpg", "images/yeoju-post9-4.jpg", "images/yeoju-post9-5.jpg", "images/yeoju-post9-6.jpg"], music: "", caption: "ho캉스 강아지가 다 해줌ㅋㅋ 놀아주느라 수고했다", likes: "187.9만", likedBy: ["haechanahceah"], comments: "3.6만", reposts: "14.2만", shares: "29.8만", date: "2031년 6월 7일",
       fixedComments: [
         { user: "na.jaemin0813", text: "누나가 놀아준거겠지 맛있는거 많이 먹었어? 🥰" },
@@ -2574,6 +2968,12 @@ const PHONE = {
     // 사파리 첫 화면 = 뉴스 피드. image 없으면 글자만 나옴. body는 문단 배열
     paper: "센티넬뉴스", domain: "sentinelnews.kr",
     news: [
+      { section: "연예·문화", title: "나재민, 팔로잉 목록엔 오직 '1명'…\"소개글도 '누나🥰'\"", source: "가이드타임스", time: "2031.10.29. 오후 4:10", image: "images/news-jaemin.jpg",
+        body: ["센티넬 나재민의 인스타그램 팔로잉이 단 1명인 것으로 알려져 팬들 사이에서 화제다.", "나재민은 팔로워 849만 명을 보유하고 있지만, 팔로잉 목록에는 한 명만 남아 있다. 프로필 소개글 역시 '누나🥰' 한 단어뿐이다.", "최근에는 영상통화 화면을 캡처한 사진과 함께 \"누나 보고 싶어 빨리 와\"라는 글을 올려 눈길을 끌었다.", "팬들은 \"누구를 말하는지 모르는 사람이 없다\"며 웃음을 보였다. 센터 측은 \"개인 SNS 활동에는 관여하지 않는다\"고 밝혔다."] },
+      { section: "연예·문화", title: "센티넬 팬덤, 센터 앞 '매너 응원' 캠페인…\"구경만 하고 갑시다\"", source: "센티넬뉴스", time: "2031.10.29. 오후 1:30",
+        body: ["센터 건물 앞에 팬들이 모이자는 제안이 온라인에서 확산되자 팬덤 안에서 '매너 응원' 캠페인이 번지고 있다.", "팬들은 \"센티넬·가이드도 출퇴근하는 사람\"이라며 소란과 사진 촬영을 자제하자고 입을 모았다.", "센터 관계자는 \"응원은 감사하지만 건물 출입에 지장이 없도록 협조해주길 바란다\"고 당부했다."] },
+      { section: "생활", title: "\"가이드 인력 언제 늘리나\"…센터 공식 계정에 충원 계획 요구 잇따라", source: "가이드타임스", time: "2031.10.29. 오전 9:20",
+        body: ["센티넬 근무 강도와 가이드 인력 부족 문제를 두고 센터를 향한 온라인 요구가 이어지고 있다.", "일부 누리꾼은 \"센터 공식 계정이 행사 사진만 올리고 안전 공지나 충원 계획은 없다\"고 지적했다.", "센터 측은 \"인력 운영 방안을 검토 중이며 정리되는 대로 안내하겠다\"는 입장이다."] },
       { section: "국제", title: "한국 센터, 미국 퍼스트 센티넬 쟈니와 내달 만남…", source: "센티넬뉴스", time: "2031.10.28. 오후 2:15", image: "images/news-johnny.jpg",
         body: ["대한민국 센티넬 가이드 협회(센터)가 미국의 '퍼스트 센티넬' 쟈니와 다음 달 만남을 갖는다.", "28일 센터 측에 따르면 양측은 11월 중 면담 일정을 조율 중이다. 구체적인 장소와 날짜, 논의 안건은 아직 공개되지 않았다.", "센터 관계자는 \"양국 센티넬·가이드 제도 운영 전반에 대한 교류 차원\"이라고 설명했다. 다만 업계에서는 이번 만남이 향후 국제 협력 체계에 영향을 줄 수 있다는 관측이 나온다.", "한편 센터는 만남 이후 별도의 공식 입장을 낼 예정이다."] },
       { section: "과학", title: "센티넬·가이드, 잘생기고 예쁜 유전자 타고날 확률 높나…연구 결과 '눈길'", source: "가이드타임스", time: "2031.10.28. 오전 10:40",
@@ -2581,7 +2981,11 @@ const PHONE = {
       { section: "생활", title: "센터 비서팀 회식 장소 '고민 중'…\"고기냐 회냐\"", source: "가이드타임스", time: "2031.10.27. 오후 5:02",
         body: ["센터 비서팀이 연말 회식 장소를 두고 고민에 빠졌다는 소식이다.", "관계자에 따르면 아직 정해진 것은 없으며, 장소 후보는 몇 곳으로 좁혀진 것으로 알려졌다."] },
       { section: "연예·문화", title: "\"요즘 센터 앞 산책로 인기\"…퇴근길 시민 몰려", source: "센티넬뉴스", time: "2031.10.26. 오후 7:20",
-        body: ["센터 인근 산책로가 퇴근길 시민들 사이에서 인기를 끌고 있다.", "주민들은 \"저녁 무렵 분위기가 좋다\"고 입을 모았다."] }
+        body: ["센터 인근 산책로가 퇴근길 시민들 사이에서 인기를 끌고 있다.", "주민들은 \"저녁 무렵 분위기가 좋다\"고 입을 모았다."] },
+      { section: "생활", title: "민여주 센터 가이드 국장, 생일 맞아 대한보육원에 1억 원 기부", source: "센티넬뉴스", time: "2031.6.13. 오전 9:05", image: "images/yeoju-post33.jpg",
+        body: ["대한민국 센티넬 가이드 협회(센터) 민여주 가이드 국장이 12일 생일을 맞아 대한보육원에 후원금 1억 원을 기부한 사실이 알려졌다.", "민 국장은 이날 자신의 SNS에 기부증서를 공개하며 \"생일 축하해주신 많은 분들께 감사드린다. 감사의 마음을 담아 조금이나마 마음을 보태본다\"고 밝혔다.", "그는 이어 \"운 좋게 여러분들의 관심과 사랑을 받게 되었다고 생각한다. 항상 겸손하고 신중한 모습으로 실망시켜 드리지 않겠다\"고 덧붙였다.", "게시글에는 센터 소속 센티넬과 가이드를 비롯해 센터 공식 계정까지 축하 댓글을 남겼다. 센터는 \"센터의 자부심\"이라고 전했다.", "앞서 민 국장은 지난 5월 보육원과 어린이 병동을 직접 방문한 바 있다."] },
+      { section: "연예·문화", title: "민여주 국장 생일에 센티넬·가이드 SNS 축하 릴레이…\"센터 가족 모임 같다\"", source: "가이드타임스", time: "2031.6.13. 오전 11:30", image: "images/doyoung-post5.jpg",
+        body: ["민여주 가이드 국장의 생일이던 12일 센터 소속 센티넬과 가이드들의 SNS에 축하 게시글이 잇따라 올라왔다.", "김도영은 해바라기 사진을, 정재현은 '평생 업어줄게'라는 문구의 그림자 사진을, 이해찬은 'Love You a Thousand Ways'라는 글과 함께 사진을 올렸다. 김정우와 김주연, 이제노도 각자 게시글을 남겼다.", "민 국장의 게시글 댓글창에도 센터 사람들이 대거 모여 \"가족 모임 같다\"는 반응이 나왔다."] }
     ]
   },
 
@@ -2614,487 +3018,741 @@ const PHONE = {
   // X: tab "for" = 추천, "fol" = 팔로우 중 (상단 탭은 이 두 개만 뜸). user는 등장인물 아이디(없으면 이름 첫 글자 프로필)
   // tab: "for"(추천) / "fol"(팔로우 중) / "both"(둘 다). 팔로우 중 = 민여주 관련만
   x: { avatar: "images/x-me.jpg", tweets: [
-      {
-        "tab": "for",
-        "name": "도영이네 붕어빵",
-        "user": "bungeo_dy0201",
-        "photo": "images/fan-doyoung.jpg",
-        "time": "7분",
-        "text": "첫사랑이래 나 죽어",
-        "verified": false,
-        "replies": 0,
-        "reposts": "2.9만",
-        "likes": "11.4만",
-        "views": "240만",
-        "images": [
-          "images/doyoung-post1.jpg"
-        ]
-      },
-      {
-        "tab": "both",
-        "name": "소금빵",
-        "user": "sgpang_0612",
-        "time": "12분",
-        "text": "민여주 국장님 먹방모음zip 올라온거 봄?? 김도영이 찍어줬다는데 한 장 한 장 다 화보임 ㅠㅠㅠ",
-        "verified": false,
-        "replies": 0,
-        "reposts": "3.2만",
-        "likes": "9.8만",
-        "views": "214만",
-        "images": [
-          "images/yeoju-post15-1.jpg",
-          "images/yeoju-post15-2.jpg"
-        ],
-        "photo": "images/yeoju.jpg"
-      },
-      {
-        "tab": "both",
-        "name": "국장님 팬클럽",
-        "user": "ms_yeoju_club",
-        "photo": "images/yeoju-post29-2.jpg",
-        "time": "15분",
-        "text": "강아지 산책 사진 ㅠㅠㅠ 제노♥여주",
-        "verified": false,
-        "replies": 2,
-        "reposts": "2.4만",
-        "likes": "10.9만",
-        "views": "198만",
-        "images": [
-          "images/yeoju-post29-2.jpg"
-        ]
-      },
-      {
-        "tab": "for",
-        "name": "별사탕",
-        "user": "byeolsatang_0423",
-        "photo": "images/jeno-post1-4.jpg",
-        "time": "19분",
-        "text": "가오슝에 두고 온 내 정신",
-        "verified": false,
-        "replies": 2,
-        "reposts": "1.1만",
-        "likes": "5.7만",
-        "views": "88만",
-        "images": [
-          "images/jeno-post1-3.jpg"
-        ]
-      },
-      {
-        "tab": "for",
-        "name": "야근반대",
-        "user": "no_yageun_88",
-        "time": "25분",
-        "text": "솔직히 센터 센티넬 스케줄 너무 빡빡하다 가이드 인력 부족한 건 알겠는데 센티넬한테만 책임 몰아주는 거 이제 좀 그만 합시다 진짜",
-        "verified": false,
-        "replies": 0,
-        "reposts": "2.1만",
-        "likes": "6.4만",
-        "views": "178만",
-        "photo": "images/fan-default.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "소다톡",
-        "user": "sodatok_jh0214",
-        "photo": "images/jaehyun-post1.jpg",
-        "time": "33분",
-        "text": "이런 사진을 원했다고 ㅠㅠ",
-        "verified": false,
-        "replies": 0,
-        "reposts": "8,420",
-        "likes": "4.6만",
-        "views": "71만",
-        "images": [
-          "images/jaehyun-post3.jpg"
-        ]
-      },
-      {
-        "tab": "both",
-        "name": "꼬슬",
-        "user": "koseul_0606",
-        "time": "41분",
-        "text": "국장님 인스타 댓글창에 센터 사람들 다 모여있어서 웃김 ㅋㅋㅋㅋ 가족 모임이냐고",
-        "verified": false,
-        "replies": 0,
-        "reposts": "1.1만",
-        "likes": "5.3만",
-        "views": "96만",
-        "photo": "images/haechan.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "정우네 감귤",
-        "user": "gamgyul_jw0219",
-        "photo": "images/jungwoo-post3-1.jpg",
-        "time": "47분",
-        "text": "오겡끼데스까 ㅋㅋㅋㅋㅋ",
-        "verified": false,
-        "replies": 0,
-        "reposts": "6,310",
-        "likes": "3.8만",
-        "views": "59만",
-        "images": [
-          "images/jungwoo-post1-1.jpg"
-        ]
-      },
-      {
-        "tab": "both",
-        "name": "말차라떼",
-        "user": "matcha_yj0612",
-        "photo": "images/yeoju-post19.jpg",
-        "time": "54분",
-        "text": "재꾸 사진은 감동이 있음... 내여자를 위해서 재꾸 당해주는 감동이 있음...",
-        "verified": false,
-        "replies": 0,
-        "reposts": "1.5만",
-        "likes": "6.8만",
-        "views": "101만",
-        "images": [
-          "images/yeoju-post28-1.jpg"
-        ]
-      },
-      {
-        "tab": "for",
-        "name": "하늘빛 감자",
-        "user": "potato_sky0423",
-        "time": "58분",
-        "text": "제노 가오슝 사진 4장 풀로 봤냐 ㅠㅠㅠㅠ 대만에서도 얼굴 빛나더라 지성이랑 재민이는 댓글로 뭐하냐고 ㅋㅋㅋ 이 형제들 진짜 웃겨",
-        "verified": false,
-        "replies": 0,
-        "reposts": "1.8만",
-        "likes": "7.6만",
-        "views": "120만",
-        "images": [
-          "images/jeno-post1-1.jpg",
-          "images/jeno-post1-2.jpg"
-        ],
-        "photo": "images/fan-jeno.jpg"
-      },
-      {
-        "tab": "fol",
-        "name": "새벽3시",
-        "user": "dawn3am_gj",
-        "time": "1시간",
-        "text": "국장님 요즘 쟈니랑 만난다는 기사 떴던데 국장님도 같이 나오나요?? 퍼스트 센티넬 쟈니 오면 센터 난리 나겠다 근데 국장님 영어 되시나요 ㅋㅋ 궁금하다",
-        "verified": false,
-        "replies": 0,
-        "reposts": "3,420",
-        "likes": "1.9만",
-        "views": "41만",
-        "photo": "images/yeoju-post24.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "청포도맛",
-        "user": "grape_jh0214",
-        "time": "1시간",
-        "text": "정재현 건배 사진 ㅋㅋㅋㅋ 해찬이 댓글 터짐 근데 찍어준 사람이 여주국장님이라는 게 더 웃김",
-        "verified": false,
-        "replies": 0,
-        "reposts": "2.4만",
-        "likes": "8.1만",
-        "views": "143만",
-        "images": [
-          "images/jaehyun-post4.jpg"
-        ],
-        "photo": "images/jaehyun.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "구름과자",
-        "user": "cloud_jy1104",
-        "photo": "images/zooyeon.jpg",
-        "time": "1시간",
-        "text": "주연팀장님 ☁️ 하나 올리고 가심",
-        "verified": false,
-        "replies": 2,
-        "reposts": "4,180",
-        "likes": "2.9만",
-        "views": "44만",
-        "images": [
-          "images/zooyeon-post6.jpg"
-        ]
-      },
-      {
-        "tab": "for",
-        "name": "가이드좀늘려",
-        "user": "more_guides_plz",
-        "time": "2시간",
-        "text": "가이드 부족 문제 몇 년째냐 센터 공식 계정은 맨날 홍보만 하지 말고 인력 충원 계획부터 발표해라 진짜 이건 아니다",
-        "verified": false,
-        "replies": 1,
-        "reposts": "1.3만",
-        "likes": "3.9만",
-        "views": "88만",
-        "photo": "images/fan-chiikawa.jpg"
-      },
-      {
-        "tab": "both",
-        "name": "그림자수집가",
-        "user": "shadow_collect",
-        "time": "2시간",
-        "text": "제노 누나랑 산책 게시물 그림자 사진 봤냐 ㅠㅠㅠ 손잡은 그림자 보고 찐으로 울뻔함 누나가 여주님 맞죠 맞죠 맞죠",
-        "verified": false,
-        "replies": 0,
-        "reposts": "4.5만",
-        "likes": "15.2만",
-        "views": "310만",
-        "images": [
-          "images/jeno-post2.jpg"
-        ],
-        "photo": "images/jeno.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "해찬이 앞니",
-        "user": "frontteeth_hc0606",
-        "photo": "images/haechan.jpg",
-        "time": "2시간",
-        "text": "아침 5시에 영통 ㅋㅋㅋㅋ 해찬아",
-        "verified": false,
-        "replies": 0,
-        "reposts": "9,870",
-        "likes": "4.9만",
-        "views": "83만",
-        "images": [
-          "images/haechan-post1-2.jpg"
-        ]
-      },
-      {
-        "tab": "for",
-        "name": "달고나",
-        "user": "dalgona_0219",
-        "time": "3시간",
-        "text": "정우가 태윤이한테 '뭘 찍은거냐' 하는데 태윤이 '잘생겼다 형ㅋㅋㅋㅋ' 하는 거 찐으로 귀엽다 ㅋㅋㅋ 이 둘 케미 좋음",
-        "verified": false,
-        "replies": 1,
-        "reposts": "9,830",
-        "likes": "4.1만",
-        "views": "74만",
-        "images": [
-          "images/jungwoo-post4.jpg"
-        ],
-        "photo": "images/jungwoo.jpg"
-      },
-      {
-        "tab": "fol",
-        "name": "국장관찰일지",
-        "user": "gj_diary_1429",
-        "time": "3시간",
-        "text": "민여주 국장 1429만이라는 게 말이 되냐 가이드 중에 팔로워 제일 많은 사람인데 계정은 맨날 소소함 ㅋㅋ 하이라이트도 비어있고 정리하는 사람 아니고 방치하는 사람이네",
-        "verified": false,
-        "replies": 0,
-        "reposts": "5,210",
-        "likes": "2.7만",
-        "views": "63만",
-        "photo": "images/yeoju-post23.jpg"
-      },
-      {
-        "tab": "both",
-        "name": "백화점 직관",
-        "user": "dept_store_yj",
-        "photo": "images/yeoju-post20-1.jpg",
-        "time": "3시간",
-        "text": "백화점인데 왜 사진이 이래ㅋㅋㅋ 근데 예쁨",
-        "verified": false,
-        "replies": 0,
-        "reposts": "6,780",
-        "likes": "3.5만",
-        "views": "57만",
-        "images": [
-          "images/yeoju-post20-1.jpg"
-        ]
-      },
-      {
-        "tab": "for",
-        "name": "공지좀",
-        "user": "notice_pls_",
-        "time": "4시간",
-        "text": "센터 공식 인스타 팔로워 312만인데 올라오는 게 맨날 행사 사진임 ㅋㅋㅋ 센티넬 안전 관련 공지는 어디에 있는데",
-        "verified": false,
-        "replies": 0,
-        "reposts": "9,640",
-        "likes": "3.2만",
-        "views": "61만",
-        "photo": "images/fan-tama.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "시현이 응원단",
-        "user": "sh_cheer0921",
-        "photo": "images/sihyeon.jpg",
-        "time": "4시간",
-        "text": "두여자 사궈",
-        "verified": false,
-        "replies": 0,
-        "reposts": "2,760",
-        "likes": "1.8만",
-        "views": "29만",
-        "images": [
-          "images/sihyeon-post1.jpg"
-        ]
-      },
-      {
-        "tab": "for",
-        "name": "밤샘중",
-        "user": "nightowl_dj",
-        "time": "5시간",
-        "text": "다중각인 부작용에대한 이야기가 전세계적으로 슬슬 나오는 것 같은데 ㅁㅇㅈ 는 괜찮은지 걱정됨 ㅠㅠ",
-        "verified": false,
-        "replies": 0,
-        "reposts": "1.6만",
-        "likes": "5.2만",
-        "views": "110만",
-        "photo": "images/fan-doll.jpg"
-      },
-      {
-        "tab": "both",
-        "name": "푸딩",
-        "user": "pudding_sh0921",
-        "time": "5시간",
-        "text": "시현이 생일에 여주국장님이 올려준 사진 ㅠㅠ",
-        "verified": false,
-        "replies": 0,
-        "reposts": "2.7만",
-        "likes": "8.8만",
-        "views": "155만",
-        "images": [
-          "images/yeoju-post14-1.jpg"
-        ],
-        "photo": "images/sihyeon.jpg"
-      },
-      {
-        "tab": "fol",
-        "name": "복지가먼저",
-        "user": "welfare_first",
-        "time": "6시간",
-        "text": "국장님 업무 많을 거 같은데 인스타 올릴 시간은 있으시네 센터 복지 이슈 해결해 주시고 올리시죠 (농담 아님)",
-        "verified": false,
-        "replies": 2,
-        "reposts": "1,980",
-        "likes": "8,740",
-        "views": "34만"
-      },
-      {
-        "tab": "for",
-        "name": "재민이 일본어",
-        "user": "jm_japan0813",
-        "photo": "images/fan-jaemin.jpg",
-        "time": "6시간",
-        "text": "재민이 일본어 마스터 ㅋㅋㅋㅋ",
-        "verified": false,
-        "replies": 0,
-        "reposts": "7,340",
-        "likes": "4.2만",
-        "views": "66만",
-        "images": [
-          "images/yeoju-post12-1.jpg"
-        ]
-      },
-      {
-        "tab": "for",
-        "name": "쪼꼬미도영",
-        "user": "choco_dy0201",
-        "time": "7시간",
-        "text": "김도영 연구팀장 인터뷰 언제 풀려요 센터는 왜 비공개임 ㅋㅋㅋ",
-        "verified": false,
-        "replies": 6,
-        "reposts": "2.0만",
-        "likes": "7.3만",
-        "views": "140만",
-        "photo": "images/doyoung.jpg"
-      },
-      {
-        "tab": "both",
-        "name": "반달",
-        "user": "bandal_jm0813",
-        "time": "8시간",
-        "text": "나재민 인스타 소개 '누나🥰' 이거 볼 때마다 여주국장님 떠올라서 웃김 ㅋㅋㅋ 재민이가 누나라고 부를 사람 세상에 여주님 한 명인 거 모르는 사람 없잖아 ㅠㅠ 소개란에 대놓고 써놓는 거 귀엽다 진짜",
-        "verified": false,
-        "replies": 0,
-        "reposts": "1.4만",
-        "likes": "6.5만",
-        "views": "98만",
-        "photo": "images/fan-jaemin.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "센터는비서도잘생겼냐",
-        "user": "injun_bs",
-        "photo": "images/injun.jpg",
-        "time": "9시간",
-        "text": "황비서님 웃는 거 처음 봄",
-        "verified": false,
-        "replies": 1,
-        "reposts": "3,950",
-        "likes": "2.2만",
-        "views": "38만",
-        "images": [
-          "images/yeoju-post21-1.jpg"
-        ]
-      },
-      {
-        "tab": "for",
-        "name": "졸린햄찌",
-        "user": "sleepy_hamzzi0205",
-        "time": "10시간",
-        "text": "박지성 요즘 인스타 잠잠한데 자는 거 맞지?? 😴 EZzz가 괜히 있는 게 아니다",
-        "verified": false,
-        "replies": 8,
-        "reposts": "3,110",
-        "likes": "2.4만",
-        "views": "39만",
-        "photo": "images/jisung.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "짤줍",
-        "user": "jjaljup_0606",
-        "time": "12시간",
-        "text": "해찬이 댓글 모아보기 하는 계정 있었으면 좋겠다 ㅋㅋㅋ '강아지가 너였냐?' 이거 하나로 하루 웃음",
-        "verified": false,
-        "replies": 7,
-        "reposts": "1.2만",
-        "likes": "5.8만",
-        "views": "92만",
-        "photo": "images/haechan-post1-1.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "87번째",
-        "user": "no87_ty",
-        "time": "14시간",
-        "text": "태윤이 팔로워 87명인데 여주국장님 인스타에 좋아요 눌러져있는 거 보고 부러워서 눈물남 ㅋㅋㅋㅋ",
-        "verified": false,
-        "replies": 8,
-        "reposts": "4,290",
-        "likes": "1.9만",
-        "views": "31만",
-        "photo": "images/taeyun.jpg"
-      },
-      {
-        "tab": "for",
-        "name": "줄서는중",
-        "user": "in_line_now",
-        "time": "16시간",
-        "text": "센터장 면담 하는 날 센티넬들 표정 보고 싶다 ㅋㅋㅋ 다 같이 긴장해서 줄 서있는 짤 있었으면 좋겠다",
-        "verified": false,
-        "replies": 0,
-        "reposts": "5,860",
-        "likes": "2.6만",
-        "views": "47만"
-      },
-      {
-        "tab": "for",
-        "name": "매너팬",
-        "user": "manner_fan_",
-        "time": "19시간",
-        "text": "센터 건물 앞에 팬들 모이자는 얘기 나오던데 그냥 앞에서 구경만 하고 오자 제발 민폐 되지 말자 센티넬 분들도 사람이고 출퇴근하는 직장인임",
-        "verified": false,
-        "replies": 0,
-        "reposts": "8,330",
-        "likes": "3.1만",
-        "views": "52만"
-      }
-    ] }
+        {
+          "tab": "both",
+          "name": "됴쥬가미래다",
+          "user": "following_one_849",
+          "time": "42분",
+          "text": "됴쥬 요즘 분위기 신혼부부 보다는 안정형 부부 바이브임........ 됴쥬러들 떡밥 모잘라요 여쥬님 사진 좀 많이 올려주세요ㅠㅠ",
+          "verified": false,
+          "replies": 6,
+          "reposts": "3.7만",
+          "likes": "12.9만",
+          "views": "288만",
+          "photo": "images/xav-01.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "넵넷넵",
+          "user": "no_yageun_88",
+          "time": "3시간",
+          "text": "솔직히 센터 센티넬 스케줄 너무 빡빡하다 가이드 인력 부족한 건 알겠는데 센티넬한테만 책임 몰아주는 거 이제 좀 그만 합시다 진짜",
+          "verified": false,
+          "replies": 0,
+          "reposts": "2.1만",
+          "likes": "6.4만",
+          "views": "178만",
+          "photo": "images/fan-default.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "𖥔종𖥔",
+          "user": "more_guides_plz",
+          "time": "5시간",
+          "text": "가이드 부족 문제 몇 년째냐 센터 공식 계정은 맨날 홍보만 하지 말고 인력 충원 계획부터 발표해라 진짜 이건 아니다",
+          "verified": false,
+          "replies": 1,
+          "reposts": "1.3만",
+          "likes": "3.9만",
+          "views": "88만",
+          "photo": "images/fan-chiikawa.jpg"
+        },
+        {
+          "tab": "fol",
+          "name": "복지가먼저",
+          "user": "welfare_first",
+          "time": "8시간",
+          "text": "국장님 업무 많을 거 같은데 인스타 올릴 시간은 있으시네 센터 복지 이슈 해결해 주시고 올리시죠 (농담 아님)",
+          "verified": false,
+          "replies": 2,
+          "reposts": "1,980",
+          "likes": "8,740",
+          "views": "34만"
+        },
+        {
+          "tab": "for",
+          "name": "빵빵이",
+          "user": "manner_fan_",
+          "time": "11시간",
+          "text": "센터 건물 앞에 팬들 모이자는 얘기 나오던데 그냥 앞에서 구경만 하고 오자 제발 민폐 되지 말자 센티넬 분들도 사람이고 출퇴근하는 직장인임",
+          "verified": false,
+          "replies": 0,
+          "reposts": "8,330",
+          "likes": "3.1만",
+          "views": "52만",
+          "photo": "images/xav-02.jpg"
+        },
+        {
+          "tab": "fol",
+          "name": "새벽3시",
+          "user": "dawn3am_gj",
+          "time": "10월 28일",
+          "text": "국장님 요즘 쟈니랑 만난다는 기사 떴던데 국장님도 같이 나오나요?? 퍼스트 센티넬 쟈니 오면 센터 난리 나겠다 근데 국장님 영어 되시나요 ㅋㅋ 궁금하다",
+          "verified": false,
+          "replies": 0,
+          "reposts": "3,420",
+          "likes": "1.9만",
+          "views": "41만",
+          "photo": "images/yeoju-post24.jpg"
+        },
+        {
+          "tab": "fol",
+          "name": "국장관찰일지",
+          "user": "gj_diary_1429",
+          "time": "10월 27일",
+          "text": "민여주 국장 1429만이라는 게 말이 되냐 가이드 중에 팔로워 제일 많은 사람인데 계정은 맨날 소소함 ㅋㅋ 하이라이트도 비어있고 정리하는 사람 아니고 방치하는 사람이네",
+          "verified": false,
+          "replies": 0,
+          "reposts": "5,210",
+          "likes": "2.7만",
+          "views": "63만",
+          "photo": "images/yeoju-post23.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "♪",
+          "user": "in_line_now",
+          "time": "10월 27일",
+          "text": "개웃긴 기사 봄. 센가들 잘생기고 예쁜 유전자 타고날 확률이 높나 연구했대. 근데 찐으로 그럴 수 있대 ㄷㄷ 근데 그럴 거 같앗음",
+          "verified": false,
+          "replies": 0,
+          "reposts": "5,860",
+          "likes": "2.6만",
+          "views": "47만",
+          "photo": "images/xav-03.jpg"
+        },
+        {
+          "tab": "both",
+          "name": "재쥬만세",
+          "user": "jaeju_forever_0813",
+          "time": "10월 25일",
+          "text": "제노 산책 그림자 사진도 좋은데 나는 재민이랑 여쥬 둘이 걷는 사진이 더 보고 싶음 ㅠㅠ 재쥬 산책 떡밥 언제 풀리나요",
+          "verified": false,
+          "replies": 0,
+          "reposts": "4.5만",
+          "likes": "15.2만",
+          "views": "310만",
+          "images": [
+            "images/jeno-post2.jpg"
+          ],
+          "photo": "images/fan-jaemin.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "얼굴",
+          "user": "notice_pls_",
+          "time": "10월 25일",
+          "text": "센터 공식 인스타에 사진 좀 더 올려줘요 얼굴로 나라를 구한다는게 이런 걸까",
+          "verified": false,
+          "replies": 0,
+          "reposts": "9,640",
+          "likes": "3.2만",
+          "views": "61만",
+          "photo": "images/fan-tama.jpg"
+        },
+        {
+          "tab": "both",
+          "name": "쥬인님",
+          "user": "ms_yeoju_club",
+          "photo": "images/yeoju-post29-2.jpg",
+          "time": "10월 24일",
+          "text": "강아지 산책 ㅠㅠ 졔노 어떻게 강아지 됐는지 알고 싶은데 이미 알 것 같은 기분임",
+          "verified": false,
+          "replies": 2,
+          "reposts": "2.4만",
+          "likes": "10.9만",
+          "views": "198만",
+          "images": [
+            "images/yeoju-post29-2.jpg"
+          ]
+        },
+        {
+          "tab": "for",
+          "name": "걍스터𖦹.✧⋆˚",
+          "user": "nightowl_dj",
+          "time": "10월 23일",
+          "text": "다중각인 부작용에대한 이야기가 전세계적으로 슬슬 나오는 것 같은데 ㅁㅇㅈ 는 괜찮은지 걱정됨 ㅠㅠ",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.6만",
+          "likes": "5.2만",
+          "views": "110만",
+          "photo": "images/fan-doll.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "(n)쪼꼬미됴영잉",
+          "user": "choco_dy0201",
+          "time": "10월 22일",
+          "text": "됴영은 1팀이었을때가 좋았다......... 쟤현 팀장이었던 1팀 해체되고 나니까 됴영 얼굴 보기가 더 힘드네 ㅠㅠ 믿을건 여쥬 인스타 뿐임",
+          "verified": false,
+          "replies": 6,
+          "reposts": "2.0만",
+          "likes": "7.3만",
+          "views": "140만",
+          "photo": "images/xav-04.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "쥬쥬클럽",
+          "user": "jjaljup_0606",
+          "time": "10월 21일",
+          "text": "내 웃음벨 쥬연여쥬 그들이 몇 년 전에 구1팀을 두고 싸웠다는 썰이 있다는게 믿어지시나요 걍 조리원 동기였던 엄마들 때문에 30 평생을 같이 살아온 웬수짱친같음",
+          "verified": false,
+          "replies": 7,
+          "reposts": "1.2만",
+          "likes": "5.8만",
+          "views": "92만",
+          "photo": "images/haechan-post1-1.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "taeyuuuun",
+          "user": "no87_ty",
+          "time": "10월 20일",
+          "text": "턔윤이 졸업도 했으니까 이제 1팀 가나?",
+          "verified": false,
+          "replies": 8,
+          "reposts": "4,290",
+          "likes": "1.9만",
+          "views": "31만",
+          "photo": "images/taeyun.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "10정",
+          "user": "taeyun_cheer_0219",
+          "time": "10월 19일",
+          "text": "턔윤 인스타 댓글에 쥬떤팀장님 맨날 출석해주심ㅋㅋㅋ 이정도면 최애 예비 팀원이지요",
+          "verified": false,
+          "replies": 0,
+          "reposts": "8천",
+          "likes": "3.1만",
+          "views": "76만",
+          "images": [
+            "images/taeyun-post4-1.jpg"
+          ],
+          "photo": "images/xav-05.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "졸린햄찌",
+          "user": "sleepy_hamzzi0205",
+          "time": "10월 18일",
+          "text": "지셩 인스타 사진 업로드 정권 38일차",
+          "verified": false,
+          "replies": 8,
+          "reposts": "3,110",
+          "likes": "2.4만",
+          "views": "39만",
+          "photo": "images/jisung.jpg"
+        },
+        {
+          "tab": "both",
+          "name": "반달",
+          "user": "bandal_jm0813",
+          "time": "10월 12일",
+          "text": "누나바라기 나떤남자 팔로잉에 민이라는 그 여자 하나만 볼 때마다 진짜 이런게 사랑이라는걸까 깊생하게 됨",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.4만",
+          "likes": "6.5만",
+          "views": "98만",
+          "photo": "images/xav-06b.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "NANA。",
+          "user": "call_cap_jm0813",
+          "time": "10월 11일",
+          "text": "애드라(0명) 이 사진 영통 캡쳐 같지 않냐? 그리고 이 사진 올라온 날 됴영여쥬 강릉 목격담 뜬 날임",
+          "verified": false,
+          "replies": 3,
+          "reposts": "2.4만",
+          "likes": "8.8만",
+          "views": "190만",
+          "images": [
+            "images/jaemin-post-call-1.jpg"
+          ],
+          "photo": "images/xav-07.jpg"
+        },
+        {
+          "tab": "both",
+          "name": "푸딩",
+          "user": "pudding_sh0921",
+          "time": "9월 21일",
+          "text": "시현이 생일에 여쥬님이 올려준 사진 ㅠㅠ",
+          "verified": false,
+          "replies": 0,
+          "reposts": "2.7만",
+          "likes": "8.8만",
+          "views": "155만",
+          "images": [
+            "images/yeoju-post14-1.jpg"
+          ],
+          "photo": "images/sihyeon.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "청포도맛",
+          "user": "grape_jh0214",
+          "time": "9월 20일",
+          "text": "여기 우리 동네 와인바인데 ㅠㅠ 아 언제 왔지 정쟤현 존잘",
+          "verified": false,
+          "replies": 0,
+          "reposts": "2.4만",
+          "likes": "8.1만",
+          "views": "143만",
+          "images": [
+            "images/jaehyun-post4.jpg"
+          ],
+          "photo": "images/jaehyun.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "됴쥬커플",
+          "user": "with_yj_dy0201",
+          "time": "9월 5일",
+          "text": "됴영여쥬 럽스타 직딩 커플 같음",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.6만",
+          "likes": "5.7만",
+          "views": "138만",
+          "images": [
+            "images/doyoung-post3.jpg"
+          ],
+          "photo": "images/fan-doyoung.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "감귤🍊",
+          "user": "osaka_jm0813",
+          "time": "8월 30일",
+          "text": "내기준 졔노 럽스타가 제일 커플 바이브임 졔노는 센티넬 아니었으면 ............... 가슴찢어져서상상그만하겟읍니다",
+          "verified": false,
+          "replies": 0,
+          "reposts": "2.6만",
+          "likes": "9.4만",
+          "views": "205만",
+          "images": [
+            "images/jaemin-post15-1.jpg",
+            "images/jaemin-post15-2.jpg"
+          ],
+          "photo": "images/xav-08.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "JёMJц",
+          "user": "jm_japan0813",
+          "photo": "images/xav-09.jpg",
+          "time": "8월 30일",
+          "text": "내여자와의 일본 여행을 위해 일본어 마스터한 남자의 사랑 어떤데 이런 사랑 아니면 하고 싶지 않음",
+          "verified": false,
+          "replies": 0,
+          "reposts": "7,340",
+          "likes": "4.2만",
+          "views": "66만",
+          "images": [
+            "images/yeoju-post12-1.jpg"
+          ]
+        },
+        {
+          "tab": "for",
+          "name": "🌕고나",
+          "user": "dalgona_0219",
+          "time": "8월 10일",
+          "text": "졍우 인스타에 테윤이가 찍은 사진 올라옴 졍우랑 테윤이 생각보다 친한거 신기함 나중에 비하인드 풀리면 좋겠다",
+          "verified": false,
+          "replies": 1,
+          "reposts": "9,830",
+          "likes": "4.1만",
+          "views": "74만",
+          "images": [
+            "images/jungwoo-post4.jpg"
+          ],
+          "photo": "images/jungwoo.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "황비서팬",
+          "user": "hwang_sec_0323",
+          "time": "7월 29일",
+          "text": "그의 감성을 사랑합니다 얼굴도요",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.2만",
+          "likes": "4.5만",
+          "views": "101만",
+          "images": [
+            "images/injun-post3-1.jpg",
+            "images/injun-post3-2.jpg"
+          ],
+          "photo": "images/injun.jpg"
+        },
+        {
+          "tab": "both",
+          "name": "말차라떼",
+          "user": "matcha_yj0612",
+          "photo": "images/yeoju-post19.jpg",
+          "time": "6월 22일",
+          "text": "재꾸 사진은 감동이 있음... 내여자를 위해서 재꾸 당해주는 감동이 있음...",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.5만",
+          "likes": "6.8만",
+          "views": "101만",
+          "images": [
+            "images/yeoju-post28-1.jpg"
+          ]
+        },
+        {
+          "tab": "for",
+          "name": "구름과자",
+          "user": "cloud_jy1104",
+          "photo": "images/zooyeon.jpg",
+          "time": "6월 19일",
+          "text": "☁️  이거 ㅅㅎ님인가봐",
+          "verified": false,
+          "replies": 2,
+          "reposts": "4,180",
+          "likes": "2.9만",
+          "views": "44만",
+          "images": [
+            "images/zooyeon-post6.jpg"
+          ]
+        },
+        {
+          "tab": "both",
+          "name": "에프",
+          "user": "bday_relay_0612",
+          "time": "6월 13일",
+          "text": "6월 12일 센터 사람들 인스타 전부 여쥬 생일 축하 게시글임.................. 가슴에 국밥 쏟았다",
+          "verified": false,
+          "replies": 2,
+          "reposts": "4.1만",
+          "likes": "12.6만",
+          "views": "301만",
+          "photo": "images/yeoju.jpg"
+        },
+        {
+          "tab": "both",
+          "name": "꼬슬",
+          "user": "koseul_0606",
+          "time": "6월 13일",
+          "text": "여쥬 기부글에 온 센터 사람들 다 모여잇음 심지어 센터공식계정까지도 ㅋㅋㅋㅋㅋ ㅋㅋ ㅋㅋㅋ",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.1만",
+          "likes": "5.3만",
+          "views": "96만",
+          "photo": "images/haechan.jpg"
+        },
+        {
+          "tab": "both",
+          "name": "민만두",
+          "user": "birthday_giver_61",
+          "time": "6월 12일",
+          "text": "여쥬 보육원에 1억 기부... 축하받는 날에 오히려 나눠주는 사람 ㅠㅠ 기부증서까지 올라옴 진짜 멋있다",
+          "verified": false,
+          "replies": 4,
+          "reposts": "9.8만",
+          "likes": "31.2만",
+          "views": "640만",
+          "images": [
+            "images/yeoju-post33.jpg"
+          ],
+          "photo": "images/xav-10.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "듀영",
+          "user": "sunflower_dy0612",
+          "time": "6월 12일",
+          "text": "해바라기 꽃말 '당신만을 바라봅니다'",
+          "verified": false,
+          "replies": 0,
+          "reposts": "2.2만",
+          "likes": "7.9만",
+          "views": "171만",
+          "images": [
+            "images/doyoung-post5.jpg"
+          ],
+          "photo": "images/xav-11.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "JUNGDDUN",
+          "user": "piggyback_jh0214",
+          "time": "6월 12일",
+          "text": "유난히 정이라는 남자 등짝을 좋아하는 여쥬",
+          "verified": false,
+          "replies": 1,
+          "reposts": "1.8만",
+          "likes": "6.6만",
+          "views": "150만",
+          "images": [
+            "images/jaehyun-post5.jpg"
+          ],
+          "photo": "images/xav-12.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "짱우",
+          "user": "beef_jw0219",
+          "time": "6월 12일",
+          "text": "동갑내기 커플 분위기 소꿉친구에서 연인된 거 같아서 보기 좋음 하지만 사실 그들은 성인 다 되어서 만났다는것도 좋음",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.5만",
+          "likes": "5.4만",
+          "views": "133만",
+          "images": [
+            "images/jungwoo-post5.jpg"
+          ],
+          "photo": "images/jungwoo-post3-1.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "졘",
+          "user": "hand_jn0423",
+          "time": "6월 12일",
+          "text": "졔쥬 손 크기 차이........................",
+          "verified": false,
+          "replies": 1,
+          "reposts": "2.0만",
+          "likes": "7.2만",
+          "views": "160만",
+          "images": [
+            "images/jeno-post3.jpg"
+          ],
+          "photo": "images/fan-jeno.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "원본사수러(˃̶͈̀Ⱉ˂̶͈́)",
+          "user": "original_hc0606",
+          "time": "6월 12일",
+          "text": "여기 저번에 목격담 뜬 카페 같음 연상여친미",
+          "verified": false,
+          "replies": 2,
+          "reposts": "1.3만",
+          "likes": "4.8만",
+          "views": "118만",
+          "images": [
+            "images/haechan-post4-1.jpg"
+          ],
+          "photo": "images/xav-13.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "콘머리팬",
+          "user": "cone_yj1104",
+          "time": "6월 12일",
+          "text": "쥬연 여쥬 둘이 붙여놓으면 5살 되는 거 실화임?",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.1만",
+          "likes": "3.9만",
+          "views": "96만",
+          "images": [
+            "images/zooyeon-post8.jpg"
+          ],
+          "photo": "images/zooyeon.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "해찬이 앞니",
+          "user": "frontteeth_hc0606",
+          "photo": "images/xav-14.jpg",
+          "time": "6월 6일",
+          "text": "국장님 새벽 5시부터 어디 간거지 일 나갔다가 햬챤 생일이라고 영통했나봐 ㅠㅠㅠㅠㅠ",
+          "verified": false,
+          "replies": 0,
+          "reposts": "9,870",
+          "likes": "4.9만",
+          "views": "83만",
+          "images": [
+            "images/haechan-post1-2.jpg"
+          ]
+        },
+        {
+          "tab": "for",
+          "name": "스겜",
+          "user": "bus_trip_0813",
+          "time": "5월 24일",
+          "text": "권력과 미모 그리고 남자들까지 잡은 여성 부럽고 여친자리는내것",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.7만",
+          "likes": "6.1만",
+          "views": "143만",
+          "images": [
+            "images/jaemin-post5.jpg"
+          ],
+          "photo": "images/xav-15.jpg"
+        },
+        {
+          "tab": "both",
+          "name": "소금빵",
+          "user": "sgpang_0612",
+          "time": "5월 9일",
+          "text": "민여주 국장님 먹방모음zip 올라온거 봄?? 김도영이 찍어줬다는데 한 장 한 장 다 화보임 ㅠㅠㅠ",
+          "verified": false,
+          "replies": 0,
+          "reposts": "3.2만",
+          "likes": "9.8만",
+          "views": "214만",
+          "images": [
+            "images/yeoju-post15-1.jpg",
+            "images/yeoju-post15-2.jpg"
+          ],
+          "photo": "images/yeoju.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "별사탕⠄⠄⠂☆",
+          "user": "byeolsatang_0423",
+          "photo": "images/jeno-post1-4.jpg",
+          "time": "4월 27일",
+          "text": "가오슝에 두고 온 내 정신",
+          "verified": false,
+          "replies": 2,
+          "reposts": "1.1만",
+          "likes": "5.7만",
+          "views": "88만",
+          "images": [
+            "images/jeno-post1-3.jpg"
+          ]
+        },
+        {
+          "tab": "for",
+          "name": "감자",
+          "user": "potato_sky0423",
+          "time": "4월 27일",
+          "text": "신기한게 각자 올려주는 여쥬 사진 분위기 다름 졔노 가오슝 사진에 올라온 여쥬 바밬ㅋㅋㅋ jen5's girlfriend material",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.8만",
+          "likes": "7.6만",
+          "views": "120만",
+          "images": [
+            "images/jeno-post1-1.jpg",
+            "images/jeno-post1-2.jpg"
+          ],
+          "photo": "images/xav-17.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "햄찌집사",
+          "user": "hamzzi_js0205",
+          "time": "4월 20일",
+          "text": "화난얼굴도 ㄲ이라면",
+          "verified": false,
+          "replies": 0,
+          "reposts": "1.4만",
+          "likes": "5.0만",
+          "views": "122만",
+          "images": [
+            "images/jisung-post2.jpg"
+          ],
+          "photo": "images/xav-16.jpg"
+        },
+        {
+          "tab": "for",
+          "name": "소다톡",
+          "user": "sodatok_jh0214",
+          "photo": "images/jaehyun-post1.jpg",
+          "time": "4월 11일",
+          "text": "이런 사진을 원했다고 ㅠㅠ",
+          "verified": false,
+          "replies": 0,
+          "reposts": "8,420",
+          "likes": "4.6만",
+          "views": "71만",
+          "images": [
+            "images/jaehyun-post3.jpg"
+          ]
+        },
+        {
+          "tab": "both",
+          "name": "𝕁𝔼𝔸ℍ𝕐𝕌ℕ𝕊𝕊𝕀",
+          "user": "dept_store_yj",
+          "photo": "images/yeoju-post20-1.jpg",
+          "time": "4월 11일",
+          "text": "백화점이 아니라 어디 화보 찍으러 간 듯",
+          "verified": false,
+          "replies": 0,
+          "reposts": "6,780",
+          "likes": "3.5만",
+          "views": "57만",
+          "images": [
+            "images/yeoju-post20-1.jpg"
+          ]
+        },
+        {
+          "tab": "for",
+          "name": "센터는비서도잘생겼냐",
+          "user": "injun_bs",
+          "photo": "images/injun.jpg",
+          "time": "3월 23일",
+          "text": "센터는어떻게비서도잘생길수가잇는거임",
+          "verified": false,
+          "replies": 1,
+          "reposts": "3,950",
+          "likes": "2.2만",
+          "views": "38만",
+          "images": [
+            "images/yeoju-post21-1.jpg"
+          ]
+        },
+        {
+          "tab": "for",
+          "name": "쩡네강아지",
+          "user": "gamgyul_jw0219",
+          "photo": "images/xav-18.jpg",
+          "time": "2월 23일",
+          "text": "오겡끼데스까 ㅋㅋㅋㅋㅋ",
+          "verified": false,
+          "replies": 0,
+          "reposts": "6,310",
+          "likes": "3.8만",
+          "views": "59만",
+          "images": [
+            "images/jungwoo-post1-1.jpg"
+          ]
+        },
+        {
+          "tab": "for",
+          "name": "여름🍀",
+          "user": "bungeo_dy0201",
+          "photo": "images/xav-19.jpg",
+          "time": "2월 9일",
+          "text": "첫사랑이래 나 죽어",
+          "verified": false,
+          "replies": 0,
+          "reposts": "2.9만",
+          "likes": "11.4만",
+          "views": "240만",
+          "images": [
+            "images/doyoung-post1.jpg"
+          ]
+        },
+        {
+          "tab": "for",
+          "name": "☁️☁️☁️",
+          "user": "sh_cheer0921",
+          "photo": "images/sihyeon.jpg",
+          "time": "2030년 11월 4일",
+          "text": "두여자 사궈",
+          "verified": false,
+          "replies": 0,
+          "reposts": "2,760",
+          "likes": "1.8만",
+          "views": "29만",
+          "images": [
+            "images/sihyeon-post1.jpg"
+          ]
+        }
+      ] }
 };
