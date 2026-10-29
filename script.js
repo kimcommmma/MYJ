@@ -96,13 +96,35 @@ const I = {
   multi: svg('<rect x="8" y="3" width="13" height="13" rx="3"/><path d="M5 7a3 3 0 0 0-2 2.800V17a4 4 0 0 0 4 4h7.200A3 3 0 0 0 16 19H7a2 2 0 0 1-2-2V7z"/>', "f")
 };
 
+
+/* 사진 지연 로딩: 화면 근처 사진만 불러오고, 멀어지면 메모리에서 내림 (인스타 피드가 사진 수백 장이라 폰에서 튕기는 문제 방지) */
+const lazyLoad = root => {
+  const imgs = root.querySelectorAll("img[data-src]");
+  const load = i => { const s = i.getAttribute("data-src"); if (!s) return; i.removeAttribute("data-src"); i.src = s; };
+  if (!("IntersectionObserver" in window)) { imgs.forEach(load); return; }
+  const sc = root.querySelector(".scroll") || null;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const t = e.target; load(t);
+    const sl = t.closest(".ig-slide"), nx = sl && sl.nextElementSibling && sl.nextElementSibling.querySelector("img[data-src]");
+    if (nx) load(nx);
+    io.unobserve(t);
+  }), { root: sc, rootMargin: "900px 0px" });
+  imgs.forEach(i => io.observe(i));
+  const ar = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) return;
+    e.target.querySelectorAll("img").forEach(i => { const s = i.getAttribute("src"); if (s && !i.hasAttribute("data-src")) { i.setAttribute("data-src", s); i.removeAttribute("src"); io.observe(i); } });
+  }), { root: sc, rootMargin: "3500px 0px" });
+  root.querySelectorAll(".ig-post").forEach(a => ar.observe(a));
+};
+
 function insta() {
   const o = P.owner;
   let stack = [{ v: "feed" }], tab = "grid";
   const top = () => stack[stack.length - 1];
   const imgs = x => (x.images && x.images.length ? x.images : x.image ? [x.image] : [""]);
   const num = v => v ?? 0;
-  const slide = (src, k) => src ? `<img class="pic" loading="lazy" decoding="async" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic ph">${k}</div>`;
+  const slide = (src, k) => src ? `<img class="pic" decoding="async" data-src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic ph">${k}</div>`;
   const prof = h => { const p = person(h); return { ...p, display: p.display || p.name, mine: h === o.handle, posts: P.posts.filter(x => x.user === h) }; };
 
   const post = (x, k) => {
@@ -186,6 +208,7 @@ function insta() {
       ? `<div class="dm-bar"><input id="dmi" placeholder="메시지 보내기..." autocomplete="off"><button data-send>보내기</button></div>`
       : `<nav class="ig-nav"><button data-nav="home" class="${homeOn ? "on" : ""}">${homeOn ? I.homeF : I.home}</button><button class="off">${I.reels}</button><button data-nav="dm" class="${dmOn ? "on" : ""}">${I.send}</button><button class="off">${I.search}</button><button data-nav="me" class="${meOn ? "on" : ""}">${av(o, "round xs")}</button></nav>`;
     body.innerHTML = `<div class="ig"><div class="scroll ${s.v === "dm" || s.v === "comments" ? "" : "igpad"}" id="igs">${html}</div>${bottom}</div>`;
+    lazyLoad(body);
     if (s.v === "dm") { const sc = $("#igs"); sc.scrollTop = sc.scrollHeight; }
     else if (s.sy) { const sc = $("#igs"); if (sc) sc.scrollTop = s.sy; }
     if (s.v === "post") {
