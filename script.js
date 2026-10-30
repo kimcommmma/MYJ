@@ -98,23 +98,23 @@ const I = {
 
 
 /* 사진 지연 로딩: 화면 근처 사진만 불러오고, 멀어지면 메모리에서 내림 (인스타 피드가 사진 수백 장이라 폰에서 튕기는 문제 방지) */
-const lazyLoad = root => {
+const lazyLoad = (root, scroller) => {
   const imgs = root.querySelectorAll("img[data-src]");
   const load = i => { const s = i.getAttribute("data-src"); if (!s) return; i.removeAttribute("data-src"); i.src = s; };
   if (!("IntersectionObserver" in window)) { imgs.forEach(load); return; }
-  const sc = root.querySelector(".scroll") || null;
+  const sc = scroller || root.querySelector(".scroll") || null;
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
     const t = e.target; load(t);
     const sl = t.closest(".ig-slide"), nx = sl && sl.nextElementSibling && sl.nextElementSibling.querySelector("img[data-src]");
     if (nx) load(nx);
     io.unobserve(t);
-  }), { root: sc, rootMargin: "900px 0px" });
+  }), { root: sc, rootMargin: "500px 0px" });
   imgs.forEach(i => io.observe(i));
   const ar = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) return;
     e.target.querySelectorAll("img").forEach(i => { const s = i.getAttribute("src"); if (s && !i.hasAttribute("data-src")) { i.setAttribute("data-src", s); i.removeAttribute("src"); io.observe(i); } });
-  }), { root: sc, rootMargin: "3500px 0px" });
+  }), { root: sc, rootMargin: "2500px 0px" });
   root.querySelectorAll(".ig-post").forEach(a => ar.observe(a));
 };
 
@@ -137,9 +137,11 @@ function insta() {
       <div class="ig-cap"><b>${esc(p.handle)}</b> ${esc(x.caption)}${(x.commentsList || []).length ? `<a class="ig-cm" data-go="comments:${P.posts.indexOf(x)}">댓글 ${esc(num(x.comments))}개 모두 보기</a><div><b>${esc(x.commentsList[0].user)}</b> ${rich(x.commentsList[0].text)}</div>` : ""}<time>${esc(x.date)}</time></div></article>`;
   };
 
+  let feedN = 10;
+  const feedList = () => P.posts.map((x, i) => [x, i]).sort((a, b) => { const k = p => { const m = /(\d+)년\s*(\d+)월\s*(\d+)일/.exec(p.date || ""); return m ? +m[1] * 10000 + +m[2] * 100 + +m[3] : 0; }; return k(b[0]) - k(a[0]) || a[1] - b[1]; }).map(([x]) => x);
   const feed = () => `<div class="top"><span class="i-logo">Instagram</span></div>
     <div class="stories">${P.contacts.filter(c => !c.hideStory).map(c => `<div data-go="profile:${esc(c.handle)}">${av(c, "round")}<span class="n">${esc(c.handle)}</span></div>`).join("")}</div>
-    ${P.posts.map((x, i) => [x, i]).sort((a, b) => { const k = p => { const m = /(\d+)년\s*(\d+)월\s*(\d+)일/.exec(p.date || ""); return m ? +m[1] * 10000 + +m[2] * 100 + +m[3] : 0; }; return k(b[0]) - k(a[0]) || a[1] - b[1]; }).map(([x]) => post(x)).join("")}`;
+    ${feedList().slice(0, feedN).map(x => post(x)).join("")}`;
 
   const profile = h => {
     const p = prof(h), list = p.posts, hl = p.highlights || [];
@@ -209,6 +211,16 @@ function insta() {
       : `<nav class="ig-nav"><button data-nav="home" class="${homeOn ? "on" : ""}">${homeOn ? I.homeF : I.home}</button><button class="off">${I.reels}</button><button data-nav="dm" class="${dmOn ? "on" : ""}">${I.send}</button><button class="off">${I.search}</button><button data-nav="me" class="${meOn ? "on" : ""}">${av(o, "round xs")}</button></nav>`;
     body.innerHTML = `<div class="ig"><div class="scroll ${s.v === "dm" || s.v === "comments" ? "" : "igpad"}" id="igs">${html}</div>${bottom}</div>`;
     lazyLoad(body);
+    if (s.v === "feed") {
+      const sc = $("#igs");
+      if (sc) sc.addEventListener("scroll", () => {
+        const all = feedList();
+        if (feedN >= all.length || sc.scrollTop + sc.clientHeight < sc.scrollHeight - 2500) return;
+        const add = all.slice(feedN, feedN + 8); feedN += add.length;
+        const box = document.createElement("div"); box.style.display = "contents"; box.innerHTML = add.map(x => post(x)).join("");
+        sc.appendChild(box); lazyLoad(box, sc);
+      }, { passive: true });
+    }
     if (s.v === "dm") { const sc = $("#igs"); sc.scrollTop = sc.scrollHeight; }
     else if (s.sy) { const sc = $("#igs"); if (sc) sc.scrollTop = s.sy; }
     if (s.v === "post") {
