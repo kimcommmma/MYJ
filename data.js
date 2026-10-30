@@ -21,12 +21,15 @@ const PHONE = {
     { name: "송시현", handle: "sihyeon_45", phoneName: "시현이", phone: "010-1998-0921", photo: "images/sihyeon.jpg", followingList: ["yeoju_kr", "zoo_yet", "korea_sentinel.guide_center"], followers: "21만", following: 8, bio: "1팀 가이드" },
     { name: "서태윤", handle: "tt_yun_12", phoneName: "태윤이", phone: "010-2012-0219", photo: "images/taeyun.jpg", followingList: ["do0_ye0", "_jeongjaehyun", "yeoju_kr", "na.jaemin0813", "sugaringcandy", "leejen_o_423", "haechanahceah", "the__and.y", "sihyeon_45", "zoo_yet", "korea_sentinel.guide_center"], followers: "87", following: 73, bio: "Good Luck" },
     { name: "대한민국 센티넬 가이드 협회", handle: "korea_sentinel.guide_center", phoneName: "센터장님", phone: "010-3000-1200", photo: "images/ksgc.jpg", display: "대한민국 센티넬 가이드 협회", hideStory: true, followingList: [], followers: "312만", following: 0, bio: "대한민국 센티넬 가이드 협회 공식 계정" }
-    ,{ name: "마님", handle: "phone_manim", phoneName: "마님", phone: "010-1234-1239", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 },
+    ,{ name: "Jhonny", handle: "phone_jhonny", phoneName: "Jhonny", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 },
+    { name: "마님", handle: "phone_manim", phoneName: "마님", phone: "010-1234-1239", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 },
     { name: "갈비찜장인", handle: "phone_galbijjim", phoneName: "갈비찜장인", phone: "010-1234-1238", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 }
   ],
 
   // with = 인스타 ID. from: "me"(오른쪽 노란 말풍선) / "them"(왼쪽)
   chats: [
+    { group: ["yeoju_kr", "do0_ye0", "_jeongjaehyun", "sugaringcandy", "na.jaemin0813", "haechanahceah", "leejen_o_423", "the__and.y"], messages: [] },
+    { group: ["yeoju_kr", "sihyeon_45", "zoo_yet"], messages: [] },
      { with: "na.jaemin0813", messages: [
       { date: "2031년 9월 28일 일요일" },
       { from: "them", images: ["images/kakao-jaemin-1.jpg"], time: "오후 11:39" },
@@ -42,7 +45,13 @@ const PHONE = {
     ]},
     { with: "sugaringcandy", messages: [
       { from: "me", text: "(대화 내용을 입력하세요)", time: "어제" }
-    ]}
+    ]},
+    { with: "the__and.y", messages: [] },
+    { with: "haechanahceah", messages: [] },
+    { with: "leejen_o_423", messages: [] },
+    { with: "korea_sentinel.guide_center", messages: [] },
+    { with: "tt_yun_12", messages: [] },
+    { with: "phone_jhonny", messages: [] }
   ],
 
   // user = 인스타 ID, images = 사진 경로 배열(2장 이상이면 넘겨보기), music = 음악(선택), video: true = 릴스 아이콘

@@ -24,6 +24,7 @@ function kakao() {
     const t = (k, d, on) => `<button class="k-tab${on ? " on" : ""}" ${k ? `data-t="${k}"` : "disabled"}><svg viewBox="0 0 24 24" width="28" height="28" fill="${on ? "#111" : "#c4c4c4"}">${d}</svg></button>`;
     return `<div class="k-tabs">${t("friends", '<circle cx="12" cy="7.500" r="4.500"/><path d="M3.500 21c0-5 3.500-7.500 8.500-7.500s8.500 2.500 8.500 7.500z"/>', tab === "friends")}${t("chats", '<path d="M12 3C6.500 3 2.500 6.500 2.500 11c0 2.600 1.400 4.900 3.600 6.400L5 21l4.200-2.300c.9.200 1.800.3 2.800.3 5.500 0 9.500-3.500 9.500-8S17.500 3 12 3z"/>', tab === "chats")}${t("", '<circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>', false)}</div>`;
   };
+  const grp = c => c.group ? { name: c.title || c.group.filter(h => h !== P.owner.handle).map(h => nm(person(h))).join(", "), photo: "" } : person(c.with);
   const list = () => {
     let main;
     if (tab === "friends") {
@@ -34,8 +35,8 @@ function kakao() {
         <ul class="k-list">${fr.map(c => `<li>${kav(c)}<div><strong>${esc(nm(c))}</strong></div></li>`).join("")}</ul></div>`;
     } else {
       main = `<div class="top k-mt"><h1>채팅</h1><div class="k-ic2">${ik(SEARCH)}${ik('<path d="M12 20h9M16.500 3.500a2.100 2.100 0 0 1 3 3L7 19l-4 1 1-4z"/>')}${ik('<circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.700 1.700 0 0 0 .3 1.800l.1.1a2 2 0 1 1-2.800 2.800l-.1-.1a1.700 1.700 0 0 0-1.800-.3 1.700 1.700 0 0 0-1 1.500V21a2 2 0 1 1-4 0v-.1a1.700 1.700 0 0 0-1.100-1.500 1.700 1.700 0 0 0-1.800.3l-.1.1a2 2 0 1 1-2.800-2.800l.1-.1a1.700 1.700 0 0 0 .3-1.800 1.700 1.700 0 0 0-1.500-1H3a2 2 0 1 1 0-4h.1a1.700 1.700 0 0 0 1.500-1.100 1.700 1.700 0 0 0-.3-1.800l-.1-.1a2 2 0 1 1 2.800-2.800l.1.1a1.700 1.700 0 0 0 1.800.3H9a1.700 1.700 0 0 0 1-1.500V3a2 2 0 1 1 4 0v.1a1.700 1.700 0 0 0 1 1.500 1.700 1.700 0 0 0 1.800-.3l.1-.1a2 2 0 1 1 2.800 2.800l-.1.1a1.700 1.700 0 0 0-.3 1.800V9a1.700 1.700 0 0 0 1.500 1H21a2 2 0 1 1 0 4h-.1a1.700 1.700 0 0 0-1.500 1z"/>')}</div></div><div class="scroll"><ul class="k-list">${P.chats.map((c, i) => {
-        const p = person(c.with), m = c.messages[c.messages.length - 1] || {};
-        return `<li data-i="${i}">${kav(p)}<div><strong>${esc(nm(p))}</strong><p>${esc(m.text || (m.images ? "사진" : ""))}</p></div><time>${esc(m.time)}</time></li>`;
+        const p = grp(c), m = c.messages[c.messages.length - 1] || {};
+        return `<li data-i="${i}">${kav(p)}<div><strong>${esc(nm(p))}</strong>${c.group ? `<em class="k-cnt">${c.group.length}</em>` : ""}<p>${esc(m.text || (m.images ? "사진" : ""))}</p></div><time>${esc(m.time)}</time></li>`;
       }).join("")}</ul></div>`;
     }
     body.innerHTML = main + tabs();
@@ -44,19 +45,20 @@ function kakao() {
     bind(".k-pill span", el => { sort = el.dataset.s; list(); });
   };
   const room = i => {
-    const c = P.chats[i], p = person(c.with);
+    const c = P.chats[i], p = grp(c);
     const ms = c.messages, ic = d => `<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
     const html = ms.map((m, j) => {
       if (m.date) return `<div class="k-date"><span>${esc(m.date)} ›</span></div>`;
       const pv = ms[j - 1], nx = ms[j + 1];
-      const first = !pv || pv.date || pv.from !== m.from, last = !nx || nx.date || nx.from !== m.from || nx.time !== m.time;
+      const first = !pv || pv.date || pv.from !== m.from || pv.who !== m.who, last = !nx || nx.date || nx.from !== m.from || nx.time !== m.time;
       const ph = m.images ? `<div class="k-ph n${Math.min(m.images.length, 4)}">${m.images.map(u => `<img src="${esc(u)}" alt="" loading="eager">`).join("")}</div>` : "";
       const tx = m.text ? `<span class="b${first ? " tail" : ""}">${esc(m.text)}</span>` : "";
       const tm = last ? `<time>${esc(m.time)}</time>` : "";
       if (m.from === "me") return `<div class="m me${first ? " f" : ""}">${tm}<div class="k-col">${ph}${tx}</div></div>`;
-      return `<div class="m them${first ? " f" : ""}">${first ? av(p, "s") : `<span class="av-sp"></span>`}<div class="k-col">${first ? `<small>${esc(nm(p))}</small>` : ""}${ph}${tx}</div>${tm}</div>`;
+      const sp = m.who ? person(m.who) : p;
+      return `<div class="m them${first ? " f" : ""}">${first ? (c.group ? kav(sp) : av(p, "s")) : `<span class="av-sp"></span>`}<div class="k-col">${first ? `<small>${esc(nm(sp))}</small>` : ""}${ph}${tx}</div>${tm}</div>`;
     }).join("");
-    body.innerHTML = `<div class="room" style="display:contents"><div class="top k-top"><button class="back">${ic('<path d="M15 4l-8 8 8 8"/>')}</button><h1>${esc(nm(p))}</h1><div class="k-ic">${ic('<circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/>')}${ic('<path d="M5 3h4l2 5-2.500 1.500a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>')}${ic('<path d="M3 6h18M3 12h18M3 18h18"/>')}</div></div><div class="scroll" style="background:#abc1d6"><div class="msgs">${html}</div></div><div class="k-barw"><div class="k-bar"><span class="k-plus">+</span><span class="k-inp">메시지 입력</span><span class="k-sm">☺</span><span class="k-sm k-hash">#</span></div></div></div>`;
+    body.innerHTML = `<div class="room" style="display:contents"><div class="top k-top"><button class="back">${ic('<path d="M15 4l-8 8 8 8"/>')}</button><h1>${esc(nm(p))}${c.group ? ` <span class="k-cnt">${c.group.length}</span>` : ""}</h1><div class="k-ic">${ic('<circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/>')}${ic('<path d="M5 3h4l2 5-2.500 1.500a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>')}${ic('<path d="M3 6h18M3 12h18M3 18h18"/>')}</div></div><div class="scroll" style="background:#abc1d6"><div class="msgs">${html}</div></div><div class="k-barw"><div class="k-bar"><span class="k-plus">+</span><span class="k-inp">메시지 입력</span><span class="k-sm">☺</span><span class="k-sm k-hash">#</span></div></div></div>`;
     bind(".back", list);
     const s = body.querySelector(".scroll"); s.scrollTop = s.scrollHeight;
   };
