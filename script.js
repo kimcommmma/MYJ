@@ -137,7 +137,7 @@ function insta() {
       <div class="ig-cap"><b>${esc(p.handle)}</b> ${esc(x.caption)}${(x.commentsList || []).length ? `<a class="ig-cm" data-go="comments:${P.posts.indexOf(x)}">댓글 ${esc(num(x.comments))}개 모두 보기</a><div><b>${esc(x.commentsList[0].user)}</b> ${rich(x.commentsList[0].text)}</div>` : ""}<time>${esc(x.date)}</time></div></article>`;
   };
 
-  let feedN = 10;
+  let feedN = 4;
   const feedList = () => P.posts.map((x, i) => [x, i]).sort((a, b) => { const k = p => { const m = /(\d+)년\s*(\d+)월\s*(\d+)일/.exec(p.date || ""); return m ? +m[1] * 10000 + +m[2] * 100 + +m[3] : 0; }; return k(b[0]) - k(a[0]) || a[1] - b[1]; }).map(([x]) => x);
   const feed = () => `<div class="top"><span class="i-logo">Instagram</span></div>
     <div class="stories">${P.contacts.filter(c => !c.hideStory).map(c => `<div data-go="profile:${esc(c.handle)}">${av(c, "round")}<span class="n">${esc(c.handle)}</span></div>`).join("")}</div>

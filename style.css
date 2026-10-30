@@ -853,3 +853,9 @@ body.full .pd{--st:64px}
 .k-tab:disabled{cursor:default}
 
 .k-top h1{font-size:15px;padding:0 120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box}
+
+/* iOS 안정화(경량): 무거운 효과 제거 */
+.ig-nav{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(255,255,255,.94)!important}
+.ig-track{scroll-behavior:auto!important}
+.ig-slide{contain:none!important;scroll-snap-stop:normal!important}
+.ph2v .pv-s{contain:none!important}
