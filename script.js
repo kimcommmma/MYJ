@@ -19,7 +19,7 @@ function kakao() {
   let tab = "chats", sort = "ga";
   const ik = d => `<svg viewBox="0 0 24 24" width="23" height="23" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
   const SEARCH = '<circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/>';
-  const kav = p => p.photo ? av(p) : `<span class="av kdef c${(nm(p).charCodeAt(0) || 0) % 3}"><svg viewBox="0 0 24 24" width="26" height="26" fill="#fff"><circle cx="12" cy="8.500" r="4"/><path d="M4 21c0-4.400 3.500-6.500 8-6.500s8 2.100 8 6.500z"/></svg></span>`;
+  const kav = (p, cls = "") => p.photo ? av(p, cls) : `<span class="av kdef ${cls} c${(nm(p).charCodeAt(0) || 0) % 3}"><svg viewBox="0 0 24 24" width="26" height="26" fill="#fff"><circle cx="12" cy="8.500" r="4"/><path d="M4 21c0-4.400 3.500-6.500 8-6.500s8 2.100 8 6.500z"/></svg></span>`;
   const tabs = () => {
     const t = (k, d, on) => `<button class="k-tab${on ? " on" : ""}" ${k ? `data-t="${k}"` : "disabled"}><svg viewBox="0 0 24 24" width="28" height="28" fill="${on ? "#111" : "#c4c4c4"}">${d}</svg></button>`;
     return `<div class="k-tabs">${t("friends", '<circle cx="12" cy="7.500" r="4.500"/><path d="M3.500 21c0-5 3.500-7.500 8.500-7.500s8.500 2.500 8.500 7.500z"/>', tab === "friends")}${t("chats", '<path d="M12 3C6.500 3 2.500 6.500 2.500 11c0 2.600 1.400 4.900 3.600 6.400L5 21l4.200-2.300c.9.200 1.800.3 2.800.3 5.500 0 9.500-3.500 9.500-8S17.500 3 12 3z"/>', tab === "chats")}${t("", '<circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>', false)}</div>`;
@@ -50,13 +50,13 @@ function kakao() {
     const html = ms.map((m, j) => {
       if (m.date) return `<div class="k-date"><span>${esc(m.date)} ›</span></div>`;
       const pv = ms[j - 1], nx = ms[j + 1];
-      const first = !pv || pv.date || pv.from !== m.from || pv.who !== m.who, last = !nx || nx.date || nx.from !== m.from || nx.time !== m.time;
+      const first = !pv || pv.date || pv.from !== m.from || pv.who !== m.who || pv.time !== m.time, last = !nx || nx.date || nx.from !== m.from || nx.who !== m.who || nx.time !== m.time;
       const ph = m.images ? `<div class="k-ph n${Math.min(m.images.length, 4)}">${m.images.map(u => `<img src="${esc(u)}" alt="" loading="eager">`).join("")}</div>` : "";
       const tx = m.text ? `<span class="b${first ? " tail" : ""}">${esc(m.text)}</span>` : "";
       const tm = last ? `<time>${esc(m.time)}</time>` : "";
       if (m.from === "me") return `<div class="m me${first ? " f" : ""}">${tm}<div class="k-col">${ph}${tx}</div></div>`;
       const sp = m.who ? person(m.who) : p;
-      return `<div class="m them${first ? " f" : ""}">${first ? (c.group ? kav(sp) : av(p, "s")) : `<span class="av-sp"></span>`}<div class="k-col">${first ? `<small>${esc(nm(sp))}</small>` : ""}${ph}${tx}</div>${tm}</div>`;
+      return `<div class="m them${first ? " f" : ""}">${first ? (c.group ? kav(sp, "s") : av(p, "s")) : `<span class="av-sp"></span>`}<div class="k-col">${first ? `<small>${esc(nm(sp))}</small>` : ""}${ph}${tx}</div>${tm}</div>`;
     }).join("");
     body.innerHTML = `<div class="room" style="display:contents"><div class="top k-top"><button class="back">${ic('<path d="M15 4l-8 8 8 8"/>')}</button><h1>${esc(nm(p))}${c.group ? ` <span class="k-cnt">${c.group.length}</span>` : ""}</h1><div class="k-ic">${ic('<circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/>')}${ic('<path d="M5 3h4l2 5-2.500 1.500a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>')}${ic('<path d="M3 6h18M3 12h18M3 18h18"/>')}</div></div><div class="scroll" style="background:#abc1d6"><div class="msgs">${html}</div></div><div class="k-barw"><div class="k-bar"><span class="k-plus">+</span><span class="k-inp">메시지 입력</span><span class="k-sm">☺</span><span class="k-sm k-hash">#</span></div></div></div>`;
     bind(".back", list);
@@ -607,7 +607,10 @@ const DOCK = [
   { icon: "youtubemusic", run: music, dark: true }
 ];
 const bd = n => n ? `<em class="bd">${n}</em>` : "";
-const tile = a => `<i><img src="${IC(a.icon)}" alt="">${bd(a.badge)}</i>`;
+const calIcon = () => { const d = now(); return `<b>${"일월화수목금토"[d.getDay()]}요일</b><span>${d.getDate()}</span>`; };
+const tile = a => a.icon === "calendar" ? `<i class="cal-ic">${calIcon()}${bd(a.badge)}</i>` : `<i><img src="${IC(a.icon)}" alt="">${bd(a.badge)}</i>`;
+const refreshCal = () => document.querySelectorAll(".cal-ic").forEach(e => { const h = calIcon(); if (e.dataset.k !== h) { e.dataset.k = h; e.innerHTML = h; } });
+document.addEventListener("visibilitychange", refreshCal); setInterval(refreshCal, 60000);
 $("#grid").innerHTML = APPS.map((a, i) => `<button class="ico ${a.run ? "" : "dead"}" data-a="${i}">${tile(a)}${a.name}</button>`).join("")
   + `<div class="ico folder dead"><i><u><img src="${IC("settings")}" alt=""></u><u style="background:#4f9bf0">⛅</u><u><img src="${IC("camera")}" alt=""></u></i>유틸리티</div>`;
 document.querySelectorAll(".folder").forEach(f => f.onclick = () => { const b = f.querySelector(".bd"); if (b) b.remove(); });
