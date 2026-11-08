@@ -4163,7 +4163,7 @@ const PHONE = {
     ] },
   // 유튜브: videos 배열에 영상 추가 가능. url = 영상을 누르면 새 탭으로 열리는 링크 (조회수/시간/길이는 임의 값)
   youtube: { badge: 6, videos: [
-    { title: "[슬기로운 센터생활 VLOG 2]", channel: "대한민국 센티넬 가이드 협회", avatar: "images/ksgc.jpg", views: "8.1만", time: "3시간 전", dur: "12:48", thumb: "images/yt-center-vlog2.jpg", url: "https://posty.pe/pajp4aqc" }
+    { title: "[슬기로운 센터생활 VLOG 2]", channel: "대한민국 센티넬 가이드 협회", avatar: "images/ksgc.jpg", views: "8.1만", time: "2023. 2. 2.", dur: "12:48", thumb: "images/yt-center-vlog2.jpg", url: "https://posty.pe/pajp4aqc" }
   ] },
   x: { avatar: "images/x-me.jpg", tweets: [
         {
