@@ -891,3 +891,40 @@ body.call #status{color:#fff!important;--n:#222}
 .co-m.them{align-self:flex-start;background:rgba(255,255,255,.92);color:#111;border-top-left-radius:6px}
 .co-m.me{align-self:flex-end;background:#fee500;color:#111;border-top-right-radius:6px}
 .co-end{background:none;border:0;padding:0;cursor:pointer}
+
+/* 유튜브 */
+#app:has(.yt){background:#f2f2f2;padding-bottom:0}
+.yt{position:relative;height:100%;display:flex;flex-direction:column;background:#f2f2f2;color:#0f0f0f;font-family:-apple-system,"Apple SD Gothic Neo","Helvetica Neue",sans-serif}
+.yt-top{display:flex;align-items:center;justify-content:space-between;padding:4px 16px 10px;background:#fff}
+.yt-lg{display:flex;align-items:center;gap:3px}
+.yt-lg b{font-size:21px;font-weight:700;letter-spacing:-1.200px}
+.yt-tr{display:flex;align-items:center;gap:20px}
+.yt-tr svg{width:26px;height:26px;display:block;color:#0f0f0f}
+.yt-bl{position:relative;display:block}
+.yt-bl em{position:absolute;top:-7px;right:-8px;min-width:18px;height:18px;border-radius:9px;padding:0 4px;box-sizing:border-box;background:#e5251b;color:#fff;font:600 11px/18px -apple-system,sans-serif;text-align:center;font-style:normal;box-shadow:0 0 0 2px #fff}
+.yt-feed{flex:1;overflow-y:auto;padding:0 0 110px;scrollbar-width:none}
+.yt-feed::-webkit-scrollbar{display:none}
+.yt-c{background:#fff;margin-bottom:12px;border-radius:0 0 16px 16px;overflow:hidden}
+.yt-th{position:relative;aspect-ratio:16/9;background:#000;cursor:pointer;overflow:hidden}
+.yt-th img{width:100%;height:100%;object-fit:cover;display:block}
+.yt-th em{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;font:500 12px/1 -apple-system,sans-serif;padding:4px 7px;border-radius:6px;font-style:normal}
+.yt-in{padding:12px 14px 14px}
+.yt-in h3{margin:0;font-size:15.500px;font-weight:400;line-height:1.5;color:#0f0f0f;cursor:pointer;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.yt-r{display:flex;align-items:center;gap:10px;margin-top:11px}
+.yt-av{width:36px;height:36px;border-radius:50%;overflow:hidden;background:#eee;flex:none;display:block;box-shadow:inset 0 0 0 .5px #0002}
+.yt-av img{width:100%;height:100%;object-fit:cover;display:block}
+.yt-ch{flex:1;min-width:0}
+.yt-ch b{display:block;font-size:13px;font-weight:400;color:#606060;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.yt-ch small{display:block;font-size:13px;color:#606060;margin-top:1px;white-space:nowrap}
+.yt-ac{display:flex;align-items:center;gap:15px;flex:none}
+.yt-ac i{display:block;width:22px;height:22px;color:#0f0f0f;cursor:pointer}
+.yt-ac i svg{width:100%;height:100%;display:block}
+.yt-ac i.on{color:#065fd4}
+.yt-ac i.on svg path{fill:currentColor;fill-opacity:.15}
+.yt-nav{position:absolute;left:14px;right:14px;bottom:16px;height:56px;border-radius:28px;background:rgba(255,255,255,.96);box-shadow:0 2px 14px rgba(0,0,0,.18);display:flex;align-items:center;justify-content:space-around;padding:0 6px}
+.yt-nav span{display:grid;place-items:center;width:76px;height:44px;border-radius:22px;color:#0f0f0f}
+.yt-nav span.on{background:#ececec}
+.yt-nav span svg{width:26px;height:26px;display:block}
+.yt-me{width:auto!important;height:auto!important}
+.yt-me img,.yt-me b{width:30px;height:30px;border-radius:50%;object-fit:cover;display:block}
+.yt-me b{background:#0f8b6d;color:#fff;font:600 16px/30px -apple-system,sans-serif;text-align:center}

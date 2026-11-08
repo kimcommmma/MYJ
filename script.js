@@ -588,6 +588,34 @@ function music() {
   onClose = () => { clearInterval(t); window.removeEventListener("message", msg); body.onclick = null; };
 }
 
+
+/* 유튜브 */
+function youtube() {
+  const Y = P.youtube || { videos: [] };
+  const ic = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const I = {
+    like: ic('<path d="M7 11v9H4v-9zM7 11l4-8c1.700 0 2.600 1.300 2.200 2.800L12.500 9H19a2 2 0 0 1 2 2.300l-1.200 7A2 2 0 0 1 17.800 20H7"/>'),
+    cm: ic('<path d="M4 4h16v12H9l-5 4z"/><path d="M8 9h8M8 12.500h5"/>'),
+    bm: ic('<path d="M6 3h12v18l-6-4.500L6 21z"/>'),
+    more: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.800"/><circle cx="12" cy="12" r="1.800"/><circle cx="19" cy="12" r="1.800"/></svg>',
+    bell: ic('<path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4zM10 21h4"/>'),
+    se: ic('<circle cx="11" cy="11" r="7"/><path d="M16.500 16.500L21 21"/>'),
+    home: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.500l9 7V21h-6v-6.500H9V21H3V9.500z"/></svg>',
+    sh: ic('<rect x="6" y="2.500" width="12" height="19" rx="4.500"/><path d="M10.500 9l4 3-4 3z" fill="currentColor"/>'),
+    plus: ic('<circle cx="12" cy="12" r="9.500"/><path d="M12 7.500v9M7.500 12h9"/>')
+  };
+  const logo = `<span class="yt-lg"><svg viewBox="0 0 28 20" width="30" height="21"><rect width="28" height="20" rx="5.500" fill="#f00"/><path d="M11 5.500v9l8-4.500z" fill="#fff"/></svg><b>Premium</b></span>`;
+  const card = (v, i) => `<article class="yt-c"><div class="yt-th yt-go" data-i="${i}"><img src="${esc(v.thumb)}" alt=""><em>${esc(v.dur || "")}</em></div>
+    <div class="yt-in"><h3 class="yt-go" data-i="${i}">${esc(v.title)}</h3>
+    <div class="yt-r"><span class="yt-av">${v.avatar ? `<img src="${esc(v.avatar)}" alt="">` : ""}</span><div class="yt-ch"><b>${esc(v.channel)}</b><small>▷ ${esc(v.views)}　${esc(v.time)}</small></div>
+    <div class="yt-ac"><i class="yt-lk">${I.like}</i><i>${I.cm}</i><i>${I.bm}</i><i>${I.more}</i></div></div></div></article>`;
+  body.innerHTML = `<div class="yt"><div class="yt-top">${logo}<div class="yt-tr"><span class="yt-bl">${I.bell}${Y.badge ? `<em>${Y.badge}</em>` : ""}</span><span>${I.se}</span></div></div>
+    <div class="yt-feed">${(Y.videos || []).map(card).join("")}</div>
+    <nav class="yt-nav"><span class="on">${I.home}</span><span>${I.sh}</span><span>${I.plus}</span><span class="yt-me">${P.owner.photo ? `<img src="${esc(P.owner.photo)}" alt="">` : `<b>${esc(P.owner.name[0])}</b>`}</span></nav></div>`;
+  bind(".yt-go", el => { const v = Y.videos[+el.dataset.i]; if (v && v.url) window.open(v.url, "_blank", "noopener"); });
+  bind(".yt-lk", el => el.classList.toggle("on"));
+}
+
 /* 홈 화면 */
 let onClose = null;
 const IC = n => `images/icons/${n}.png`;
@@ -597,7 +625,7 @@ const APPS = [
   { name: "메모", icon: "memo", run: memo },
   { name: "사진", icon: "photos", run: photos },
   { name: "캘린더", icon: "calendar", run: calendar },
-  { name: "YouTube", icon: "youtube" },
+  { name: "YouTube", icon: "youtube", run: youtube },
   { name: "X", icon: "x", run: xapp }
 ];
 const DOCK = [
