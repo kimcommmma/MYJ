@@ -560,6 +560,7 @@ const PHONE = {
       { from: "them", who: "zoo_yet", text: "ㅋㅋㅋㅋㅋㅋㅋ 진정해라 센터장님이 추진시킬 일 없어보이니까", time: "오전 11:41" },
       { from: "them", who: "sihyeon_45", text: "그래~ 그냥 휴가나 오라고 해~", time: "오전 11:42" },
       { from: "me", text: "안 그래도 겨울 휴가를 위한 빌드업인가 싶기도....", time: "오전 11:43" },
+      { from: "them", who: "zoo_yet", text: "네 바람이겠지ㅋㅋㅋㅋ", time: "오전 11:44" },
       { date: "2031년 9월 21일 일요일" },
       { from: "me", text: "시현아 생일 축하해!!!!", time: "오전 12:01" },
       { from: "them", who: "zoo_yet", text: "생일 축하해 시현아", time: "오전 12:02" },
@@ -1093,6 +1094,23 @@ const PHONE = {
       { from: "me", text: "좋아", time: "오전 12:07" },
       { from: "them", text: "사랑해", time: "오전 12:08" },
       { from: "me", text: "사랑해", time: "오전 12:09" }
+    ] },
+    { with: "korea_sentinel.guide_center", messages: [
+      { date: "2031년 9월 18일 목요일" },
+      { from: "me", text: "진심 이러기 있냐고요", time: "오후 7:10" },
+      { from: "me", text: "센터장님", time: "오후 7:10" },
+      { from: "me", text: "센터장님이면 다예요?", time: "오후 7:10" },
+      { from: "me", text: "저더러 어쩌라고 미국 멀티를 교환으로 들여오겠대요", time: "오후 7:10" },
+      { from: "me", text: "여기가 학교예요?", time: "오후 7:10" },
+      { from: "me", text: "아니 그리고 오늘 줌 회의였잖아요", time: "오후 7:10" },
+      { from: "me", text: "왜 인천공항으로 오냐고 미친 사람인가", time: "오후 7:10" },
+      { from: "them", text: "일단. 내일 다시 이야기하자.", time: "오후 7:11" },
+      { from: "them", text: "미국 멀티라서 더더욱 우리가 거절할 명분이 없어.", time: "오후 7:11" },
+      { from: "me", text: "하나뿐인 귀한 멀티를 왜 타국에 보내냐고요", time: "오후 7:12" },
+      { from: "them", text: "네가 있잖아. 그 타국에.", time: "오후 7:13" },
+      { from: "them", text: "아무튼. 내일.", time: "오후 7:13" },
+      { from: "me", text: "스시 사주세요", time: "오후 7:14" },
+      { from: "them", text: "알겠다", time: "오후 7:15" }
     ] },
     { with: "tt_yun_12", messages: [
       { date: "2031년 2월 19일 수요일" },
