@@ -6,7 +6,7 @@ const now = () => { const d = new Date(); d.setFullYear(YEAR); return d; };
 const person = h => P.contacts.find(c => c.handle === h) || (h === P.owner.handle ? P.owner : { name: h, handle: h, photo: "" });
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 (P.posts || []).forEach(x => { if (x.likedByRandom) x.likedBy = shuffle(P.contacts.filter(c => !c.hideStory && c.handle !== x.user).map(c => c.handle)).slice(0, x.likedByRandom); if (x.fixedComments || x.randomComments) { const pl = [...(x.commentPool || P.commentPool || []), ...(x.noFan ? [] : (P.fanPool || []))]; const n = x.randomComments || 0, k = n >= 4 ? 1 + Math.floor(Math.random() * 2) : 0, en = shuffle([...(x.enPool || P.enPool || [])]).slice(0, k); x.commentsList = [...(x.fixedComments || []), ...shuffle([...shuffle(pl).slice(0, n - en.length), ...en])]; } });
-const rich = t => esc(t).replace(/@[\w.]+/g, m => { const h = m.slice(1), ok = h === P.owner.handle || P.contacts.some(c => c.handle === h); return `<span class="tag"${ok ? ` data-go="profile:${h}" style="cursor:pointer"` : ""}>${m}</span>`; });
+const rich = t => esc(t).replace(/@[\w.]+/g, m => { const h = m.slice(1), ok = h === P.owner.handle || P.contacts.some(c => c.handle === h && !c.noProfile); return `<span class="tag"${ok ? ` data-go="profile:${h}" style="cursor:pointer"` : ""}>${m}</span>`; });
 const nm = p => p.phoneName || p.name;
 const av = (p, cls = "") => `<span class="av ${cls}" style="background:${hue(p.name || p.handle)}">${p.photo ? `<img src="${esc(p.photo)}" alt="" onerror="this.remove()">` : ""}<b>${esc((p.name || p.handle)[0])}</b></span>`;
 const pic = src => src ? `<img class="pic" loading="lazy" decoding="async" src="${esc(src)}" alt="" onerror="this.removeAttribute('src')">` : `<div class="pic"></div>`;
@@ -25,6 +25,21 @@ function kakao() {
     return `<div class="k-tabs">${t("friends", '<circle cx="12" cy="7.500" r="4.500"/><path d="M3.500 21c0-5 3.500-7.500 8.500-7.500s8.500 2.500 8.500 7.500z"/>', tab === "friends")}${t("chats", '<path d="M12 3C6.500 3 2.500 6.500 2.500 11c0 2.600 1.400 4.900 3.600 6.400L5 21l4.200-2.300c.9.200 1.800.3 2.800.3 5.500 0 9.500-3.500 9.500-8S17.500 3 12 3z"/>', tab === "chats")}${t("", '<circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>', false)}</div>`;
   };
   const grp = c => c.group ? { name: c.title || c.group.filter(h => h !== P.owner.handle).map(h => nm(person(h))).join(", "), photo: "" } : person(c.with);
+  /* 채팅 목록 순서: 단톡방은 위에 고정(데이터 순서 그대로), 나머지 개인톡은 마지막 대화 날짜·시간 최신순 */
+  const lastTs = c => {
+    let d = 0, best = 0;
+    for (const m of c.messages) {
+      if (m.date) { const x = m.date.match(/(\d+)년 (\d+)월 (\d+)일/); d = x ? (+x[1] * 10000 + +x[2] * 100 + +x[3]) : 0; continue; }
+      const t = (m.time || "").match(/(오전|오후) (\d+):(\d+)/); if (!t) continue;
+      const v = d * 10000 + ((+t[2] % 12) + (t[1] === "오후" ? 12 : 0)) * 100 + +t[3];
+      if (v > best) best = v;
+    }
+    return best;
+  };
+  const kOrder = () => {
+    const ix = P.chats.map((c, i) => i);
+    return ix.filter(i => P.chats[i].group).concat(ix.filter(i => !P.chats[i].group).sort((x, y) => lastTs(P.chats[y]) - lastTs(P.chats[x]) || x - y));
+  };
   const list = () => {
     let main;
     if (tab === "friends") {
@@ -34,7 +49,7 @@ function kakao() {
         <div class="k-fh"><b>친구 ${fr.length}</b><div class="k-pill"><span data-s="ga" class="${sort === "ga" ? "on" : ""}">가나다순</span><span data-s="add" class="${sort === "add" ? "on" : ""}">친구추가순</span></div><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg></div>
         <ul class="k-list">${fr.map(c => `<li>${kav(c)}<div><strong>${esc(nm(c))}</strong></div></li>`).join("")}</ul></div>`;
     } else {
-      main = `<div class="top k-mt"><h1>채팅</h1><div class="k-ic2">${ik(SEARCH)}${ik('<path d="M12 20h9M16.500 3.500a2.100 2.100 0 0 1 3 3L7 19l-4 1 1-4z"/>')}${ik('<circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.700 1.700 0 0 0 .3 1.800l.1.1a2 2 0 1 1-2.800 2.800l-.1-.1a1.700 1.700 0 0 0-1.800-.3 1.700 1.700 0 0 0-1 1.500V21a2 2 0 1 1-4 0v-.1a1.700 1.700 0 0 0-1.100-1.500 1.700 1.700 0 0 0-1.800.3l-.1.1a2 2 0 1 1-2.800-2.800l.1-.1a1.700 1.700 0 0 0 .3-1.800 1.700 1.700 0 0 0-1.500-1H3a2 2 0 1 1 0-4h.1a1.700 1.700 0 0 0 1.500-1.100 1.700 1.700 0 0 0-.3-1.800l-.1-.1a2 2 0 1 1 2.800-2.800l.1.1a1.700 1.700 0 0 0 1.800.3H9a1.700 1.700 0 0 0 1-1.500V3a2 2 0 1 1 4 0v.1a1.700 1.700 0 0 0 1 1.500 1.700 1.700 0 0 0 1.800-.3l.1-.1a2 2 0 1 1 2.800 2.800l-.1.1a1.700 1.700 0 0 0-.3 1.800V9a1.700 1.700 0 0 0 1.500 1H21a2 2 0 1 1 0 4h-.1a1.700 1.700 0 0 0-1.500 1z"/>')}</div></div><div class="scroll"><ul class="k-list">${P.chats.map((c, i) => {
+      main = `<div class="top k-mt"><h1>채팅</h1><div class="k-ic2">${ik(SEARCH)}${ik('<path d="M12 20h9M16.500 3.500a2.100 2.100 0 0 1 3 3L7 19l-4 1 1-4z"/>')}${ik('<circle cx="12" cy="12" r="3"/><path d="M19.400 15a1.700 1.700 0 0 0 .3 1.800l.1.1a2 2 0 1 1-2.800 2.800l-.1-.1a1.700 1.700 0 0 0-1.800-.3 1.700 1.700 0 0 0-1 1.500V21a2 2 0 1 1-4 0v-.1a1.700 1.700 0 0 0-1.100-1.500 1.700 1.700 0 0 0-1.800.3l-.1.1a2 2 0 1 1-2.800-2.800l.1-.1a1.700 1.700 0 0 0 .3-1.800 1.700 1.700 0 0 0-1.500-1H3a2 2 0 1 1 0-4h.1a1.700 1.700 0 0 0 1.500-1.100 1.700 1.700 0 0 0-.3-1.800l-.1-.1a2 2 0 1 1 2.800-2.800l.1.1a1.700 1.700 0 0 0 1.800.3H9a1.700 1.700 0 0 0 1-1.500V3a2 2 0 1 1 4 0v.1a1.700 1.700 0 0 0 1 1.500 1.700 1.700 0 0 0 1.800-.3l.1-.1a2 2 0 1 1 2.800 2.800l-.1.1a1.700 1.700 0 0 0-.3 1.800V9a1.700 1.700 0 0 0 1.500 1H21a2 2 0 1 1 0 4h-.1a1.700 1.700 0 0 0-1.500 1z"/>')}</div></div><div class="scroll"><ul class="k-list">${kOrder().map(i => { const c = P.chats[i];
         const p = grp(c), m = c.messages[c.messages.length - 1] || {};
         return `<li data-i="${i}">${kav(p)}<div><strong>${esc(nm(p))}</strong>${c.group ? `<em class="k-cnt">${c.group.length}</em>` : ""}<p>${esc(m.text || (m.images ? "사진" : ""))}</p></div><time>${esc(m.time)}</time></li>`;
       }).join("")}</ul></div>`;
@@ -249,7 +264,7 @@ function insta() {
     const d = t.dataset;
     if (d.csend !== undefined) csend();
     else if (d.send !== undefined) send();
-    else if (d.go) { const [v, h, i] = d.go.split(":"); const sc = $("#igs"); if (sc) top().sy = sc.scrollTop; stack.push({ v, h, i: +i || 0 }); tab = "grid"; draw(); }
+    else if (d.go) { const [v, h, i] = d.go.split(":"); if ((v === "profile" || v === "dm") && P.contacts.some(c => c.handle === h && c.noProfile)) return; const sc = $("#igs"); if (sc) top().sy = sc.scrollTop; stack.push({ v, h, i: +i || 0 }); tab = "grid"; draw(); }
     else if (d.act === "back") { if (stack.length > 1) stack.pop(); draw(); }
     else if (d.like !== undefined || d.save !== undefined) t.classList.toggle("on");
     else if (d.arrow) { const tr = t.parentElement.querySelector(".ig-track"); tr.scrollBy({ left: +d.arrow * tr.clientWidth, behavior: "smooth" }); }
