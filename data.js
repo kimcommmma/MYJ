@@ -20,7 +20,7 @@ const PHONE = {
     { name: "황인준", handle: "yellow_3to3", phoneName: "황인준 비서", phone: "010-2000-0323", photo: "images/injun.jpg", followingList: ["yeoju_kr", "leejen_o_423", "haechanahceah", "the__and.y", "do0_ye0", "_jeongjaehyun", "sugaringcandy", "sihyeon_45", "zoo_yet", "tt_yun_12", "korea_sentinel.guide_center"], followers: "121", following: 88, bio: "@korea_sentinel.guide_center" },
     { name: "송시현", handle: "sihyeon_45", phoneName: "시현이", phone: "010-1998-0921", photo: "images/sihyeon.jpg", followingList: ["yeoju_kr", "zoo_yet", "korea_sentinel.guide_center"], followers: "21만", following: 8, bio: "1팀 가이드" },
     { name: "서태윤", handle: "tt_yun_12", phoneName: "태윤이", phone: "010-2012-0219", photo: "images/taeyun.jpg", followingList: ["do0_ye0", "_jeongjaehyun", "yeoju_kr", "na.jaemin0813", "sugaringcandy", "leejen_o_423", "haechanahceah", "the__and.y", "sihyeon_45", "zoo_yet", "korea_sentinel.guide_center"], followers: "87", following: 73, bio: "Good Luck" },
-    { name: "대한민국 센티넬 가이드 협회", handle: "korea_sentinel.guide_center", phoneName: "센터장님", phone: "010-3000-1200", photo: "images/ksgc.jpg", display: "대한민국 센티넬 가이드 협회", hideStory: true, followingList: [], followers: "312만", following: 0, bio: "대한민국 센티넬 가이드 협회 공식 계정" }
+    { name: "대한민국 센티넬 가이드 협회", handle: "korea_sentinel.guide_center", noProfile: true, phoneName: "센터장님", phone: "010-3000-1200", photo: "images/ksgc.jpg", display: "대한민국 센티넬 가이드 협회", hideStory: true, followingList: [], followers: "312만", following: 0, bio: "대한민국 센티넬 가이드 협회 공식 계정" }
     ,{ name: "Jhonny", handle: "phone_jhonny", phoneName: "Jhonny", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 },
     { name: "마님", handle: "phone_manim", phoneName: "마님", phone: "010-1234-1239", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 },
     { name: "갈비찜장인", handle: "phone_galbijjim", phoneName: "갈비찜장인", phone: "010-1234-1238", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 }
@@ -1013,6 +1013,17 @@ const PHONE = {
       { from: "them", text: "나 오늘 생일", time: "오후 1:40" },
       { from: "me", text: "빨리 갈게 해찬아~", time: "오후 1:41" },
       { from: "them", text: "ㅋㅋㅋ 응", time: "오후 1:42" },
+      { date: "2031년 6월 7일 토요일" },
+      { from: "them", text: "진짜 조식 안 먹을거야?", time: "오전 7:20" },
+      { from: "them", text: "맛있는 거 진짜 많은데", time: "오전 7:20" },
+      { from: "me", text: "어제 너무 늦게 잤어", time: "오전 7:21" },
+      { from: "them", text: "체력이 부족하네 아직도", time: "오전 7:22" },
+      { from: "me", text: "도영이한테 꼰지르지마", time: "오전 7:23" },
+      { from: "them", text: "나도 너 운동 시킬 수 있거든", time: "오전 7:24" },
+      { from: "me", text: "넌 내가 이겨", time: "오전 7:25" },
+      { from: "them", text: "이러고 있을 동안 내려와서 조식 먹겠다", time: "오전 7:26" },
+      { from: "me", text: "그러네 갈까?", time: "오전 7:27" },
+      { from: "them", text: "얼른 와", time: "오전 7:28" },
       { date: "2031년 6월 12일 목요일" },
       { from: "them", text: "우린 같은 달에 태어나서 더 잘 맞는 거야", time: "오전 12:00" },
       { from: "them", text: "너랑 나랑 일주일 차이도 안 나잖아", time: "오전 12:00" },
@@ -1064,7 +1075,6 @@ const PHONE = {
       { from: "them", text: "사랑해", time: "오전 12:08" },
       { from: "me", text: "사랑해", time: "오전 12:09" }
     ] },
-    { with: "korea_sentinel.guide_center", messages: [] },
     { with: "tt_yun_12", messages: [
       { date: "2031년 2월 19일 수요일" },
       { from: "me", text: "태윤이 생일축하해~ 갖고 싶은 거 있어?", time: "오전 12:01" },
@@ -1107,6 +1117,13 @@ const PHONE = {
       { from: "me", text: "응 그래^^", time: "오전 12:07" }
     ] },
     { with: "phone_jhonny", messages: [
+      { date: "2031년 8월 2일 토요일" },
+      { from: "them", text: "하이 여주", time: "오전 10:14" },
+      { from: "them", text: "나 한국", time: "오전 10:14" },
+      { from: "me", text: "여름 휴가를 여기서 보내셔야겠냐고요", time: "오전 10:15" },
+      { from: "them", text: "여주도 허락했잖아", time: "오전 10:16" },
+      { from: "me", text: "미치겠네 진짜", time: "오전 10:17" },
+      { from: "them", text: "잘 부탁해 여주", time: "오전 10:18" },
       { date: "2031년 9월 18일 목요일" },
       { from: "me", text: "나대지마", time: "오후 11:15" },
       { from: "them", text: "?", time: "오후 11:15" }
