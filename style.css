@@ -866,3 +866,28 @@ body.full .pd{--st:64px}
 .cal-ic b{display:block;color:#111;position:relative;top:2px;font-weight:600;font-size:12px;font-size:19cqw;line-height:1;margin-top:7cqw;text-align:center}
 .cal-ic span{display:block;color:#111;font-weight:300;font-size:42px;font-size:68cqw;line-height:.95;margin-top:1cqw;text-align:center;font-family:-apple-system,"Helvetica Neue",Arial,sans-serif}
 .cal-ic b,.cal-ic span{text-shadow:0 1px 2px rgba(0,0,0,.12)!important}
+
+/* 전화 오기 */
+#callov{position:absolute;inset:0;z-index:8;background:#1c1c1e;color:#fff;overflow:hidden;font-family:-apple-system,"Apple SD Gothic Neo","Helvetica Neue",sans-serif;animation:coin .3s ease-out}
+@keyframes coin{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
+body.call #status{color:#fff!important;--n:#222}
+.co-bgw{position:absolute;inset:0;overflow:hidden;background:linear-gradient(180deg,#3a3a40,#0d0d0f)}
+.co-bg{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;filter:blur(38px) brightness(.5) saturate(1.3)}
+.co-in{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;padding:96px 26px 64px;box-sizing:border-box}
+.co-name{font-size:34px;font-weight:600;text-align:center;line-height:1.2}
+.co-sub{font-size:17px;opacity:.7;margin-top:6px}
+.co-tm{font-variant-numeric:tabular-nums}
+.co-bt{margin-top:auto;width:100%;display:flex;justify-content:space-between;padding:0 26px}
+.co-b{display:flex;flex-direction:column;align-items:center;gap:10px;background:none;border:0;color:#fff;font-size:14px;cursor:pointer;padding:0}
+.co-b i,.co-end i{width:74px;height:74px;border-radius:50%;display:grid;place-items:center}
+.co-b i.r,.co-end i.r{background:#ff3b30}
+.co-b i.r svg,.co-end i.r svg{transform:rotate(135deg)}
+.co-b i.g{background:#34c759;animation:copulse 1.4s ease-in-out infinite}
+@keyframes copulse{0%,100%{box-shadow:0 0 0 0 rgba(52,199,89,.55)}50%{box-shadow:0 0 0 14px rgba(52,199,89,0)}}
+.co-chat{flex:1;width:100%;margin:18px 0 14px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:6px 2px;scrollbar-width:none}
+.co-chat::-webkit-scrollbar{display:none}
+.co-m{max-width:78%;padding:9px 13px;border-radius:18px;font-size:15.5px;line-height:1.35;animation:cop .25s ease-out;word-break:keep-all}
+@keyframes cop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.co-m.them{align-self:flex-start;background:rgba(255,255,255,.92);color:#111;border-top-left-radius:6px}
+.co-m.me{align-self:flex-end;background:#fee500;color:#111;border-top-right-radius:6px}
+.co-end{background:none;border:0;padding:0;cursor:pointer}

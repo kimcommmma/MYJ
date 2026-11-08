@@ -602,7 +602,7 @@ const APPS = [
 ];
 const DOCK = [
   { icon: "phone", run: phone },
-  { icon: "messages", run: sms },
+  { icon: "messages" },
   { icon: "safari", run: safari },
   { icon: "youtubemusic", run: music, dark: true }
 ];
@@ -668,4 +668,42 @@ fit(); addEventListener("resize", fit);
     if (moved) { const w = t.clientWidth, i = Math.round(t.scrollLeft / w); t.style.scrollSnapType = ""; t.style.scrollBehavior = ""; t.scrollTo({ left: i * w, behavior: "smooth" }); }
   };
   document.addEventListener("pointerup", end); document.addEventListener("pointercancel", end);
+})();
+
+/* 전화 오기: 화면 연 뒤 일정 시간이 지나면 등록된 사람 중 랜덤으로 전화가 온다 */
+(() => {
+  const cfg = P.incomingCall;
+  if (!cfg || !cfg.callers || !cfg.callers.length) return;
+  const PH = '<svg viewBox="0 0 24 24" width="34" height="34" fill="#fff"><path d="M6.600 10.800a15 15 0 0 0 6.600 6.600l2.200-2.200c.3-.3.700-.4 1-.2 1.100.4 2.300.6 3.600.6.600 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.600 21 3 13.400 3 4c0-.6.4-1 1-1h3.500c.6 0 1 .4 1 1 0 1.300.2 2.500.6 3.600.1.300 0 .700-.2 1z"/></svg>';
+  const stamp = () => { const d = new Date(); const h = d.getHours(); return `${h < 12 ? "오전" : "오후"} ${h % 12 || 12}:${String(d.getMinutes()).padStart(2, "0")}`; };
+  const ring = () => {
+    if (document.getElementById("callov")) return;
+    const c = cfg.callers[Math.floor(Math.random() * cfg.callers.length)], p = person(c.handle), name = esc(nm(p));
+    const ov = document.createElement("div"); ov.id = "callov";
+    document.body.classList.add("call");
+    ov.innerHTML = `<div class="co-bgw">${p.photo ? `<img class="co-bg" src="${esc(p.photo)}" alt="">` : ""}</div><div class="co-in">
+      <div class="co-name">${name}</div><div class="co-sub">휴대전화</div>
+      <div class="co-bt"><button class="co-b" data-x="no"><i class="r">${PH}</i><span>거절</span></button><button class="co-b" data-x="ok"><i class="g">${PH}</i><span>수락</span></button></div></div>`;
+    $("#screen").appendChild(ov);
+    const close = () => { clearInterval(tm); clearTimeout(tl); ov.remove(); document.body.classList.remove("call"); };
+    let tm = 0, tl = 0;
+    const log = type => { try { P.calls.unshift({ with: c.handle, type, time: stamp() }); } catch (e) {} };
+    ov.querySelector('[data-x="no"]').onclick = () => { log("missed"); close(); };
+    ov.querySelector('[data-x="ok"]').onclick = () => {
+      const lines = (c.lines || cfg.lines || []).slice(), gap = cfg.gapSec || [4, 5]; let n = 0, sec = 0;
+      ov.querySelector(".co-in").innerHTML = `<div class="co-name">${name}</div><div class="co-sub co-tm">0:00</div><div class="co-chat"></div><button class="co-end"><i class="r">${PH}</i></button>`;
+      const box = ov.querySelector(".co-chat"), tmEl = ov.querySelector(".co-tm");
+      tm = setInterval(() => { sec++; tmEl.textContent = `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`; }, 1000);
+      const next = () => {
+        if (n >= lines.length) return;
+        const [f, t] = lines[n++];
+        const m = document.createElement("div"); m.className = "co-m " + (f === "me" ? "me" : "them"); m.textContent = t; box.appendChild(m); box.scrollTop = box.scrollHeight;
+        tl = setTimeout(next, (gap[0] + Math.random() * (gap[1] - gap[0])) * 1000);
+      };
+      tl = setTimeout(next, 1200);
+      ov.querySelector(".co-end").onclick = () => { log("in"); close(); };
+    };
+  };
+  window.ringNow = ring;
+  setTimeout(ring, (cfg.delaySec ?? 300) * 1000);
 })();
