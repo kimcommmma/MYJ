@@ -721,7 +721,7 @@ const PHONE = {
       { from: "them", images: ["images/kakao-jaemin-1.jpg"], time: "오후 11:39" },
       { from: "them", text: "빨리 와 누나", time: "오후 11:39" },
       { from: "me", text: "와 ㅆㅂ 미친", time: "오후 11:40" },
-      { date: "2031년 10월 25일 토요일" },
+      { date: "2031년 10월 23일 목요일" },
       { from: "them", text: "누나 진짜 오늘 나랑 같이 잘거야?♥️♥️", time: "오전 11:15" },
       { from: "me", text: "응ㅋㅋ 도영이랑 바꿔달라고 내가 부탁할게", time: "오전 11:15" },
       { from: "them", text: "진짜? ♥️♥️도영이 형이랑 바꿔주는거야?", time: "오전 11:16" },
