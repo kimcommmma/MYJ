@@ -21,7 +21,7 @@ const PHONE = {
     { name: "송시현", handle: "sihyeon_45", phoneName: "시현이", phone: "010-1998-0921", photo: "images/sihyeon.jpg", followingList: ["yeoju_kr", "zoo_yet", "korea_sentinel.guide_center"], followers: "21만", following: 8, bio: "1팀 가이드" },
     { name: "서태윤", handle: "tt_yun_12", phoneName: "태윤이", phone: "010-2012-0219", photo: "images/taeyun.jpg", followingList: ["do0_ye0", "_jeongjaehyun", "yeoju_kr", "na.jaemin0813", "sugaringcandy", "leejen_o_423", "haechanahceah", "the__and.y", "sihyeon_45", "zoo_yet", "korea_sentinel.guide_center"], followers: "87", following: 73, bio: "Good Luck" },
     { name: "대한민국 센티넬 가이드 협회", handle: "korea_sentinel.guide_center", noProfile: true, phoneName: "센터장님", phone: "010-3000-1200", photo: "images/ksgc.jpg", display: "대한민국 센티넬 가이드 협회", hideStory: true, followingList: [], followers: "312만", following: 0, bio: "대한민국 센티넬 가이드 협회 공식 계정" }
-    ,{ name: "Jhonny", handle: "phone_jhonny", phoneName: "Jhonny", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 },
+    ,{ name: "Johnny", handle: "phone_jhonny", phoneName: "Johnny", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 },
     { name: "마님", handle: "phone_manim", phoneName: "마님", phone: "010-1234-1239", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 },
     { name: "갈비찜장인", handle: "phone_galbijjim", phoneName: "갈비찜장인", phone: "010-1234-1238", hideStory: true, noIg: true, followingList: [], followers: "0", following: 0 }
   ],
